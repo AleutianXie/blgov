@@ -12,6 +12,10 @@ class Admin extends Model
         "Password", "Token"
     ];
 
+    public $timestamps = false;
+
+    protected $primaryKey = 'userID';
+
     protected $fillable = [
         "userID",
         "Account",

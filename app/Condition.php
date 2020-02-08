@@ -8,6 +8,10 @@ class Condition extends Model
 {
     protected $table = 'conditionInfoTable';
 
+    public $timestamps = false;
+
+    protected $primaryKey = 'ConditionID';
+
     protected $fillable = [
         "ConditionID",
         "EmployeeID",

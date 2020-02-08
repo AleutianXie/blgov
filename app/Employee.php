@@ -8,6 +8,10 @@ class Employee extends Model
 {
     protected $table = 'employeeInfoTable';
 
+    public $timestamps = false;
+
+    protected $primaryKey = 'EmployeeID';
+
     protected $hidden = [
         "Password", "Token"
     ];

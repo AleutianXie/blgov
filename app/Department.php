@@ -8,6 +8,10 @@ class Department extends Model
 {
     protected $table = "departmentInfoTable";
 
+    public $timestamps = false;
+
+    protected $primaryKey = 'DepartmentID';
+
     protected $fillable = [
         "DepartmentID",
         "EnterpriseID",

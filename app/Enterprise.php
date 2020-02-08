@@ -8,6 +8,10 @@ class Enterprise extends Model
 {
     protected $table = 'enterpriseInfoTable';
 
+    public $timestamps = false;
+
+    protected $primaryKey = 'EnterpriseID';
+
     protected $hidden = [
         "Password", "Token"
     ];

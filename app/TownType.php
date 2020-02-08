@@ -8,6 +8,10 @@ class TownType extends Model
 {
     protected $table = 'townTypeTable';
 
+    public $timestamps = false;
+
+    protected $primaryKey = 'TownID';
+
     protected $fillable = [
         'TownID', 'TownName'
     ];
