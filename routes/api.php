@@ -16,3 +16,9 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/summary', 'GovController@summary');
+Route::get('/back', 'GovController@back');
+Route::get('/touch', 'GovController@touch');
+//Route::get('/quarantine', 'GovController@quarantine');
+Route::get('/medical', 'GovController@medical');

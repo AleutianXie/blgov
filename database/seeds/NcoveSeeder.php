@@ -4,8 +4,8 @@ use App\Condition;
 use App\Department;
 use App\Employee;
 use App\Enterprise;
+use App\TownType;
 use Carbon\Carbon;
-use Carbon\Traits\Date;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 
@@ -72,19 +72,21 @@ class NcoveSeeder extends Seeder
         $this->command->info('给每个员工生成14个健康数据...');
 
         $bar = $this->command->getOutput()->createProgressBar(100);
-        for ($i = 0; $i < 100; $i++) {
+        for ($s = 0; $s < 100; $s++) {
             $dt = $faker->dateTime('-10 days');
             $startDate = $faker->date('Y-m-d', $dt);
             $employeesNumber = $faker->numberBetween(100, 10000);
             $backEmpNumber = $faker->numberBetween(100, $employeesNumber);
+            $town = TownType::all()->random();
             $attributes = [
-                'EnterpriseName' => $faker->unique()->company,
+                'EnterpriseName' => $faker->unique(true)->company,
                 'District' => '鄞州区',
                 'Address' => $faker->address,
                 'StartDate' => $startDate,
                 'EnterpriseScale' => $faker->numberBetween(1, 2),
                 'EmployeesNumber' => $employeesNumber,
                 'BackEmpNumber' => $backEmpNumber,
+                'TownID' => $town->TownID
             ];
 
             $enterprise = Enterprise::create($attributes);
@@ -106,7 +108,7 @@ class NcoveSeeder extends Seeder
                     $attributes = [
                         'EnterpriseID' => $enterprise->EnterpriseID,
                         'DepartmentID' => $department->DepartmentID,
-                        'Name' => $faker->unique()->name,
+                        'Name' => $faker->unique(true)->name,
                         'PhoneNumber' => $faker->phoneNumber,
                         'Gender' => $faker->numberBetween(0, 1),
                         'Address' => $faker->address,
@@ -116,6 +118,7 @@ class NcoveSeeder extends Seeder
                         'IsMedicalObservation' => $faker->numberBetween(0, 1),
                         'MedicalObservationStartDate' => $medicalObservationStartDate,
                         'MedicalObservationEndDate' => $medicalObservationEndDate,
+                        'OutgoingSituation' => $faker->numberBetween(0,4),
 //                        'MedicalObservationAddress' => $faker->address,
                         'created_at' => $startDate
                     ];
