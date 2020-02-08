@@ -105,6 +105,8 @@ class NcoveSeeder extends Seeder
                     $medicalObservationStartDate = $faker->date('Y-m-d', $startDate);
                     $medicalObservationEndDate = $faker->date("+10 days");
                     $medicalObservationEndDate = $faker->date($startDate, $medicalObservationEndDate);
+                    // 返甬日期，设计漏了用此字段代替
+                    $outgoingDesc = $faker->dateTimeBetween("-10 days");
                     $attributes = [
                         'EnterpriseID' => $enterprise->EnterpriseID,
                         'DepartmentID' => $department->DepartmentID,
@@ -119,6 +121,7 @@ class NcoveSeeder extends Seeder
                         'MedicalObservationStartDate' => $medicalObservationStartDate,
                         'MedicalObservationEndDate' => $medicalObservationEndDate,
                         'OutgoingSituation' => $faker->numberBetween(0,4),
+                        'OutgoingDesc' => $outgoingDesc->format('Y-m-d'),
 //                        'MedicalObservationAddress' => $faker->address,
                         'created_at' => $startDate
                     ];

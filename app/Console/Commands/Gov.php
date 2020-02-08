@@ -110,6 +110,27 @@ class Gov extends Command
             Redis::hSet('blgov:summary:employee_outing:count:' . $yz_townID, $key, $total);
         }
 
+        // 返甬时间
+        $employee_back_date_count = DB::table('employeeInfoTable')
+            ->join('enterpriseInfoTable', 'employeeInfoTable.EnterpriseID', '=', 'enterpriseInfoTable.EnterpriseID')
+            ->select('TownID', 'OutgoingDesc', DB::raw('count(*) as total'))
+            ->groupBy('TownID')
+            ->groupBy('OutgoingDesc')
+            ->orderBy('TownID', 'asc')
+            ->orderBy('OutgoingDesc', 'asc')
+            ->get()
+            ->toArray();
+        $back_total = [0];
+        foreach ($employee_back_date_count as $item) {
+            if (!isset($back_total[$item->OutgoingDesc])) {
+                $back_total[$item->OutgoingDesc] = 0;
+            }
+            $back_total[$item->OutgoingDesc] += $item->total;
+            Redis::zAdd('blgov:summary:employee_back_date:count:' . $item->TownID,  $item->total, $item->OutgoingDesc);
+        }
+        foreach ($back_total as $key => $total) {
+            Redis::zAdd('blgov:summary:employee_back_date:count:' . $yz_townID, $total, $key);
+        }
         $this->info("Done at: " . date('Y-m-d H:i:s', time()));
     }
 }
