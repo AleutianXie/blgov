@@ -33,7 +33,9 @@ class Enterprise extends Model
         "BackEmpNumber",
         "ProductingPlan",
         "TownID",
-        "Industry"
+        "Industry",
+        "OrganizationCode",
+        "GovUnitName"
     ];
 
     /**

@@ -50,6 +50,15 @@ class Employee extends Model
         "HirerName",
         "HirerPhone",
         "created_at",
-        "OutgoingSituation"
+        "OutgoingSituation",
+        "OwnerStatus",
+        "IdCardNumber",
+        "DeparturePlace",
+        "ReturnTraffic",
+        "WorkTraffic",
+        "IsLeaveNingbo",
+        "IsFever",
+        "Desc",
+        "ReturnNingBoDate"
     ];
 }

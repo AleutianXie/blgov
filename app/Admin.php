@@ -28,6 +28,7 @@ class Admin extends Model
         "IsHire",
         "HirerName",
         "HirerPhone",
-        "CreaterAt"
+        "CreaterAt",
+        "TownID"
     ];
 }

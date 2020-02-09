@@ -15,6 +15,6 @@ class DatabaseSeeder extends Seeder
 //        $this->call(TownTypeSeeder::class);
 //        $this->call(IndustrySeeder::class);
 //        $this->call(AdminSeeder::class);
-        $this->call(NcoveSeeder::class);
+//        $this->call(NcoveSeeder::class);
     }
 }

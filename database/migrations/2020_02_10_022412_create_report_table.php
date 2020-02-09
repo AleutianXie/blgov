@@ -16,6 +16,7 @@ class CreateReportTable extends Migration
         Schema::create('report', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->autoIncrement();
             $table->unsignedBigInteger('enterprise_id');
+            $table->unsignedBigInteger('town_id');
             $table->unsignedSmallInteger('version')->nullable();
             $table->unsignedSmallInteger('status');
             $table->string('comment');
@@ -27,6 +28,7 @@ class CreateReportTable extends Migration
         Schema::create('report_revision', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->autoIncrement();
             $table->unsignedBigInteger('report_id');
+            $table->unsignedBigInteger('town_id');
             $table->unsignedSmallInteger('version');
             $table->unsignedSmallInteger('status');
             $table->string('comment');

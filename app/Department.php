@@ -19,6 +19,7 @@ class Department extends Model
         "DepartmentContacts",
         "PhoneNumber",
         "PreventionDesc",
-        "DepartmentDesc"
+        "DepartmentDesc",
+        "created_at"
     ];
 }
