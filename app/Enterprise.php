@@ -35,4 +35,24 @@ class Enterprise extends Model
         "TownID",
         "Industry"
     ];
+
+    /**
+     * A enterprise can have one report.
+     */
+    public function report()
+    {
+        return $this->hasOne(Report::class, 'enterprise_id');
+    }
+
+    public function scopeReportStatus($query, $status)
+    {
+        return $query->whereHas('report', function ($query) use ($status) {
+            return $query->where('status', $status);
+        });
+    }
+
+    public function scopeIndustry($query, $industry)
+    {
+        return $query->where('IndustryTableID', $industry);
+    }
 }
