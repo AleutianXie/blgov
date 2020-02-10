@@ -156,8 +156,8 @@ class EnterpriseController extends Controller
                     return $query->where('town_id', $user->town_id);
                 }]);
             }
-            if (!empty($user->industry_id)) {
-                $model->where('IndustryTableID', $user->industry_id);
+            if (!empty($user->industry_id_min) && !empty($user->industry_id_max)) {
+                $model->whereBettween('IndustryTableID', $user->industry_id_min, $user->industry_id_max);
             }
             $filter = $request->input();
             $this->getModel($model, $filter);

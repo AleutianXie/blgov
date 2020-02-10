@@ -11,7 +11,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <p class="mb-0">You are logged in!</p>
+                    <p class="mb-0">鄞州区企业疫情防控复工预审管理系统</p>
                 </div>
             </div>
         </div>

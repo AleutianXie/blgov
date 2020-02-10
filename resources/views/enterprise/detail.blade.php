@@ -21,7 +21,7 @@
                     <div class="row">
                         <div class="col-sm-6 col-md-6">
                             <h4 class="text-left"><span>企业名称：{{$enterprise->EnterpriseName}}</span></h4>
-                            <h4 class="text-left"><span>企业总人数：{{$enterprise->EmployeeNumber}}</span></h4>
+                            <h4 class="text-left"><span>企业总人数：{{$enterprise->EmployeesNumber}}</span></h4>
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-6 col-md-6">
