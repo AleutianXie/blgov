@@ -22,5 +22,7 @@ Route::get('/home', function() {
 })->name('home')->middleware('auth');
 
 Route::get('/enterprise/{id}', 'EnterpriseController@detail')->where('id', '[0-9]+')->name('enterprise.detail')->middleware('auth');
+Route::get('/enterprise/my', 'EnterpriseController@my')->name('enterprise.my')->middleware('auth');
 Route::get('/enterprise', 'EnterpriseController@index')->name('enterprise.index')->middleware('auth');
 Route::get('/enterprise/list', 'EnterpriseController@list')->name('enterprise.index')->middleware('auth');
+Route::post('/enterprise/my', 'EnterpriseController@apply')->name('enterprise.post')->middleware('auth');

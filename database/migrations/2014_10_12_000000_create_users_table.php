@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->unsignedBigInteger('town_id')->nullable();
             $table->unsignedBigInteger('industry_id')->nullable();
+            $table->boolean('is_admin')->default(1);
+            $table->unsignedBigInteger('enterprise_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

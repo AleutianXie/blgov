@@ -176,7 +176,7 @@ return [
         ['header' => '企业'],
         [
             'text' => '申报',
-            'url'  => 'admin/settings',
+            'route'  => 'enterprise.my',
             'icon' => 'fas fa-fw fa-user',
         ],
         ['header' => '政府'],

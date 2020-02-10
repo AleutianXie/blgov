@@ -9,6 +9,6 @@ class Revision extends Model
     protected $table = 'report_revision';
 
     protected $fillable = [
-        'report_id', 'version', 'status', 'comment', 'report_at', 'docs'
+        'report_id', 'town_id', 'version', 'status', 'comment', 'docs'
     ];
 }

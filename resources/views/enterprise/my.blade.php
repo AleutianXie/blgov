@@ -39,10 +39,10 @@
             <div class="card card-default color-palette-box">
                 <div class="card-header">
                     <h3 class="card-title">
-                        申报材料
+                        文件下载列表
                     </h3>
                 </div>
-{{--                @if(isset($enterprise->report) && !empty($enterprise->report->docs))--}}
+                {{--                @if(isset($enterprise->report) && !empty($enterprise->report->docs))--}}
                 <div class="card-body">
                     <div class="row">
                         <a href="http://www.baidu.com" target="download">《企业（单位）复工申请（承诺）表》</a>
@@ -53,15 +53,48 @@
                     <div class="row">
                         <a href="http://www.baidu.com" target="download">《企业（单位）复工防疫方案》</a>
                     </div>
-{{--                        @foreach(json_decode($enterprise->report->docs) as $item)--}}
-{{--                        @endforeach--}}
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
+                {{--                        @foreach(json_decode($enterprise->report->docs) as $item)--}}
+                {{--                        @endforeach--}}
+                <!-- /.col -->
                 </div>
-{{--                @endif--}}
-                <!-- /.card-body -->
+                <!-- /.row -->
+            </div>
+        {{--                @endif--}}
+        <!-- /.card-body -->
+
+            <div class="card card-default color-palette-box">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        文件上传列表
+                    </h3>
+                </div>
+                {{--                @if(isset($enterprise->report) && !empty($enterprise->report->docs))--}}
+                <form enctype="multipart/form-data" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                <div class="card-body">
+                    <div class="row">
+                        <a href="http://www.baidu.com" target="download">《企业（单位）复工申请（承诺）表》</a>
+                        <input id="file1" name="file1" type="file" multiple>
+                    </div>
+                    <div class="row">
+                        <a href="http://www.baidu.com" target="download">《企业（单位）返工人员调查总表》</a>
+                        <input id="file2" name="file2" type="file" multiple>
+                    </div>
+                    <div class="row">
+                        <a href="http://www.baidu.com" target="download">《企业（单位）复工防疫方案》</a>
+                        <input id="file3" name="file3" type="file" multiple>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg" data-toggle="offcanvas">点击申报</button>
+                {{--                        @foreach(json_decode($enterprise->report->docs) as $item)--}}
+                {{--                        @endforeach--}}
+                <!-- /.col -->
+                </div>
+                </form>
+
+                <!-- /.row -->
             </div>
         </div>
+    </div>
     </div>
 @stop
