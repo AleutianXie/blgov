@@ -6,6 +6,7 @@ use App\Enterprise;
 use App\Library\Utils\Uploader;
 use App\Report;
 use App\Revision;
+use App\TownType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -15,17 +16,14 @@ class EnterpriseController extends Controller
 {
     public function detail(Request $request, $id) {
         $enterprise = Enterprise::with('report')->findOrFail($id);
-
-//        dd($enterprise, json_decode($enterprise->report->docs));
         return view('enterprise.detail', compact('enterprise'));
     }
 
     public function my(Request $request) {
         if($request->user()->enterprise_id) {
             $enterprise = Enterprise::findOrFail($request->user()->enterprise_id);
-
-            // dd($enterprise->report);
-            return view('enterprise.my', compact('enterprise'));
+            $towns = TownType::all()->pluck('TownName', 'TownID');
+            return view('enterprise.my', compact('enterprise', 'towns'));
         }
         return "Access deny";
     }
@@ -51,13 +49,18 @@ class EnterpriseController extends Controller
                 $docs[] = ['name' => '《企业（单位）复工防疫方案》', 'url' => $path3];
             }
 
+            if ($request->hasFile('file4')) {
+                $path4 = Uploader::uploadImage($request->file('file4'));
+                $docs[] = ['name' => '附件', 'url' => $path4];
+            }
+
 
             $attribute = [
                 'enterprise_id' => $user->enterprise_id,
                 'town_id' => $town_id,
                 'version' => 1,
                 'status' => 1,
-                'comment' => 'xxx',
+                'comment' => '',
                 'docs' => json_encode($docs),
                 'report_at' => Carbon::now()
             ];
@@ -74,7 +77,7 @@ class EnterpriseController extends Controller
             Arr::forget($attribute, 'enterprise_id');
             Revision::create($attribute);
             DB::commit();
-            return redirect()->route('enterprise.detail', $user->enterprsie_id);
+            return redirect()->route('enterprise.detail', $user->enterprise_id);
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->with('error', $e->getMessage());

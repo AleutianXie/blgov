@@ -100,8 +100,9 @@
                     <div class="row">
                         <select name="town" id="town" class="col-md-3">
                             <option value=""></option>
-                            <option value="1">审批通过</option>
-                            <option value="2">不通过</option>
+                            @foreach($towns as $id => $name)
+                                <option value="{{$id}}">{{$name}}</option>
+                            @endforeach
                         </select>
                         <div class="col-md-3 offset-md-3">
                             <button type="submit" class="btn btn-primary btn-lg" data-toggle="offcanvas">点击申报</button>
@@ -110,7 +111,6 @@
                 <!-- /.col -->
                 </div>
                 </form>
-
                 <!-- /.row -->
             </div>
         </div>
