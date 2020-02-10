@@ -34,6 +34,7 @@ class Enterprise extends Model
         "ProductingPlan",
         "TownID",
         "Industry",
+        "IndustryTableID",
         "OrganizationCode",
         "GovUnitName"
     ];
@@ -43,7 +44,7 @@ class Enterprise extends Model
      */
     public function report()
     {
-        return $this->hasOne(Report::class, 'enterprise_id');
+        return $this->hasOne(Report::class, 'enterprise_id')->orderByDesc('report_at');
     }
 
     public function scopeReportStatus($query, $status)

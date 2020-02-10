@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enterprise;
+use App\Industry;
 use App\Report;
 use Illuminate\Http\Request;
 
@@ -11,8 +12,8 @@ class EnterpriseController extends Controller
     public function detail(Request $request, $id) {
         $enterprise = Enterprise::findOrFail($id);
 
-        dd($enterprise->report);
-        return view('enterprise.detail', compact($enterprise));
+       // dd($enterprise->report);
+        return view('enterprise.detail', compact('enterprise'));
     }
 
     public function index(Request $request)
@@ -41,6 +42,12 @@ class EnterpriseController extends Controller
 
             return \datatables()
                 ->eloquent($model)
+                ->addColumn('version', function (Enterprise $enterprise) {
+                    return $enterprise->report->version ?? '';
+                })
+                ->addColumn('report_at', function (Enterprise $enterprise) {
+                    return $enterprise->report->report_at ?? '';
+                })
                 ->toJson();
         } catch (\Exception $e) {
             return response(["success" => false, "message" => $e->getMessage()]);

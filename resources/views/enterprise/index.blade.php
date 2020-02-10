@@ -7,6 +7,21 @@
 @stop
 
 @section('content')
+{{--    <div class="row">--}}
+{{--        <div class="well well-sm" style="margin-bottom: 10px;">--}}
+{{--            <form action="" class="form-inline">--}}
+{{--                <input type="select" id="status" name="status" value="{{ !empty($filter['name']) ? $filter['name'] : '' }}"--}}
+{{--                       placeholder="姓名" class="form-control">--}}
+{{--                <input type="text" id="mobile" name="mobile"--}}
+{{--                       value="{{ !empty($filter['mobile']) ? $filter['mobile'] : '' }}" placeholder="手机号"--}}
+{{--                       class="form-control">--}}
+{{--                <input type="text" id="email" name="email" placeholder="邮箱" class="form-control">--}}
+{{--                <button type="submit" class="btn btn-white btn-info btn-bold">--}}
+{{--                    <i class="ace-icon fa fa-search nav-search-icon green"></i>搜索--}}
+{{--                </button>--}}
+{{--            </form>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
     <div class="row">
         <div class="col-12">
@@ -40,20 +55,23 @@
                 },
                 {
                     title: '行业类别',
-                    data: null,
+                    data: 'Industry',
                 },
                 {
                     title: '申请次数',
-                    data: null,
+                    data: 'version',
                     defaultContent: '',
                 },
                 {
                     title: '申请时间',
-                    data: null
+                    data: 'report_at'
                 },
                 {
                     title: '操作',
-                    data: null
+                    data: null,
+                    render: function (data, type, row) {
+                        return '<a href="/enterprise/' + row.EnterpriseID + '">详情</a>';
+                    }
                 }
             ],
             {{--createdRow: function (row, data, index) {--}}
