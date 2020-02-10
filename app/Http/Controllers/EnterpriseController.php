@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\DB;
 class EnterpriseController extends Controller
 {
     public function detail(Request $request, $id) {
-        $enterprise = Enterprise::findOrFail($id);
+        $enterprise = Enterprise::with('report')->findOrFail($id);
 
-       // dd($enterprise->report);
+//        dd($enterprise, json_decode($enterprise->report->docs));
         return view('enterprise.detail', compact('enterprise'));
     }
 
@@ -67,7 +67,6 @@ class EnterpriseController extends Controller
                 $attribute['version'] = $report->version + 1;
                 $report->update($attribute);
             } else {
-//                dd($attribute);
                 $report = Report::create($attribute);
             }
 
@@ -82,14 +81,63 @@ class EnterpriseController extends Controller
         }
     }
 
+    public function audit(Request $request, $id) {
+        try {
+            $yz_town_id = 700000;
+            $user = $request->user();
+            $report = Report::where('enterprise_id', $id)->first();
+            if (empty($report)){
+                return redirect()->back()->with('error', '企业尚未申报');
+            }
+            if (!$user->is_admin || empty($user->town_id) || ($user->town_id != $yz_town_id && $user->town_id != $report->town_id)) {
+                return redirect()->back()->with('error', '没有权限');
+            }
+
+            DB::beginTransaction();
+
+            $attribute = [
+                'status' => $request->get('status'),
+                'comment' => $request->get('comment', '')
+            ];
+
+            $revision = Revision::where('report_id', $report->id)->where('version', $report->version)->first();
+            if (!empty($revision)) {
+                $report->update($attribute);
+            }
+            $report->update($attribute);
+            DB::commit();
+            return redirect()->route('enterprise.index');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function revisions(Request $request) {
+        if($request->user()->enterprise_id) {
+            $enterprise = Enterprise::with('revisions')->findOrFail($request->user()->enterprise_id);
+            // dd($enterprise->report);
+            return view('enterprise.my', compact('enterprise'));
+        }
+        return "Access deny";
+    }
+
     public function index(Request $request)
     {
-        return view('enterprise.index');
+        if ($request->user()->is_admin) {
+            return view('enterprise.index');
+        }
+        return "Access deny";
     }
 
     public function list(Request $request)
     {
         try {
+            $user = $request->user();
+            $yz_town_id = 700000;
+            if (!$user->is_admin) {
+                return "Access deny";
+            }
             if ($request->input('draw', 0) == 0) {
                 $request->offsetSet('draw', 1);
             }
@@ -102,7 +150,15 @@ class EnterpriseController extends Controller
             }
             $length = $request->input('length', 10);
             $request->offsetSet('start', ($page - 1) * $length);
-            $model = Enterprise::with('report');
+            $model = Enterprise::whereHas('report');
+            if (!empty($user->town_id) && $user->town_id != $yz_town_id) {
+                $model->with(['report' => function($query) use ($user) {
+                    return $query->where('town_id', $user->town_id);
+                }]);
+            }
+            if (!empty($user->industry_id)) {
+                $model->where('IndustryTableID', $user->industry_id);
+            }
             $filter = $request->input();
             $this->getModel($model, $filter);
 

@@ -117,6 +117,7 @@ class Gov extends Command
             ->groupBy('OutgoingDesc')
             ->orderBy('TownID', 'asc')
             ->orderBy('OutgoingDesc', 'asc')
+            ->having('OutgoingDesc', '<>', '')
             ->get()
             ->toArray();
         $back_total = [0];
