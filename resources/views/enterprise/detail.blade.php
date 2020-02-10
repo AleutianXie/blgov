@@ -22,11 +22,17 @@
                         <div class="col-sm-6 col-md-6">
                             <h4 class="text-left"><span>企业名称：{{$enterprise->EnterpriseName}}</span></h4>
                             <h4 class="text-left"><span>企业总人数：{{$enterprise->EmployeesNumber}}</span></h4>
+                            <h4 class="text-left"><span>所属街道：{{$towns[$enterprise->TownID]}}</span></h4>
+                            <h4 class="text-left"><span>联系人：{{$enterprise->Contacts}}</span></h4>
+                            <h4 class="text-left"><span>企业规模：{{$enterprise->EnterpriseScale == 1 ? '规上' : '规下'}}</span></h4>
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-6 col-md-6">
                             <h4 class="text-left"><span>企业组织机构代码：{{$enterprise->OrganizationCode}}</span></h4>
                             <h4 class="text-left"><span>企业复工人数：{{$enterprise->BackEmpNumber}}</span></h4>
+                            <h4 class="text-left"><span>企业地址：{{$enterprise->Address}}</span></h4>
+                            <h4 class="text-left"><span>手机号码：{{$enterprise->PhoneNumber}}</span></h4>
+                            <h4 class="text-left"><span>行业：{{$enterprise->industry}}</span></h4>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -70,8 +76,8 @@
                 <div class="row">
                     <select  name="status" id="status" class="col-md-3">
                         <option value=""></option>
-                        <option value="1">审批通过</option>
-                        <option value="2">不通过</option>
+                        <option value="2">审批通过</option>
+                        <option value="3">不通过</option>
                     </select>
                     <div class="col-md-3 offset-md-3">
                         <button type="submit" class="btn btn-primary btn-sx" data-toggle="offcanvas">提交</button>

@@ -22,11 +22,17 @@
                         <div class="col-sm-6 col-md-6">
                             <h4 class="text-left"><span>企业名称：{{$enterprise->EnterpriseName}}</span></h4>
                             <h4 class="text-left"><span>企业总人数：{{$enterprise->EmployeesNumber}}</span></h4>
+                            <h4 class="text-left"><span>所属街道：{{$towns[$enterprise->TownID]}}</span></h4>
+                            <h4 class="text-left"><span>联系人：{{$enterprise->Contacts}}</span></h4>
+                            <h4 class="text-left"><span>企业规模：{{$enterprise->EnterpriseScale == 1 ? '规上' : '规下'}}</span></h4>
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-6 col-md-6">
                             <h4 class="text-left"><span>企业组织机构代码：{{$enterprise->OrganizationCode}}</span></h4>
                             <h4 class="text-left"><span>企业复工人数：{{$enterprise->BackEmpNumber}}</span></h4>
+                            <h4 class="text-left"><span>企业地址：{{$enterprise->Address}}</span></h4>
+                            <h4 class="text-left"><span>手机号码：{{$enterprise->PhoneNumber}}</span></h4>
+                            <h4 class="text-left"><span>行业：{{$enterprise->industry}}</span></h4>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -74,11 +80,19 @@
                     </div>
                     <br/>
                     <div class="row">
+                        <div class="alert-danger">{{ __($errors->first('file1')) }}</div>
+                    </div>
+                    <br/>
+                    <div class="row">
                         <h5>《企业（单位）返工人员调查总表》</h5>
                     </div>
                     <br/>
                     <div class="row">
                         <input id="file2" name="file2" type="file">
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="alert-danger">{{ __($errors->first('file2')) }}</div>
                     </div>
                     <br/>
                     <div class="row">
@@ -90,11 +104,19 @@
                     </div>
                     <br/>
                     <div class="row">
+                        <div class="alert-danger">{{ __($errors->first('file3')) }}</div>
+                    </div>
+                    <br/>
+                    <div class="row">
                         <h5>附件</h5>
                     </div>
                     <br/>
                     <div class="row">
                         <input id="file4" name="file4" type="file">
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="alert-danger">{{ __($errors->first('file4')) }}</div>
                     </div>
                     <br/>
                     <div class="row">
@@ -104,9 +126,15 @@
                                 <option value="{{$id}}">{{$name}}</option>
                             @endforeach
                         </select>
-                        <div class="col-md-3 offset-md-3">
-                            <button type="submit" class="btn btn-primary btn-lg" data-toggle="offcanvas">点击申报</button>
-                        </div>
+                        @if (empty($enterprise->report) || $enterprise->report->status == 3)
+                            <div class="col-md-3 offset-md-3">
+                                <button type="submit" class="btn btn-primary btn-lg" data-toggle="offcanvas">点击申报</button>
+                            </div>
+                        @endif
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="alert-danger">{{ __($errors->first('town')) }}</div>
                     </div>
                 <!-- /.col -->
                 </div>
@@ -122,7 +150,7 @@
         $(document).ready(function() {
             $('#town').select2({
                 placeholder: '请选择'
-            });
+            }).val('{{old('town')}}').trigger("change");
         });
     </script>
 @stop

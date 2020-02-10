@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enterprise;
+use App\Http\Requests\ApplyPostRequest;
 use App\Library\Utils\Uploader;
 use App\Report;
 use App\Revision;
@@ -16,19 +17,20 @@ class EnterpriseController extends Controller
 {
     public function detail(Request $request, $id) {
         $enterprise = Enterprise::with('report')->findOrFail($id);
-        return view('enterprise.detail', compact('enterprise'));
+        $towns = TownType::all()->pluck('TownName', 'TownID');
+        return view('enterprise.detail', compact('enterprise', 'towns'));
     }
 
     public function my(Request $request) {
         if($request->user()->enterprise_id) {
-            $enterprise = Enterprise::findOrFail($request->user()->enterprise_id);
+            $enterprise = Enterprise::with('report')->findOrFail($request->user()->enterprise_id);
             $towns = TownType::all()->pluck('TownName', 'TownID');
             return view('enterprise.my', compact('enterprise', 'towns'));
         }
         return "Access deny";
     }
 
-    public function apply(Request $request) {
+    public function apply(ApplyPostRequest $request) {
         try {
             DB::beginTransaction();
             $docs = [];
