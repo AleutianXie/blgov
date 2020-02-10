@@ -42,24 +42,18 @@
                         文件下载列表
                     </h3>
                 </div>
-                {{--                @if(isset($enterprise->report) && !empty($enterprise->report->docs))--}}
                 <div class="card-body">
                     <div class="row">
-                        <a href="http://www.baidu.com" target="download">《企业（单位）复工申请（承诺）表》</a>
+                        <a href="/storage/950a6719ee251781eacfe3fe00f9e37a.docx" target="download">《企业（单位）复工申请（承诺）表》</a>
                     </div>
                     <div class="row">
-                        <a href="http://www.baidu.com" target="download">《企业（单位）返工人员调查总表》</a>
+                        <a href="/storage/f3b676170fc6c0bbf95c792b318b45d8.docx" target="download">《企业（单位）返工人员调查总表》</a>
                     </div>
                     <div class="row">
-                        <a href="http://www.baidu.com" target="download">《企业（单位）复工防疫方案》</a>
+                        <a href="/storage/0839f271ec76a9178eef12e606d15283.docx" target="download">《企业（单位）复工防疫方案》</a>
                     </div>
-                {{--                        @foreach(json_decode($enterprise->report->docs) as $item)--}}
-                {{--                        @endforeach--}}
-                <!-- /.col -->
                 </div>
-                <!-- /.row -->
             </div>
-        {{--                @endif--}}
         <!-- /.card-body -->
 
             <div class="card card-default color-palette-box">
@@ -68,26 +62,51 @@
                         文件上传列表
                     </h3>
                 </div>
-                {{--                @if(isset($enterprise->report) && !empty($enterprise->report->docs))--}}
                 <form enctype="multipart/form-data" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <div class="card-body">
                     <div class="row">
-                        <a href="http://www.baidu.com" target="download">《企业（单位）复工申请（承诺）表》</a>
-                        <input id="file1" name="file1" type="file" multiple>
+                        <h5>《企业（单位）复工申请（承诺）表》</h5>
                     </div>
+                    <br/>
                     <div class="row">
-                        <a href="http://www.baidu.com" target="download">《企业（单位）返工人员调查总表》</a>
-                        <input id="file2" name="file2" type="file" multiple>
+                        <input id="file1" name="file1" type="file">
                     </div>
+                    <br/>
                     <div class="row">
-                        <a href="http://www.baidu.com" target="download">《企业（单位）复工防疫方案》</a>
-                        <input id="file3" name="file3" type="file" multiple>
+                        <h5>《企业（单位）返工人员调查总表》</h5>
                     </div>
-
-                    <button type="submit" class="btn btn-primary btn-lg" data-toggle="offcanvas">点击申报</button>
-                {{--                        @foreach(json_decode($enterprise->report->docs) as $item)--}}
-                {{--                        @endforeach--}}
+                    <br/>
+                    <div class="row">
+                        <input id="file2" name="file2" type="file">
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <h5>《企业（单位）复工防疫方案》</h5>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <input id="file3" name="file3" type="file">
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <h5>附件</h5>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <input id="file4" name="file4" type="file">
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <select name="town" id="town" class="col-md-3">
+                            <option value=""></option>
+                            <option value="1">审批通过</option>
+                            <option value="2">不通过</option>
+                        </select>
+                        <div class="col-md-3 offset-md-3">
+                            <button type="submit" class="btn btn-primary btn-lg" data-toggle="offcanvas">点击申报</button>
+                        </div>
+                    </div>
                 <!-- /.col -->
                 </div>
                 </form>
@@ -96,5 +115,14 @@
             </div>
         </div>
     </div>
-    </div>
+@stop
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $('#town').select2({
+                placeholder: '请选择'
+            });
+        });
+    </script>
 @stop
