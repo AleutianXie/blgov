@@ -70,8 +70,11 @@
                 <form action="" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <div class="row">
-                    <textarea name="comment" id="" cols="30" rows="10" style="width: 100%;"></textarea>
+                    <textarea name="comment" id="" cols="30" rows="10" style="width: 100%;">{{old('comment')}}</textarea>
                 </div>
+                    <div class="row">
+                        <div class="alert-danger">{{ __($errors->first('comment')) }}</div>
+                    </div>
                 <br/>
                 <div class="row">
                     <select  name="status" id="status" class="col-md-3">
@@ -83,6 +86,9 @@
                         <button type="submit" class="btn btn-primary btn-sx" data-toggle="offcanvas">提交</button>
                     </div>
                 </div>
+                    <div class="row">
+                        <div class="alert-danger">{{ __($errors->first('status')) }}</div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -96,7 +102,7 @@
                 $(document).ready(function() {
                     $('#status').select2({
                         placeholder: '请选择'
-                    });
+                    }).val('{{old('status')}}').trigger("change");;
                 });
     </script>
 @stop

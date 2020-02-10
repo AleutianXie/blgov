@@ -13,7 +13,7 @@ class AuditPostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class AuditPostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'comment' => 'required',
+            'status' => 'required|integer|min:2|max:3',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'comment' => '审批意见',
+            'status' => '审批状态',
         ];
     }
 }

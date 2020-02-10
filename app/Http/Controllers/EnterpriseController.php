@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enterprise;
 use App\Http\Requests\ApplyPostRequest;
+use App\Http\Requests\AuditPostRequest;
 use App\Library\Utils\Uploader;
 use App\Report;
 use App\Revision;
@@ -86,7 +87,7 @@ class EnterpriseController extends Controller
         }
     }
 
-    public function audit(Request $request, $id) {
+    public function audit(AuditPostRequest $request, $id) {
         try {
             $yz_town_id = 700000;
             $user = $request->user();
