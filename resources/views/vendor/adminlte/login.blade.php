@@ -1,102 +1,222 @@
-@extends('adminlte::master')
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            background: #f0f3f7;
+        }
+        h1 {
+            font-size: 30px;
+            font-weight: 400;
+            text-align: center;
+            margin-top: 160px;
+        }
+        .login-form-container {
+            margin: 0 auto;
+            margin-top: 60px;
+            width: 400px;
+        }
+        .switch-tab {
+            display: flex;
+            font-size: 18px;
+        }
+        .switch-tab .tab-item {
+            position: relative;
+            width: 50%;
+            text-align: center;
+        }
+        .switch-tab .tab-item span {
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .switch-tab .tab-item span:hover {
+            color: #1890ff;
+        }
+        .switch-tab .tab-item.active {
+            color: #1890ff;
+        }
+        .switch-tab .tab-item.active::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -20px;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 4px;
+            background: #1890ff;
+        }
+        .login-form {
+            margin-top: 60px;
+        }
+        .form-row {
+            position: relative;
+            display: flex;
+            margin-bottom: 30px;
+            justify-content: space-between;
+        }
+        .form-input {
+            height: 46px;
+            width: 100%;
+            border: 0;
+            padding: 0 12px;
+            padding-left: 38px;
+            outline: none;
+            font-size: 18px;
+            color: #666;
+            box-sizing: border-box;
+        }
+        .form-input-box {
+            width: 100%;
+            position: relative;
+            box-sizing: border-box;
+            border: 1px solid #d9d9d9;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .input-prefix-icon {
+            left: 6px;
+        }
+        .input-suffix-icon {
+            right: 6px;
+        }
+        .input-suffix-icon,
+        .input-prefix-icon {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            top: 11px;
+        }
+        .form-button {
+            display: block;
+            height: 46px;
+            width: 100%;
+            border: 0;
+            outline: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .form-button.normal {
+            color: rgba(0, 0, 0, 0.65);
+            background: white;
+            border: 1px solid #d9d9d9;
+        }
+        .form-button.primary {
+            color: white;
+            background: #1890ff;
+        }
 
-@section('adminlte_css_pre')
-    <link rel="stylesheet" href="{{ asset('vendor/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-@stop
+        footer {
+            position: absolute;
+            left: 0;
+            bottom: 30px;
+            width: 100%;
+        }
+        footer p {
+            text-align: center;
+            color: rgba(0, 0, 0, 0.45);
+            font-size: 14px;
+        }
 
-@section('adminlte_css')
-    @stack('css')
-    @yield('css')
-@stop
-
-@section('classes_body', 'login-page')
-
-@php( $login_url = View::getSection('login_url') ?? config('adminlte.login_url', 'login') )
-@php( $register_url = View::getSection('register_url') ?? config('adminlte.register_url', 'register') )
-@php( $password_reset_url = View::getSection('password_reset_url') ?? config('adminlte.password_reset_url', 'password/reset') )
-@php( $dashboard_url = View::getSection('dashboard_url') ?? config('adminlte.dashboard_url', 'home') )
-
-@if (config('adminlte.use_route_url', false))
-    @php( $login_url = $login_url ? route($login_url) : '' )
-    @php( $register_url = $register_url ? route($register_url) : '' )
-    @php( $password_reset_url = $password_reset_url ? route($password_reset_url) : '' )
-    @php( $dashboard_url = $dashboard_url ? route($dashboard_url) : '' )
-@else
-    @php( $login_url = $login_url ? url($login_url) : '' )
-    @php( $register_url = $register_url ? url($register_url) : '' )
-    @php( $password_reset_url = $password_reset_url ? url($password_reset_url) : '' )
-    @php( $dashboard_url = $dashboard_url ? url($dashboard_url) : '' )
-@endif
-
-@section('body')
-    <div class="login-box">
-        <div class="login-logo">
-            <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
-        </div>
-        <div class="card">
-            <div class="card-body login-card-body">
-                <p class="login-box-msg">{{ __('adminlte::adminlte.login_message') }}</p>
-                <form action="{{ $login_url }}" method="post">
-                    {{ csrf_field() }}
-                    <div class="input-group mb-3">
-                        <input type="text" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ old('name') }}" placeholder="{{ __('adminlte::adminlte.name') }}" autofocus>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-user"></span>
-                            </div>
-                        </div>
-                        @if ($errors->has('name'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('name') }}
-                            </div>
-                        @endif
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="{{ __('adminlte::adminlte.password') }}">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                        @if ($errors->has('password'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('password') }}
-                            </div>
-                        @endif
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" name="remember" id="remember">
-                                <label for="remember">{{ __('adminlte::adminlte.remember_me') }}</label>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block btn-flat">
-                                {{ __('adminlte::adminlte.sign_in') }}
-                            </button>
-                        </div>
-                    </div>
-                </form>
-                <p class="mt-2 mb-1">
-                    <a href="{{ $password_reset_url }}">
-                        {{ __('adminlte::adminlte.i_forgot_my_password') }}
-                    </a>
-                </p>
-                @if ($register_url)
-                    <p class="mb-0">
-                        <a href="{{ $register_url }}">
-                            {{ __('adminlte::adminlte.register_a_new_membership') }}
-                        </a>
-                    </p>
-                @endif
+        .bg-image {
+            display: block;
+            position: absolute;
+        }
+        .bg-image.n1 {
+            width: 28%;
+            left: 6%;
+            bottom: 0;
+        }
+        .bg-image.n2 {
+            width: 130px;
+            top: 30%;
+            left: 10%;
+        }
+        .bg-image.n3 {
+            width: 130px;
+            right: 10%;
+            top: 20%;
+        }
+        .bg-image.n4 {
+            width: 130px;
+            right: 30%;
+            top: 50%;
+        }
+        .bg-image.n5 {
+            width: 70px;
+            right: 10%;
+            bottom: 10%;
+        }
+    </style>
+</head>
+<body>
+<h1>鄞州区企业疫情防控复工预审管理系统</h1>
+<div class="login-form-container">
+    <!-- <div class="switch-tab">
+      <div class="tab-item">
+        <span>
+          帐号密码登录
+        </span>
+      </div>
+      <div class="tab-item active">
+        <span>
+          手机号登录
+        </span>
+      </div>
+    </div> -->
+    <form action="/login" method="post">
+        {{ csrf_field() }}
+    <div class="login-form">
+        <div class="form-row">
+            <div class="form-input-box">
+                <input type="text" class="form-input" placeholder="手机号" name="name" />
+                <img class="input-prefix-icon" src="img/phone.png" />
             </div>
         </div>
-    </div>
-@stop
+        @if ($errors->has('name'))
+            <div class="invalid-feedback" style="color:red">
+                {{ $errors->first('name') }}
+            </div>
+        @endif
 
-@section('adminlte_js')
-    <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
-    @stack('js')
-    @yield('js')
-@stop
+        <div class="form-row">
+            <!-- <div class="form-input-box" style="width: 250px;"> -->
+            <div class="form-input-box">
+                <input type="password" name="password" class="form-input" placeholder="密码" />
+                <img class="input-prefix-icon" src="img/mail.png" />
+                <!-- <img class="input-suffix-icon" src="img/correct.png" /> -->
+            </div>
+            <!-- <button
+              class="form-button normal"
+              style="width: 150px; margin-left: 10px;"
+            >
+              获取验证码
+            </button> -->
+        </div>
+        @if ($errors->has('password'))
+            <div class="invalid-feedback" style="color:red">
+                {{ $errors->first('password') }}
+            </div>
+        @endif
+        <div class="form-row">
+            <button type="submit" class="form-button primary" style="">登录</button>
+        </div>
+    </div>
+    </form>
+</div>
+
+<footer>
+    <p>主办单位：宁波市鄞州区新型冠状病毒感染的肺炎疫情防控领导小组</p>
+    <p>技术支持：宝略科技（浙江）有限公司</p>
+</footer>
+
+<img class="bg-image n1" src="/img/bg1.png" />
+<img class="bg-image n2" src="/img/bg2.png" />
+<img class="bg-image n3" src="/img/bg3.png" />
+<img class="bg-image n4" src="/img/bg4.png" />
+<img class="bg-image n5" src="/img/bg5.png" />
+</body>
+</html>
