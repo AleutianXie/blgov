@@ -7,21 +7,33 @@
 @stop
 
 @section('content')
-{{--    <div class="row">--}}
-{{--        <div class="well well-sm" style="margin-bottom: 10px;">--}}
-{{--            <form action="" class="form-inline">--}}
-{{--                <input type="select" id="status" name="status" value="{{ !empty($filter['name']) ? $filter['name'] : '' }}"--}}
-{{--                       placeholder="姓名" class="form-control">--}}
-{{--                <input type="text" id="mobile" name="mobile"--}}
-{{--                       value="{{ !empty($filter['mobile']) ? $filter['mobile'] : '' }}" placeholder="手机号"--}}
-{{--                       class="form-control">--}}
-{{--                <input type="text" id="email" name="email" placeholder="邮箱" class="form-control">--}}
-{{--                <button type="submit" class="btn btn-white btn-info btn-bold">--}}
-{{--                    <i class="ace-icon fa fa-search nav-search-icon green"></i>搜索--}}
-{{--                </button>--}}
-{{--            </form>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+    <div class="row">
+        <div class="col-12">
+            <form action="" class="form-row">
+                <div class="col-md-3">
+                <select id="status" name="status" class="form-control">
+                    <option value=""></option>
+                    <option value="1">审批中</option>
+                    <option value="2">审批通过</option>
+                    <option value="3">不通过</option>
+                </select>
+                </div>
+                <div class="col-md-3">
+                <select id="industry" name="industry" class="form-control">
+                    <option value=""></option>
+                    @foreach($industries as $id => $name)
+                        <option value="{{$id}}">{{$name}}</option>
+                    @endforeach
+                </select>
+                </div>
+                <button type="submit" class="btn btn-white btn-info btn-bold">
+                    <i class="ace-icon fa fa-search nav-search-icon green"></i>查找
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <br/>
 
     <div class="row">
         <div class="col-12">
@@ -38,7 +50,7 @@
 @section('js')
     <script type="text/javascript">
         // datatables配置
-        $('table').dataTable({
+       let dt = $('table').dataTable({
             processing: true,
             serverSide: true,
             ajax: '{{ route('report.list') }}',
@@ -67,6 +79,10 @@
                     data: 'report_at'
                 },
                 {
+                    title: '审核状态',
+                    data: 'status'
+                },
+                {
                     title: '操作',
                     data: null,
                     render: function (data, type, row) {
@@ -88,7 +104,22 @@
             {{--    $('td', row).eq(6).html($('td', row).eq(6).text());--}}
             {{--    $('td', row).eq(7).html($('td', row).eq(7).text());--}}
             {{--}--}}
-        })
+        });
+        $(document).ready(function() {
+            $('#status').select2({
+                placeholder: '全部状态',
+                allowClear: true
+            });
+            $('#industry').select2({
+                placeholder: '全部行业',
+                allowClear: true
+            });
+        });
+        $(document).on('submit', '.form-row', function (e) {
+            var target = $(e.target);
+            dt.api().ajax.url('{{ route('report.list') }}' + '?' + target.serialize()).load();
+            e.preventDefault();
+        });
     </script>
 @endsection
 

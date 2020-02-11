@@ -21,4 +21,18 @@ class Report extends Model
     {
         return $this->hasOne(Enterprise::class, 'EnterpriseID', 'enterprise_id');
     }
+
+    public function scopeIndustry($query, $industry)
+    {
+        return $query->whereHas('enterprise', function ($query) use ($industry) {
+            return $query->where('IndustryTableID', $industry);
+        });
+    }
+
+    public function scopeIndustryBetween($query, $min, $max)
+    {
+        return $query->whereHas('enterprise', function ($query) use ($min,$max) {
+            return $query->whereBetween('IndustryTableID', [$min, $max]);
+        });
+    }
 }

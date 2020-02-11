@@ -76,6 +76,13 @@ class UserSeeder extends Seeder
                 'name' => '区发改局',
                 'industry_id_min' => 600001,
                 'industry_id_max' => 600026,
+                'password' => bcrypt('KoMbEhQm'),
+                'is_admin' => 1
+            ],
+            [
+                'name' => '区发改局',
+                'industry_id_min' => 600001,
+                'industry_id_max' => 600026,
                 'password' => bcrypt('r8SzTLZv'),
                 'is_admin' => 1
             ],

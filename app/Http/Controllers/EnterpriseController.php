@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enterprise;
 use App\Http\Requests\ApplyPostRequest;
 use App\Http\Requests\AuditPostRequest;
+use App\Industry;
 use App\Library\Utils\Uploader;
 use App\Report;
 use App\Revision;
@@ -122,7 +123,7 @@ class EnterpriseController extends Controller
     public function revisions(Request $request) {
         if($request->user()->enterprise_id) {
             $enterprise = Enterprise::with('report')->findOrFail($request->user()->enterprise_id);
-            $revisions = $enterprise->report->revisions ?? '';
+            $revisions = $enterprise->report->revisions ?? [];
             $towns = TownType::all()->pluck('TownName', 'TownID');
             return view('enterprise.process', compact('enterprise', 'revisions', 'towns'));
         }
@@ -132,7 +133,12 @@ class EnterpriseController extends Controller
     public function index(Request $request)
     {
         if ($request->user()->is_admin) {
-            return view('enterprise.index');
+            $model = Industry::query();
+            if (!empty($request->user()->industry_id_min) && !empty($request->user()->industry_id_max)) {
+                $model->whereBetween('IndustryTableID', [$request->user()->industry_id_min, $request->user()->industry_id_max]);
+            }
+            $industries = $model->pluck('IndustryName', 'IndustryTableID');
+            return view('enterprise.index', compact('industries'));
         }
         return "Access deny";
     }
