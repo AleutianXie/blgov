@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -75,7 +76,8 @@ class LoginController extends Controller
                     'is_admin' => 0,
                     'enterprise_id' => $enterprise->EnterpriseID
                 ];
-                User::create($attribute);
+                $user = User::create($attribute);
+                Auth::loginUsingId($user->id);
                 return $this->sendLoginResponse($request);
             }
         }
