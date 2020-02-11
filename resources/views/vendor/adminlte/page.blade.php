@@ -146,7 +146,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu">
                         <li class="nav-item ">
-                            <a class="nav-link " href="http://blgov.cicisoft.com/password/change">
+                            <a class="nav-link " href="{{url('password/change')}}">
                                 <i class="fas fa-fw fa-key "></i>
                                 <p>
                                     修改密码
@@ -156,7 +156,7 @@
                         </li>
                         @if (Auth::user()->is_admin)
                             <li class="nav-item ">
-                                <a class="nav-link " href="http://blgov.cicisoft.com/enterprise">
+                                <a class="nav-link " href="{{url('enterprise')}}">
                                     <i class="fas fa-fw fa-list "></i>
                                     <p>
                                         企业目录
@@ -166,10 +166,19 @@
                             </li>
                         @else
                             <li class="nav-item ">
-                                <a class="nav-link " href="http://blgov.cicisoft.com/enterprise/my">
+                                <a class="nav-link " href="{{url('enterprise/my')}}">
                                     <i class="fas fa-fw fa-user "></i>
                                     <p>
                                         申报
+
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link " href="{{url('enterprise/revision')}}">
+                                    <i class="fas fa-fw fa-user "></i>
+                                    <p>
+                                        进度查询
 
                                     </p>
                                 </a>

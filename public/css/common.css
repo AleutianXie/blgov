@@ -1,0 +1,31 @@
+.form {
+  margin: 0 auto;
+  width: 800px;
+}
+.form .form-row {
+  min-height: 32px;
+  display: flex;
+  margin-bottom: 20px;
+}
+.form .form-row label {
+  width: 200px;
+  text-align: right;
+  margin-right: 20px;
+  height: 32px;
+  line-height: 32px;
+}
+.form .form-row .form-control {
+  width: calc(100% - 220px);
+}
+section {
+  background: white;
+  margin-bottom: 20px;
+}
+.content-box {
+  padding: 15px 20px;
+}
+section h3 {
+  margin: 0;
+  padding: 20px 20px;
+  border-bottom: 1px solid #eee;
+}

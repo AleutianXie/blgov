@@ -120,11 +120,12 @@ class EnterpriseController extends Controller
     }
 
     public function revisions(Request $request) {
-        //if($request->user()->enterprise_id) {
-            $enterprise = Enterprise::with('revisions')->findOrFail($request->user()->enterprise_id);
-             dd($enterprise->report);
-            return view('enterprise.my', compact('enterprise'));
-        //}
+        if($request->user()->enterprise_id) {
+            $enterprise = Enterprise::with('report')->findOrFail($request->user()->enterprise_id);
+            $revisions = $enterprise->report->revisions ?? '';
+            $towns = TownType::all()->pluck('TownName', 'TownID');
+            return view('enterprise.process', compact('enterprise', 'revisions', 'towns'));
+        }
         return "Access deny";
     }
 

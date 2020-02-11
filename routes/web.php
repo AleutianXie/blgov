@@ -23,6 +23,7 @@ Route::get('/home', function() {
 
 Route::get('/enterprise/{id}', 'EnterpriseController@detail')->where('id', '[0-9]+')->name('enterprise.detail')->middleware('auth');
 Route::get('/enterprise/my', 'EnterpriseController@my')->name('enterprise.my')->middleware('auth');
+Route::get('/enterprise/revision', 'EnterpriseController@revisions')->name('enterprise.revisions')->middleware('auth');
 Route::get('/enterprise', 'EnterpriseController@index')->name('enterprise.index')->middleware('auth');
 Route::get('/enterprise/list', 'EnterpriseController@list')->name('enterprise.list')->middleware('auth');
 Route::get('/report/list', 'ReportController@list')->name('report.list')->middleware('auth');
