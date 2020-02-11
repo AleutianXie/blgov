@@ -14,7 +14,11 @@ class Report extends Model
 
     public function revisions()
     {
-        return $this->hasMany(Revision::class, 'response_id')->orderByDesc('version');
+        return $this->hasMany(Revision::class, 'report_id')->orderByDesc('version');
     }
 
+    public function enterprise()
+    {
+        return $this->hasOne(Enterprise::class, 'EnterpriseID', 'enterprise_id');
+    }
 }

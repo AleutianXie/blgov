@@ -41,7 +41,7 @@
         $('table').dataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{ route('enterprise.list') }}',
+            ajax: '{{ route('report.list') }}',
             language: {
                 url: '{{ asset('js/localisation/Chinese.json') }}'
             },
