@@ -131,16 +131,52 @@
                 </a>
             @else
                 <a href="{{ $dashboard_url }}" class="brand-link {{ config('adminlte.classes_brand') }}">
-                    <img src="{{ asset(config('adminlte.logo_img', 'vendor/adminlte/dist/img/AdminLTELogo.png')) }}" alt="{{config('adminlte.logo_img_alt', 'AdminLTE')}}" class="brand-image img-circle elevation-3" style="opacity: .8">
+{{--                    <img src="{{ asset(config('adminlte.logo_img', 'vendor/adminlte/dist/img/AdminLTELogo.png')) }}" alt="{{config('adminlte.logo_img_alt', 'AdminLTE')}}" class="brand-image img-circle elevation-3" style="opacity: .8">--}}
                     <span class="brand-text font-weight-light {{ config('adminlte.classes_brand_text') }}">
                         {!! config('adminlte.logo', '<b>Admin</b>LTE') !!}
                     </span>
                 </a>
             @endif
             <div class="sidebar">
+{{--                <nav class="mt-2">--}}
+{{--                    <ul class="nav nav-pills nav-sidebar flex-column {{config('adminlte.classes_sidebar_nav', '')}}" data-widget="treeview" role="menu" @if(config('adminlte.sidebar_nav_animation_speed') != 300) data-animation-speed="{{config('adminlte.sidebar_nav_animation_speed')}}" @endif @if(!config('adminlte.sidebar_nav_accordion')) data-accordion="false" @endif>--}}
+{{--                        @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')--}}
+{{--                    </ul>--}}
+{{--                </nav>--}}
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column {{config('adminlte.classes_sidebar_nav', '')}}" data-widget="treeview" role="menu" @if(config('adminlte.sidebar_nav_animation_speed') != 300) data-animation-speed="{{config('adminlte.sidebar_nav_animation_speed')}}" @endif @if(!config('adminlte.sidebar_nav_accordion')) data-accordion="false" @endif>
-                        @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
+                    <ul class="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu">
+                        <li class="nav-item ">
+                            <a class="nav-link " href="http://blgov.cicisoft.com/password/change">
+                                <i class="fas fa-fw fa-key "></i>
+                                <p>
+                                    修改密码
+
+                                </p>
+                            </a>
+                        </li>
+                        @if (Auth::user()->is_admin)
+                            <li class="nav-header">政府</li>
+                            <li class="nav-item ">
+                                <a class="nav-link " href="http://blgov.cicisoft.com/enterprise">
+                                    <i class="fas fa-fw fa-list "></i>
+                                    <p>
+                                        企业目录
+
+                                    </p>
+                                </a>
+                            </li>
+                        @else
+                            <li class="nav-header">企业</li>
+                            <li class="nav-item ">
+                                <a class="nav-link " href="http://blgov.cicisoft.com/enterprise/my">
+                                    <i class="fas fa-fw fa-user "></i>
+                                    <p>
+                                        申报
+
+                                    </p>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </nav>
             </div>

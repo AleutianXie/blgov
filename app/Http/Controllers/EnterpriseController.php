@@ -120,11 +120,11 @@ class EnterpriseController extends Controller
     }
 
     public function revisions(Request $request) {
-        if($request->user()->enterprise_id) {
+        //if($request->user()->enterprise_id) {
             $enterprise = Enterprise::with('revisions')->findOrFail($request->user()->enterprise_id);
-            // dd($enterprise->report);
+             dd($enterprise->report);
             return view('enterprise.my', compact('enterprise'));
-        }
+        //}
         return "Access deny";
     }
 
