@@ -108,7 +108,7 @@ class EnterpriseController extends Controller
 
             $revision = Revision::where('report_id', $report->id)->where('version', $report->version)->first();
             if (!empty($revision)) {
-                $report->update($attribute);
+                $revision->update($attribute);
             }
             $report->update($attribute);
             DB::commit();
