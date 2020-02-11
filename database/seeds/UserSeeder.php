@@ -73,7 +73,7 @@ class UserSeeder extends Seeder
 
         $admins = [
             [
-                'name' => '区发改局',
+                'name' => '区政府',
                 'industry_id_min' => 600001,
                 'industry_id_max' => 600026,
                 'password' => bcrypt('KoMbEhQm'),
