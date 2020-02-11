@@ -155,7 +155,6 @@
                             </a>
                         </li>
                         @if (Auth::user()->is_admin)
-                            <li class="nav-header">政府</li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="http://blgov.cicisoft.com/enterprise">
                                     <i class="fas fa-fw fa-list "></i>
@@ -166,7 +165,6 @@
                                 </a>
                             </li>
                         @else
-                            <li class="nav-header">企业</li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="http://blgov.cicisoft.com/enterprise/my">
                                     <i class="fas fa-fw fa-user "></i>
