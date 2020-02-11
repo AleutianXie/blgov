@@ -24,7 +24,7 @@ class Uploader
     {
         $validator = Validator::make(
             ['file'=>$file],
-            ['file'=>'required|file|mimes:jpeg,jpg,gif,png,pdf,doc,docx,xls,xlsx,ppt,pptx|max:100000']
+            ['file'=>'required|file|mimes:jpeg,jpg,gif,png,pdf,doc,docx,xls,xlsx,ppt,pptx,zip,rar|max:100000']
         );
 
         if ($validator->fails()) {
