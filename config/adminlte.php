@@ -173,6 +173,11 @@ return [
     */
 
     'menu' => [
+        [
+            'text' => '修改密码',
+            'route'  => 'user.change',
+            'icon' => 'fas fa-fw fa-key',
+        ],
         ['header' => '企业'],
         [
             'text' => '申报',

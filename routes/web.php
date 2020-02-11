@@ -27,3 +27,5 @@ Route::get('/enterprise', 'EnterpriseController@index')->name('enterprise.index'
 Route::get('/enterprise/list', 'EnterpriseController@list')->name('enterprise.list')->middleware('auth');
 Route::post('/enterprise/my', 'EnterpriseController@apply')->name('enterprise.post')->middleware('auth');
 Route::post('/enterprise/{id}', 'EnterpriseController@audit')->where('id', '[0-9]+')->name('enterprise.audit')->middleware('auth');
+Route::post('/password/change', 'UserController@changePassword')->name('user.changePassword')->middleware('auth');
+Route::get('/password/change', 'UserController@change')->name('user.change')->middleware('auth');
