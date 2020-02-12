@@ -41,12 +41,12 @@ class CompanyRequest extends FormRequest
     }
 
     public function messages()
-{
-    return [
-        'OrganizationCode.required' => '组织机构代码不能为空!',
-        'StartDate.date'            => '开工时间错误',
-        'Contacts.required'         => '联系人不能为空',
-    ];
-}
+    {
+        return [
+            'OrganizationCode.required' => '组织机构代码不能为空!',
+            'StartDate.date' => '开工时间错误',
+            'Contacts.required' => '联系人不能为空',
+        ];
+    }
 
 }

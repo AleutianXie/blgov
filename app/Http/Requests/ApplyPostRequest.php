@@ -27,10 +27,10 @@ class ApplyPostRequest extends FormRequest
         if (Route::currentRouteName() == 'enterprise.post') {
             return [
                 'town' => 'required|exists:townTypeTable,TownID',
-                'file1' => 'required|mimes:jpeg,png,pdf,doc,docx,xlsx,xls',
-                'file2' => 'required|mimes:jpeg,png,pdf,doc,docx,xlsx,xls',
-                'file3' => 'required|mimes:jpeg,png,pdf,doc,docx,xlsx,xls',
-                'file4' => 'mimes:rar,zip',
+                'file1' => 'required|mimes:jpeg,png,pdf,doc,docx,xlsx,xls|max:10240',
+                'file2' => 'required|mimes:jpeg,png,pdf,doc,docx,xlsx,xls|max:10240',
+                'file3' => 'required|mimes:jpeg,png,pdf,doc,docx,xlsx,xls|max:10240',
+                'file4' => 'mimes:rar,zip|max:10240',
             ];
         }
 
@@ -56,6 +56,13 @@ class ApplyPostRequest extends FormRequest
             'file2' => '《企业（单位）返工人员调查总表》',
             'file3' => '《企业（单位）复工防疫方案》',
             'file4' => '附件',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'max' => ':attribute 大小不能大于 10MB'
         ];
     }
 }
