@@ -96,7 +96,7 @@
                 <ul class="navbar-nav ml-auto @if(config('adminlte.layout_topnav') || View::getSection('layout_topnav'))order-1 order-md-3 navbar-no-expand @endif">
                     @yield('content_top_nav_right')
                     @if(Auth::user())
-                        <li class="nav-item">{{Auth::user()->name}}</li>
+                        <li class="nav-item" style="line-height: 40px;">{{Auth::user()->name}}</li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
