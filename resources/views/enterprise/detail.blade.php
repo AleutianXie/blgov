@@ -20,19 +20,19 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-6 col-md-6">
-                            <h4 class="text-left"><span>企业名称：{{$enterprise->EnterpriseName}}</span></h4>
-                            <h4 class="text-left"><span>企业总人数：{{$enterprise->EmployeesNumber}}</span></h4>
-                            <h4 class="text-left"><span>所属街道：{{$towns[$enterprise->TownID]}}</span></h4>
-                            <h4 class="text-left"><span>联系人：{{$enterprise->Contacts}}</span></h4>
-                            <h4 class="text-left"><span>企业规模：{{$enterprise->EnterpriseScale == 1 ? '规上' : '规下'}}</span></h4>
+                            <p class="text-left"><span>企业名称：{{$enterprise->EnterpriseName}}</span></p>
+                            <p class="text-left"><span>企业总人数：{{$enterprise->EmployeesNumber}}</span></p>
+                            <p class="text-left"><span>所属街道：{{$towns[$enterprise->TownID]}}</span></p>
+                            <p class="text-left"><span>联系人：{{$enterprise->Contacts}}</span></p>
+                            <p class="text-left"><span>企业规模：{{$enterprise->EnterpriseScale == 1 ? '规上' : '规下'}}</span></p>
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-6 col-md-6">
-                            <h4 class="text-left"><span>企业组织机构代码：{{$enterprise->OrganizationCode}}</span></h4>
-                            <h4 class="text-left"><span>企业复工人数：{{$enterprise->BackEmpNumber}}</span></h4>
-                            <h4 class="text-left"><span>企业地址：{{$enterprise->Address}}</span></h4>
-                            <h4 class="text-left"><span>手机号码：{{$enterprise->PhoneNumber}}</span></h4>
-                            <h4 class="text-left"><span>行业：{{$enterprise->Industry}}</span></h4>
+                            <p class="text-left"><span>企业组织机构代码：{{$enterprise->OrganizationCode}}</span></p>
+                            <p class="text-left"><span>企业复工人数：{{$enterprise->BackEmpNumber}}</span></p>
+                            <p class="text-left"><span>企业地址：{{$enterprise->Address}}</span></p>
+                            <p class="text-left"><span>手机号码：{{$enterprise->PhoneNumber}}</span></p>
+                            <p class="text-left"><span>行业：{{$enterprise->Industry}}</span></p>
                         </div>
                         <!-- /.col -->
                     </div>
