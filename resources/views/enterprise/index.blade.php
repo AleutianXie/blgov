@@ -75,9 +75,15 @@
                     title: '企业名称',
                     data: 'EnterpriseName',
                 },
+                @if (!empty(Auth::user()->industry_id_min))
+                {
+                    title: '申报乡镇',
+                    data:'town'
+                },
+                @endif
                 {
                     title: '行业类别',
-                    data: 'Industry',
+                    data: 'Industry'
                 },
                 {
                     title: '申请次数',
@@ -96,7 +102,7 @@
                     title: '操作',
                     data: null,
                     render: function (data, type, row) {
-                        return '<a href="/enterprise/' + row.EnterpriseID + '">详情</a>';
+                        return '<a href="/enterprise/' + row.EnterpriseID + '" target="_blank">详情</a>';
                     }
                 }
             ],

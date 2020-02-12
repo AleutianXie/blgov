@@ -22,6 +22,11 @@ class Report extends Model
         return $this->hasOne(Enterprise::class, 'EnterpriseID', 'enterprise_id');
     }
 
+    public function town()
+    {
+        return $this->hasOne(TownType::class, 'TownID', 'town_id');
+    }
+
     public function scopeIndustry($query, $industry)
     {
         return $query->whereHas('enterprise', function ($query) use ($industry) {
