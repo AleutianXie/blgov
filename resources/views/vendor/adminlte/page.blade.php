@@ -155,15 +155,6 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="{{route('company')}}">
-                                <i class="fas fa-fw fa-file "></i>
-                                <p>
-                                    基本信息
-
-                                </p>
-                            </a>
-                        </li>
                         @if (Auth::user()->is_admin)
                             <li class="nav-item ">
                                 <a class="nav-link " href="{{url('enterprise')}}">
@@ -175,6 +166,15 @@
                                 </a>
                             </li>
                         @else
+                            <li class="nav-item ">
+                                <a class="nav-link " href="{{route('company')}}">
+                                    <i class="fas fa-fw fa-file "></i>
+                                    <p>
+                                        基本信息
+
+                                    </p>
+                                </a>
+                            </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="{{url('enterprise/my')}}">
                                     <i class="fas fa-fw fa-user "></i>
