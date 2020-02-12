@@ -291,8 +291,8 @@
         url: '/statistical/data',
         async:true,
         success:function(res){
-            var EmployeesNumber = 0;
-            var BackEmpNumber = 0;
+            var EmployeesNumbers = 0;
+            var BackEmpNumbes = 0;
             var IsMedicalObservation = 0;
             
             var wu = 0; //0
@@ -306,18 +306,18 @@
 
             var OutgoingDesc = {};
 
-            //console.log(res)
             for(var i =0;i<res.length;i++){
-                var enterprise = res[i].enterpry;
-                if (enterprise.EmployeesNumber != undefined) {
-                    EmployeesNumber += enterprise.EmployeesNumber
+                
+                if (res[i].EmployeesNumber != undefined) {
+                    EmployeesNumbers = EmployeesNumbers + res[i].EmployeesNumber;
                 }
-                if (enterprise.BackEmpNumber != undefined) {
-                    BackEmpNumber += enterprise.BackEmpNumber
+                if (res[i].BackEmpNumber != undefined) {
+                    BackEmpNumbes =BackEmpNumbes + res[i].BackEmpNumber;
                 }
+
                 //user
-                if (enterprise.users != undefined) {
-                    var users = enterprise.users;
+                if (res[i].users != undefined && res[i].users.length) {
+                    var users = res[i].users;
                     for(var j=0;j<users.length;j++){
                         if (users[j].IsMedicalObservation){
                             IsMedicalObservation += 1;
@@ -358,6 +358,8 @@
                     }
                 }
             }
+
+            console.log(EmployeesNumbers, BackEmpNumbes)
             
             for(var d in OutgoingDesc){
               option4.xAxis.data.push(d);
@@ -367,14 +369,13 @@
             console.log(OutgoingDesc)
             console.log(ContactSituation0,ContactSituation1)
             console.log(wu,hubei,wenzhou,taizhou,other)
-            $('#userTotalVal').html(EmployeesNumber);
+            $('#userTotalVal').html(EmployeesNumbers);
             userTotal.stop();
-            $('#backUserVal').html(BackEmpNumber);
+            $('#backUserVal').html(BackEmpNumbes);
             backUser.stop();
             $('#lookUserVal').html(IsMedicalObservation);
             lookUser.stop();
-            console.log(EmployeesNumber)
-            console.log(BackEmpNumber)
+
             console.log(IsMedicalObservation)
 
             $('#outWu').html(wu);
@@ -421,7 +422,7 @@
             }
           },
           label: {
-            show: true
+            show: false
           },
           data: [
             {
