@@ -10,22 +10,6 @@ class StatisticalController extends Controller
 {
     public function index(Request $request)
     {
-        // $user = $request->user();
-
-        // if ($user->town_id) {
-        //     $statusGroup =  Report::where('town_id',$user->town_id);
-        // } else {
-        //     $statusGroup =  Report::whereBetween('town_id',[$user->industry_id_min, $user->industry_id_max]);
-        // }
-
-        // $statusGroup = $statusGroup->groupBy('status')
-        //     ->selectRaw('status, count(status)')
-        //     ->pluck('count','status')
-        //     ->toJson();
-
-        // return $user;
-        // return view('statistical', compact('statusGroup'));
-        
         $user = $request->user();
         
         if (!$user->town_id){

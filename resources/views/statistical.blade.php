@@ -2,6 +2,9 @@
 
 @section('title', '查询和统计')
 
+@section('content_header')
+    <h1 class="m-0 text-dark">预审材料申报企业统计</h1>
+@stop
 @section('css')
 <link rel="stylesheet" href="/css/common.css" />
 <script src="/lib/echarts.min.js"></script>
@@ -118,17 +121,17 @@
           <li>
             <span
               style=" display:inline-block; width: 10px;height: 10px;border-radius: 50%; background: #00D6A7;"></span>
-            通过
+            通过：<span id="psssCount"></span>
           </li>
           <li>
             <span
               style=" display:inline-block; width: 10px;height: 10px;border-radius: 50%; background: #1890ff;"></span>
-            未通过
+            未通过：<span id="noPsssCount"></span>
           </li>
           <li>
             <span
               style=" display:inline-block; width: 10px;height: 10px;border-radius: 50%; background: #F2637B;"></span>
-            未审批
+            审批中：<span id="ingCount"></span>
           </li>
         </ul>
       </div>
@@ -178,6 +181,7 @@
       border-bottom: 1px solid #E8E8E8;"> 返甬时间轴</div>
       <div id="main4" style="width: 100%;height:235px;"></div>
     </div>
+    <span id="csrf" data-item="1"></span>
   </div>
 @stop
 @section('js')
@@ -198,6 +202,9 @@
     var total = ing + pass + noPass;
     $('#reportTotal').html(total);
 
+    $('#ingCount').html(ing);
+    $('#noPsssCount').html(noPass);
+    $('#psssCount').html(pass);
     var option2 = {
         color: ["#F04864", "#FACC14", "#8543E0", "#1890FF", "#13C2C2"],
         series: [
@@ -361,6 +368,7 @@
 
             console.log(EmployeesNumbers, BackEmpNumbes)
             
+           
             for(var d in OutgoingDesc){
               option4.xAxis.data.push(d);
               option4.series[0].data.push(OutgoingDesc[d]);
