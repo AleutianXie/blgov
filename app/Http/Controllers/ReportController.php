@@ -19,9 +19,9 @@ class ReportController extends Controller
             if ($request->input('draw', 0) == 0) {
                 $request->offsetSet('draw', 1);
             }
-            if ($request->input('page', -1) == -1) {
-                $request->offsetSet('page', 0);
-            }
+//            if ($request->input('page', -1) == -1) {
+//                $request->offsetSet('page', 0);
+//            }
             $page =  intval($request->input('page', 1));
             if ($request->input('length', 0) == 0) {
                 $request->offsetSet('length', 10);
