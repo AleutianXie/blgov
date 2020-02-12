@@ -70,6 +70,9 @@ class ReportController extends Controller
         if (!empty($filter['status'])) {
             $model->where('status', $filter['status']);
         }
+        if (!empty($filter['town'])) {
+            $model->where('town_id', $filter['town']);
+        }
         if (!empty($filter['industry'])) {
             $model->industry($filter['industry']);
         }

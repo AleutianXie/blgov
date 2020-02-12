@@ -10,6 +10,16 @@
     <div class="row">
         <div class="col-12">
             <form action="" class="form-row">
+                @if (!empty(Auth::user()->industry_id_min))
+                    <div class="col-md-3">
+                        <select id="town" name="town" class="form-control">
+                            <option value=""></option>
+                            @foreach($towns as $id => $name)
+                                <option value="{{$id}}">{{$name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @endif
                 <div class="col-md-3">
                 <select id="status" name="status" class="form-control">
                     <option value=""></option>
@@ -114,7 +124,14 @@
                 placeholder: '全部行业',
                 allowClear: true
             });
+            @if (!empty(Auth::user()->industry_id_min))
+                $('#town').select2({
+                    placeholder: '全部乡镇',
+                    allowClear: true
+                });
+            @endif
         });
+
         $(document).on('submit', '.form-row', function (e) {
             var target = $(e.target);
             dt.api().ajax.url('{{ route('report.list') }}' + '?' + target.serialize()).load();

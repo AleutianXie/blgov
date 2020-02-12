@@ -138,7 +138,8 @@ class EnterpriseController extends Controller
                 $model->whereBetween('IndustryTableID', [$request->user()->industry_id_min, $request->user()->industry_id_max]);
             }
             $industries = $model->pluck('IndustryName', 'IndustryTableID');
-            return view('enterprise.index', compact('industries'));
+            $towns = TownType::all()->pluck('TownName', 'TownID');
+            return view('enterprise.index', compact('industries', 'towns'));
         }
         return "Access deny";
     }
