@@ -26,7 +26,7 @@ class ReportController extends Controller
             if ($request->input('length', 0) == 0) {
                 $request->offsetSet('length', 10);
             }
-            $length = $request->input('length', 10);
+            // $length = $request->input('length', 10);
             // $request->offsetSet('start', ($page - 1) * $length);
             $model = Report::with('enterprise');
             if (!empty($user->town_id) && $user->town_id != $yz_town_id) {
