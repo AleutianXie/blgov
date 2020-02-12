@@ -126,10 +126,12 @@ class Gov extends Command
                 $back_total[$item->OutgoingDesc] = 0;
             }
             $back_total[$item->OutgoingDesc] += $item->total;
-            Redis::zAdd('blgov:summary:employee_back_date:count:' . $item->TownID,  $item->total, $item->OutgoingDesc);
+            Redis::del('blgov:summary:employee_back_date:count:' . $item->TownID);
+            Redis::hMSet('blgov:summary:employee_back_date:count:' . $item->TownID, $item->OutgoingDesc, $item->total);
         }
         foreach ($back_total as $key => $total) {
-            Redis::zAdd('blgov:summary:employee_back_date:count:' . $yz_townID, $total, $key);
+            Redis::del('blgov:summary:employee_back_date:count:' . $yz_townID);
+            Redis::hMSet('blgov:summary:employee_back_date:count:' . $yz_townID, $key, $total);
         }
 
         // 接触情况

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Redis;
@@ -68,13 +69,25 @@ class GovController extends Controller
         $start = $request->get('start', '2020-02-01');
         $end = $request->get('end', '2020-03-31');
         $ret = [];
-        $time_range = Redis::zRangeByLex('blgov:summary:employee_back_date:count:' . $townId, '[' . $start, '[' . $end);
-        foreach ($time_range as $time) {
-            $ret[] = ['time' => $time, 'value' => Redis::zScore('blgov:summary:employee_back_date:count:' . $townId, $time)];
+        $start = Carbon::createFromFormat("Y-m-d", $start);
+        $end = Carbon::createFromFormat("Y-m-d", $end);
+        if ($start->gt($end)) {
+            $temp = $start;
+            $start = $end;
+            $end = $temp;
         }
-        $ret = array_values(Arr::sort($ret, function ($value) {
-            return strtotime($value['time']);
-        }));
+        $dates = [];
+        for ($date = $start; $date->lte($end); $date->addDay()) {
+            $dates[] = $date->format('Y-m-d');
+        }
+        $values = Redis::hMGet('blgov:summary:employee_back_date:count:' . $townId, $dates);
+        $values = array_map(function ($value) {
+            return $value ? $value : 0;
+        }, $values);
+        $values = array_combine($dates, $values);
+        foreach ($values as $time => $value) {
+            $ret[] = ['time' => $time, 'value' => $value];
+        }
         return response()->json($ret);
     }
 
