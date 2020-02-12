@@ -123,6 +123,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'city' => env('CITY', '鄞州区'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
