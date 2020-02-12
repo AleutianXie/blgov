@@ -127,12 +127,11 @@ class Gov extends Command
             }
             $back_total[$item->OutgoingDesc] += $item->total;
             Redis::del('blgov:summary:employee_back_date:count:' . $item->TownID);
-            Redis::hMSet('blgov:summary:employee_back_date:count:' . $item->TownID, $item->OutgoingDesc, $item->total);
+            Redis::hMSet('blgov:summary:employee_back_date:count:' . $item->TownID, [$item->OutgoingDesc => $item->total]);
         }
-        foreach ($back_total as $key => $total) {
-            Redis::del('blgov:summary:employee_back_date:count:' . $yz_townID);
-            Redis::hMSet('blgov:summary:employee_back_date:count:' . $yz_townID, $key, $total);
-        }
+
+        Redis::del('blgov:summary:employee_back_date:count:' . $yz_townID);
+        Redis::hMSet('blgov:summary:employee_back_date:count:' . $yz_townID, $back_total);
 
         // 接触情况
         $employee_contact_situation_count = DB::table('employeeInfoTable')
