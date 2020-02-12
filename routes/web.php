@@ -37,3 +37,6 @@ Route::group(['prefix'=> 'enterprise', 'middleware' => 'auth'], function(){
     Route::get('/edit', 'CompanyController@edit')->name('company.edit');
     Route::put('/update', 'CompanyController@update')->name('company.update');
 });
+
+Route::get('/statistical', 'StatisticalController@index')->name('statistical')->middleware('auth');
+Route::get('/statistical/data', 'StatisticalController@statisticalData')->middleware('auth');

@@ -74,4 +74,12 @@ class Enterprise extends Model
     {
         return $query->where('IndustryTableID', $industry);
     }
+
+    /**
+     * just use at gov statistical
+     */
+    public function users()
+    {
+        return $this->hasMany(ThreeBack::class, 'EnterpriseID', 'EnterpriseID');
+    }
 }

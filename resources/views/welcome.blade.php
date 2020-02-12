@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>企业疫情防控复工预审管理系统</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    鄞州区
+                    {{config('app.city')}}
                 </div>
                 <div class="row">
                     <div class="col-12">

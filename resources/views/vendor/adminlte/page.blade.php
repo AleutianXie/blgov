@@ -165,6 +165,16 @@
                                     </p>
                                 </a>
                             </li>
+                            <li class="nav-item ">
+                                <a class="nav-link " href="{{url('statistical')}}">
+                                    <i class="fas fa-fw fa-i-cursor "></i>
+                                    <p>
+                                        查询和统计
+
+                                    </p>
+                                </a>
+                            </li>
+                            
                         @else
                             <li class="nav-item ">
                                 <a class="nav-link " href="{{route('company')}}">
@@ -177,16 +187,16 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="{{url('enterprise/my')}}">
-                                    <i class="fas fa-fw fa-user "></i>
+                                    <i class="fas fa-fw fa-id-card "></i>
                                     <p>
-                                        申报
+                                        预审申报
 
                                     </p>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="{{url('enterprise/revision')}}">
-                                    <i class="fas fa-fw fa-user "></i>
+                                    <i class="fas fa-fw fa-bandcamp "></i>
                                     <p>
                                         进度查询
 

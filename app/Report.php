@@ -40,4 +40,13 @@ class Report extends Model
             return $query->whereBetween('IndustryTableID', [$min, $max]);
         });
     }
+
+    /**
+     * just use at gov statistical
+     */
+    public function enterpry()
+    {
+        return $this->enterprise()
+            ->with('users:EmployeeID,EnterpriseID,OutgoingSituation,IsMedicalObservation,OutgoingDesc,ContactSituation');
+    }
 }
