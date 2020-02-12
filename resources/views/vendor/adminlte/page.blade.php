@@ -169,7 +169,7 @@
                                 <a class="nav-link " href="{{url('statistical')}}">
                                     <i class="fas fa-fw fa-i-cursor "></i>
                                     <p>
-                                        查询和统计
+                                        查询统计
 
                                     </p>
                                 </a>
