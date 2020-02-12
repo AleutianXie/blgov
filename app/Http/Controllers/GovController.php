@@ -123,8 +123,10 @@ class GovController extends Controller
             }
         } else {
             $ret['out'] = [
+                ['value' => 0, 'key' => '正常人数'],
                 ['value' => 0, 'key' => '发热人数'],
                 ['value' => 0, 'key' => '咳嗽人数'],
+                ['value' => 0, 'key' => '发热并咳嗽人数'],
                 ['value' => 0, 'key' => '其它症状人数']
             ];
         }
