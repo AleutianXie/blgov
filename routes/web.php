@@ -34,5 +34,6 @@ Route::get('/password/change', 'UserController@change')->name('user.change')->mi
 
 Route::group(['prefix'=> 'enterprise', 'middleware' => 'auth'], function(){
     Route::get('/index', 'CompanyController@index')->name('company');
-    Route::match(['get','put'],'/edit', 'CompanyController@editOrUpdate')->name('company.modify');
+    Route::get('/edit', 'CompanyController@edit')->name('company.edit');
+    Route::put('/update', 'CompanyController@update')->name('company.update');
 });

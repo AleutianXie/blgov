@@ -58,7 +58,7 @@ class Enterprise extends Model
     /**
      * A enterprise belong to a Industry.
      */
-    public function industry()
+    public function industries()
     {
         return $this->belongsTo(Industry::class, 'IndustryTableID', 'IndustryTableID');
     }

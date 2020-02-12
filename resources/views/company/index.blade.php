@@ -50,7 +50,7 @@
       </div>
       <div class="form-row">
         <label>行业大类:</label>
-        <input type="text" class="form-control" value="{{$company->industry->IndustryName ?? ''}}" disabled  />
+        <input type="text" class="form-control" value="{{$company->industries->IndustryName ?? ''}}" disabled  />
       </div>
       <div class="form-row">
         <label>行业系分类:</label>
@@ -74,7 +74,7 @@
       </div>
       <div class="form-row"></div>
       <div class="form-row" style="display: flex; justify-content: center;">
-        <a href="{{route('company.modify')}}"><button class="btn btn-primary" type="submit">编辑</button></a>
+        <a href="{{route('company.edit')}}"><button class="btn btn-primary" type="submit">编辑</button></a>
         &emsp;&emsp;
         <button class="btn btn-default" disabled type="submit">保存</button>
       </div>
