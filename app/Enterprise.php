@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\TownType;
 class Enterprise extends Model
 {
     protected $table = 'enterpriseInfoTable';
@@ -45,6 +45,22 @@ class Enterprise extends Model
     public function report()
     {
         return $this->hasOne(Report::class, 'enterprise_id')->orderByDesc('report_at');
+    }
+
+    /**
+     * A enterprise belong to a town.
+     */
+    public function town()
+    {
+        return $this->belongsTo(TownType::class, 'TownID', 'TownID');
+    }
+
+    /**
+     * A enterprise belong to a Industry.
+     */
+    public function industry()
+    {
+        return $this->belongsTo(Industry::class, 'IndustryTableID', 'IndustryTableID');
     }
 
     public function scopeReportStatus($query, $status)
