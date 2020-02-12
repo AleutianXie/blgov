@@ -35,7 +35,7 @@ class CompanyRequest extends FormRequest
             'EmployeesNumber'   => 'nullable',
             'BackEmpNumber'     => 'nullable',
             'StartDate'         => 'nullable|date',
-            'ProductingPlan'    => 'nullable',
+            'PreventionDesc'    => 'nullable',
 
         ];
     }
