@@ -53,7 +53,7 @@
         <input type="text" class="form-control" value="{{$company->industries->IndustryName ?? ''}}" disabled  />
       </div>
       <div class="form-row">
-        <label>行业系分类:</label>
+        <label>行业细分:</label>
         <input type="text" class="form-control" value="{{$company->Industry}}" disabled  />
       </div>
       <div class="form-row">
@@ -70,7 +70,7 @@
       </div>
       <div class="form-row">
         <label>企业复工情况说明:</label>
-        <textarea class="form-control" rows="3" style="resize: none" disabled>{{$company->ProductingPlan}}</textarea>
+        <textarea class="form-control" rows="3" style="resize: none" disabled>{{$company->PreventionDesc}}</textarea>
       </div>
       <div class="form-row"></div>
       <div class="form-row" style="display: flex; justify-content: center;">

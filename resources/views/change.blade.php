@@ -5,7 +5,15 @@
 @section('content_header')
     <h1 class="m-0 text-dark">修改密码</h1>
 @stop
-
+@section('css')
+<style>
+    .label {
+        text-align:justify;
+        text-align-last:justify;
+        width: 80px;
+    }
+</style>
+@stop
 @section('content')
     <div class="row">
         <div class="container-fluid">
@@ -14,12 +22,12 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     <div class="card-body">
                         <div class="row">
-                            <label for="name">用户名：</label>
+                            <label for="name" class="label">用户名：</label>
                             <input id="name" name="name" type="text" readonly value="{{$user->name}}"/>
                         </div>
                         <br/>
                         <div class="row">
-                            <label for="password">密码：</label>
+                            <label for="password" class="label">密码：</label>
                             <input id="password" name="password" type="password" />
                         </div>
                         <br/>
@@ -28,7 +36,7 @@
                         </div>
                         <br/>
                         <div class="row">
-                            <label for="password_confirmation">确认密码：</label>
+                            <label for="password_confirmation" class="label">确认密码：</label>
                             <input id="password_confirmation" name="password_confirmation" type="password" />
                         </div>
                         <br/>

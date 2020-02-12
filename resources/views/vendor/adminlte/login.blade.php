@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>{{config('app.name')}}</title>
     <style>
         html,
         body {
@@ -153,7 +154,7 @@
     </style>
 </head>
 <body>
-<h1>鄞州区企业疫情防控复工预审管理系统</h1>
+<h1>{{config('app.name')}}</h1>
 <div class="login-form-container">
     <!-- <div class="switch-tab">
       <div class="tab-item">
