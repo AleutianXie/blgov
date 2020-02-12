@@ -32,7 +32,7 @@
                             <h4 class="text-left"><span>企业复工人数：{{$enterprise->BackEmpNumber}}</span></h4>
                             <h4 class="text-left"><span>企业地址：{{$enterprise->Address}}</span></h4>
                             <h4 class="text-left"><span>手机号码：{{$enterprise->PhoneNumber}}</span></h4>
-                            <h4 class="text-left"><span>行业：{{$enterprise->industry}}</span></h4>
+                            <h4 class="text-left"><span>行业：{{$enterprise->Industry}}</span></h4>
                         </div>
                         <!-- /.col -->
                     </div>
