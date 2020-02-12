@@ -14,7 +14,8 @@ class CompanyController extends Controller
     public function index(Request $request)
     {
         if($request->user()->enterprise_id) {
-            $company = Enterprise::with(['town','industries:IndustryTableID,IndustryName'])->findOrFail($request->user()->enterprise_id);
+            $company = Enterprise::with(['town','industries:IndustryTableID,IndustryName'])
+                ->findOrFail($request->user()->enterprise_id);
             return view('company.index', compact('company'));
         }
         return "Access deny";
@@ -35,16 +36,10 @@ class CompanyController extends Controller
     public function update(CompanyRequest $request)
     {
         $data =  $request->validated();
-
-        if ($data['BackEmpNumber'] > $data['EmployeesNumber']){
-            return back()->withErrors(['EmployeesNumber'=>'复工人数不能大于员工人数'])->withInput();
-        }
-
         $company = Enterprise::findOrFail($request->user()->enterprise_id);
         if (!$company->update($data)){
             return back()->withErrors(['fail'=>'更新失败'])->withInput();
         }
         return redirect(route('company'));
-
     }
 }
