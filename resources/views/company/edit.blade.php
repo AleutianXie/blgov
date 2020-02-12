@@ -97,7 +97,7 @@
       </div>
       <div class="form-row"></div>
       <div class="form-row" style="display: flex; justify-content: center;">
-        <a href="{{route('company')}}"><button class="btn btn-default" type="submit">取消</button></a>
+        <a href="{{route('company')}}"><button class="btn btn-default" type="button">取消</button></a>
         &emsp;&emsp;
         <button class="btn btn-primary" type="submit">保存</button>
       </div>

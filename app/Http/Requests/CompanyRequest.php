@@ -44,9 +44,27 @@ class CompanyRequest extends FormRequest
     {
         return [
             'OrganizationCode.required' => '组织机构代码不能为空!',
-            'StartDate.date' => '开工时间错误',
-            'Contacts.required' => '联系人不能为空',
+            'StartDate.date'            => '开工时间错误',
+            'Contacts.required'         => '联系人不能为空',
         ];
     }
 
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($this->compareEmployAndBackEmpNumber($validator)) {
+                $validator->errors()->add('BackEmpNumber', '复工人数不能大于员工人数!');
+            }
+        });
+    }
+
+    private function compareEmployAndBackEmpNumber($validator): bool
+    {
+
+        $data = $validator->validated();
+        if ($data['BackEmpNumber'] > $data['EmployeesNumber']){
+            return true;
+        }
+        return false;
+    }
 }
