@@ -50,13 +50,13 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <a href="/storage/950a6719ee251781eacfe3fe00f9e37a.docx" target="download">《企业（单位）复工申请（承诺）表》</a>
+                        <a href="/storage/950a6719ee251781eacfe3fe00f9e37a.docx" download="《企业（单位）复工申请（承诺）表》.docx" target="download">《企业（单位）复工申请（承诺）表》</a>
                     </div>
                     <div class="row">
-                        <a href="/storage/f3b676170fc6c0bbf95c792b318b45d8.docx" target="download">《企业（单位）返工人员调查总表》</a>
+                        <a href="/storage/f3b676170fc6c0bbf95c792b318b45d8.docx" download="《企业（单位）返工人员调查总表》.docx" target="download">《企业（单位）返工人员调查总表》</a>
                     </div>
                     <div class="row">
-                        <a href="/storage/0839f271ec76a9178eef12e606d15283.docx" target="download">《企业（单位）复工防疫方案》</a>
+                        <a href="/storage/0839f271ec76a9178eef12e606d15283.docx" download="《企业（单位）复工防疫方案》.docx" target="download">《企业（单位）复工防疫方案》</a>
                     </div>
                 </div>
             </div>
