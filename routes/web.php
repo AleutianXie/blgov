@@ -41,5 +41,7 @@ Route::group(['prefix'=> 'company', 'middleware' => 'auth'], function(){
 Route::group(['prefix'=>'statistical', 'middleware'=> 'auth'], function(){
     Route::get('/', 'StatisticalController@index')->name('statistical');
     Route::get('/data', 'StatisticalController@statisticalData');
-    Route::get('/register', 'StatisticalController@register')->name('statistical.register');
+    Route::get('/register', 'StatisticalController@register');
+    Route::get('/company', 'StatisticalController@company');
+    Route::any('/queryCompany', 'StatisticalController@queryCompany');
 });
