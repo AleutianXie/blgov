@@ -125,6 +125,13 @@ return [
 
     'city' => env('CITY', '鄞州区'),
 
+    // api url prefix
+    'api_url' => [
+        'summary'   => env('API_PREFIX_SUMMARY','http://ncp.nbyz.gov.cn:8000/api/summary'),
+        'medical'   => env('API_PREFIX_MEDICAL','http://ncp.nbyz.gov.cn:8000/api/medical'),
+        'touch'     => env('API_PREFIX_TOUCH','http://ncp.nbyz.gov.cn:8000/api/touch'),
+        'back'      => env('API_PREFIX_BACK','http://ncp.nbyz.gov.cn:8000/api/back'),
+    ],
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

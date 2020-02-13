@@ -32,7 +32,7 @@ class StatisticalController extends Controller
                 ->pluck('count','status')
                 ->toJson();
         }
-        return view('statistical', compact('statusGroup'));
+        return view('statistic.reported', compact('statusGroup'));
 
     }
 
@@ -61,6 +61,19 @@ class StatisticalController extends Controller
         }
 
         return $enterprises;
+    }
+
+    public function register(Request $request)
+    {
+        $user = $request->user();
+        $town_id = $user->town_id;
+        $urls = [
+            'summary'   => config('app.api_url.summary'),
+            'medical'   => config('app.api_url.medical'),
+            'touch'     => config('app.api_url.touch'),
+            'back'      => config('app.api_url.back'),
+        ];
+        return view('statistic.registed', compact('town_id', 'urls')); 
     }
 
 }

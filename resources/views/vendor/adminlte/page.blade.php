@@ -146,39 +146,53 @@
 {{--                </nav>--}}
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu">
-                        <li class="nav-item ">
-                            <a class="nav-link " href="{{url('password/change')}}">
-                                <i class="fas fa-fw fa-key "></i>
-                                <p>
-                                    修改密码
-
-                                </p>
-                            </a>
-                        </li>
+                        
                         @if (Auth::user()->is_admin)
+                            <li class="header"style="color:#4b646f">企业目录</li>
+                            <!--
                             <li class="nav-item ">
                                 <a class="nav-link " href="{{url('enterprise')}}">
                                     <i class="fas fa-fw fa-list "></i>
                                     <p>
-                                        企业目录
+                                        已注册企业汇总
+                                    </p>
+                                </a>
+                            </li>
+                        -->
+                            <li class="nav-item ">
+                                <a class="nav-link " href="{{url('enterprise')}}">
+                                    <i class="fas fa-fw fa-clipboard-list "></i>
+                                    <p>
+                                        已申报企业查询
+
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="header"style="color:#4b646f">查询统计</li>
+                            <li class="nav-item ">
+                                <a class="nav-link " href="{{url('statistical/register')}}">
+                                    <i class="fas fa-fw fa-chart-area "></i>
+                                    <p>
+                                        已注册企业统计
 
                                     </p>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="{{url('statistical')}}">
-                                    <i class="fas fa-fw fa-i-cursor "></i>
+                                    <i class="fas fa-fw fa-chart-line "></i>
                                     <p>
-                                        查询统计
+                                        已申报企业统计
 
                                     </p>
                                 </a>
                             </li>
                             
                         @else
+                            <li class="header"style="color:#4b646f">企业目录</li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="{{route('company')}}">
-                                    <i class="fas fa-fw fa-file "></i>
+                                <a class="nav-link " href="{{url('company/index')}}">
+                                    <i class="fas fa-fw fa-id-card "></i>
                                     <p>
                                         基本信息
 
@@ -187,7 +201,7 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="{{url('enterprise/my')}}">
-                                    <i class="fas fa-fw fa-id-card "></i>
+                                    <i class="fas fa-fw fa-procedures "></i>
                                     <p>
                                         预审申报
 
@@ -204,6 +218,15 @@
                                 </a>
                             </li>
                         @endif
+                        <li class="header"style="color:#4b646f">其他</li>
+                        <li class="nav-item ">
+                            <a class="nav-link " href="{{url('password/change')}}">
+                                <i class="fas fa-fw fa-key "></i>
+                                <p>
+                                    修改密码
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>

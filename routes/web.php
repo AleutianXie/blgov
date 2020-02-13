@@ -32,11 +32,14 @@ Route::post('/enterprise/{id}', 'EnterpriseController@audit')->where('id', '[0-9
 Route::post('/password/change', 'UserController@changePassword')->name('user.changePassword')->middleware('auth');
 Route::get('/password/change', 'UserController@change')->name('user.change')->middleware('auth');
 
-Route::group(['prefix'=> 'enterprise', 'middleware' => 'auth'], function(){
+Route::group(['prefix'=> 'company', 'middleware' => 'auth'], function(){
     Route::get('/index', 'CompanyController@index')->name('company');
     Route::get('/edit', 'CompanyController@edit')->name('company.edit');
     Route::put('/update', 'CompanyController@update')->name('company.update');
 });
 
-Route::get('/statistical', 'StatisticalController@index')->name('statistical')->middleware('auth');
-Route::get('/statistical/data', 'StatisticalController@statisticalData')->middleware('auth');
+Route::group(['prefix'=>'statistical', 'middleware'=> 'auth'], function(){
+    Route::get('/', 'StatisticalController@index')->name('statistical');
+    Route::get('/data', 'StatisticalController@statisticalData');
+    Route::get('/register', 'StatisticalController@register')->name('statistical.register');
+});
