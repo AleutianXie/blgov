@@ -103,7 +103,7 @@ class StatisticalController extends Controller
         $town = $request->get('townType');
         $request->session()->flash('townType',$town);
         if (!$perPage = $request->get('per_page')){
-            $perPage = 1;
+            $perPage = 10;
         }
         $start = $request->get('start');
         $end = $request->get('end');
