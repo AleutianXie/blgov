@@ -62,7 +62,7 @@
                     <div class="row">
                         <a href="/storage/f3b676170fc6c0bbf95c792b318b45d8.docx" download="《企业（单位）返工人员调查总表》.docx" target="download">《企业（单位）返工人员调查总表》</a>
                         @if (count($enterprise->employees) > 0)
-                            <a href="/employee/export" download="企业（单位）返工人员调查总表" target="download" class="btn btn-sm btn-primary">点击下戴移动端数据</a>
+                            <a href="/employee/export" download="企业（单位）返工人员调查总表" target="download" class="btn btn-sm btn-primary">下载移动端员工填报数据</a>
                         @endif
                         <div style="    position: absolute;
     right: 50px;">
@@ -88,6 +88,7 @@
                 <div class="card-body">
                     <div class="row">
                         <h5>《企业（单位）复工申请（承诺）表》</h5>
+                        <span style="color: blue;">(支持doc、docx、pdf，文件大小不能超过10M)</span>
                     </div>
                     <br/>
                     <div class="row">
@@ -100,6 +101,7 @@
                     <br/>
                     <div class="row">
                         <h5>《企业（单位）返工人员调查总表》</h5>
+                        <span style="color: blue;">(支持doc、docx、pdf，文件大小不能超过10M)</span>
                     </div>
                     <br/>
                     <div class="row">
@@ -112,6 +114,7 @@
                     <br/>
                     <div class="row">
                         <h5>《企业（单位）复工防疫方案》</h5>
+                        <span style="color: blue;">(支持doc、docx、pdf，文件大小不能超过10M)</span>
                     </div>
                     <br/>
                     <div class="row">
