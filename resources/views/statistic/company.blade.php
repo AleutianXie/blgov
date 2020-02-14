@@ -173,6 +173,7 @@
                 </tr>
             </thead>
             <tbody>
+                @if ($enterprises->count())
                 @foreach($enterprises as $enterp)
                 <tr>
                     <td>{{$enterp->EnterpriseName}}</td>
@@ -191,9 +192,12 @@
                             @endif
                         @endif
                     </td>
-                    <td><a href="/enterprise/{{$enterp->EnterpriseID}}" target="_blank">详情</a></td>
+                    <td><a href="/enterprise/{{$enterp->EnterpriseID}}" target="_blank" data-tag='f'>详情</a></td>
                 </tr>
                 @endforeach
+                @else
+                    <tr><td colspan="8" style="text-align:center;height:50px;">表中数据为空</td></tr>
+                @endif
             </tbody>
         </table>
         <div style="width: 100%;display:flex;margin-top:20px;">
@@ -221,6 +225,19 @@
 <script src="/lib/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="/lib/spin.min.js"></script>
 <script>
+    var upDownQueryParams = localStorage.getItem('upDownQueryParams');
+    if (upDownQueryParams != null || upDownQueryParams != undefined) {
+        if (upDownQueryParams == 0) {
+            $('.upDownQueryParams').find('span').html('收起');
+            $('.upDownQueryParams').attr('data-id',0);
+            willDown(0,0);
+        } else if(upDownQueryParams == 1){
+            $('.upDownQueryParams').find('span').html('展开');
+            $('.upDownQueryParams').attr('data-id',1);
+            console.log($('.upDownQueryParams').data('id'))
+            willUp(0,0);
+        }
+    }
     $('a').click(function(){
         if ($(this).data('tag') != 'f'){
             new Spinner().spin(document.getElementById('datatable'));
@@ -281,37 +298,45 @@
         $(this).addClass('btn-primary');
     });
     $('.upDownQueryParams').click(function(){
-        var id = $(this).data('id');
+        var id = $(this).attr('data-id');
         console.log(id)
         if (id == 0) {
         //up
-        $(this).css({"margin-right":"20px"});
-        $(this).find('span').html('展开');
-        $(this).data('id',1);
-        $(this).find('i').removeClass('fa-angle-up').addClass('fa-angle-down');
-        $('.query-row2').slideUp(120);
-        $('.query-row3').slideUp(100);
+            $(this).css({"margin-right":"20px"});
+            $(this).attr('data-id',1);
+            $(this).find('i').removeClass('fa-angle-up').addClass('fa-angle-down');
+            localStorage.setItem('upDownQueryParams',1);
+            $(this).find('span').html('展开');
+            willUp(120,100);
+        } else {
+        //down
+            $(this).css({"margin-right":"0px"});
+            $(this).attr('data-id',0);
+            $(this).find('i').removeClass('fa-angle-down').addClass('fa-angle-up')
+            localStorage.setItem('upDownQueryParams',0);
+            $(this).find('span').html('收起');
+            willDown(100,120);
+        }
+    });
+    function willUp(row2,row3){
+        $('.query-row2').slideUp(row2);
+        $('.query-row3').slideUp(row3);
         $('.query-row1-one').css({"opacity":"0"});
         $('.query-row1-town').css({"opacity":"0"});
         $('.refresh').css({"opacity":"0"});
         $('.query-card-body').css({"margin-top":"20px","padding":"0"});
         $('.query-card').css({"box-shadow":"0 0 1px rgb(244, 246, 249),0 1px 3px rgb(244, 246, 249)","background":"#f4f6f9","margin-bottom":"0"});
+    }
 
-        } else {
-        //down
-        $(this).css({"margin-right":"0px"});
-        $('.query-row2').slideDown(100);
-        $('.query-row3').slideDown(120);
-        $(this).find('span').html('收起');
-        $(this).data('id',0);
-        $(this).find('i').removeClass('fa-angle-down').addClass('fa-angle-up')
+    function willDown(row2,row3){
+        $('.query-row2').slideDown(row2);
+        $('.query-row3').slideDown(row3);
         $('.query-row1-one').css({"opacity":"1"});
         $('.query-row1-town').css({"opacity":"1"});
         $('.refresh').css({"opacity":"1"});
         $('.query-card-body').css({"margin-top":"0","padding": "1.25rem"});
         $('.query-card').css({"box-shadow":"0 0 1px rgba(0,0,0,.125),0 1px 3px rgba(0,0,0,.2)","background":"#fff","margin-bottom":"1rem"});
-        }
-    });
+    }
 
 </script>
 @stop
