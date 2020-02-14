@@ -61,4 +61,9 @@ class Employee extends Model
         "Desc",
         "ReturnNingBoDate"
     ];
+
+    public function scopeEnterprise($query, $enterprise)
+    {
+        return $query->where('EnterpriseID', $enterprise);
+    }
 }

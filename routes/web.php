@@ -31,6 +31,7 @@ Route::post('/enterprise/my', 'EnterpriseController@apply')->name('enterprise.po
 Route::post('/enterprise/{id}', 'EnterpriseController@audit')->where('id', '[0-9]+')->name('enterprise.audit')->middleware('auth');
 Route::post('/password/change', 'UserController@changePassword')->name('user.changePassword')->middleware('auth');
 Route::get('/password/change', 'UserController@change')->name('user.change')->middleware('auth');
+Route::get('/employee/export', 'EmployeeController@export')->name('employee.export')->middleware('auth');
 
 Route::group(['prefix'=> 'company', 'middleware' => 'auth'], function(){
     Route::get('/index', 'CompanyController@index')->name('company');
