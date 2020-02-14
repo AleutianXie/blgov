@@ -96,7 +96,17 @@
                 },
                 {
                     title: '审核状态',
-                    data: 'status'
+                    render: function (data, type, row) {
+                        var color = 'blank';
+                        if(row.status == '审核通过') {
+                            color = 'green';
+                        } else if (row.status == '不通过'){
+                            color = 'red';
+                        } else if (row.status == '审核中'){
+                            color = 'blue';
+                        }
+                        return '<span style="color:'+color+'">'+row.status+'</span>';
+                    }
                 },
                 {
                     title: '操作',
