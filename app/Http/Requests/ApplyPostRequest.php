@@ -27,9 +27,9 @@ class ApplyPostRequest extends FormRequest
         if (Route::currentRouteName() == 'enterprise.post') {
             return [
                 'town' => 'required|exists:townTypeTable,TownID',
-                'file1' => 'required|mimes:jpeg,png,pdf,doc,docx,xlsx,xls|zip|max:10240',
-                'file2' => 'required|mimes:jpeg,png,pdf,doc,docx,xlsx,xls|zip|max:10240',
-                'file3' => 'required|mimes:jpeg,png,pdf,doc,docx,xlsx,xls|zip|max:10240',
+                'file1' => 'required|mimes:jpeg,png,pdf,doc,docx,xlsx,xls,zip|max:10240',
+                'file2' => 'required|mimes:jpeg,png,pdf,doc,docx,xlsx,xls,zip|max:10240',
+                'file3' => 'required|mimes:jpeg,png,pdf,doc,docx,xlsx,xls,zip|max:10240',
                 'file4' => 'mimes:rar,zip|max:20480',
             ];
         }
