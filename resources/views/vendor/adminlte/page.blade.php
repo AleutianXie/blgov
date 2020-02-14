@@ -149,16 +149,14 @@
                         
                         @if (Auth::user()->is_admin)
                             <li class="header"style="color:#4b646f">企业目录</li>
-                            <!--
                             <li class="nav-item ">
-                                <a class="nav-link " href="{{url('enterprise')}}">
+                                <a class="nav-link " href="{{url('statistical/company')}}">
                                     <i class="fas fa-fw fa-list "></i>
                                     <p>
-                                        已注册企业汇总
+                                        已注册企业查询
                                     </p>
                                 </a>
                             </li>
-                        -->
                             <li class="nav-item ">
                                 <a class="nav-link " href="{{url('enterprise')}}">
                                     <i class="fas fa-fw fa-clipboard-list "></i>
@@ -201,7 +199,7 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="{{url('enterprise/my')}}">
-                                    <i class="fas fa-fw fa-procedures "></i>
+                                    <i class="fas fa-fw fa-list-alt "></i>
                                     <p>
                                         预审申报
 
@@ -210,7 +208,7 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="{{url('enterprise/revision')}}">
-                                    <i class="fas fa-fw fa-bandcamp "></i>
+                                    <i class="fas fa-fw fa-align-left "></i>
                                     <p>
                                         进度查询
 

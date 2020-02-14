@@ -100,7 +100,7 @@
       <div id="backUser">
         <p style="font-size: 30px;" id="backUserVal">0
         </p>
-        <p style="font-size: 20px;">在甬员工数</p>
+        <p style="font-size: 20px;">复工人员总数</p>
       </div>
     </div>
     <div class="divide2">
@@ -114,21 +114,26 @@
 
   <div class="list" style="display:flex">
     <div class="list-title" id="genderSpin">
-      <div style=" margin-bottom: 20px;">性别占比</div>
+      <div style=" margin-bottom: 20px;">行业占比</div>
       <div style="display:flex">
         <div id="genderMain" style="width: 100%;height:200px;"></div>
         <ul>
           <li>
             <span
               style=" display:inline-block; width: 10px;height: 10px;border-radius: 50%; background: #00D6A7;"></span>
-            男：<span id="psssCount"></span>
+              工业：<span id="gongyeCount"></span>
           </li>
           <li>
             
           <li>
             <span
               style=" display:inline-block; width: 10px;height: 10px;border-radius: 50%; background: #F2637B;"></span>
-            女：<span id="ingCount"></span>
+              建筑房产：<span id="buildCount"></span>
+          </li>
+          <li>
+            <span
+              style=" display:inline-block; width: 10px;height: 10px;border-radius: 50%; background: #13C2C2;"></span>
+              其他商贸业：<span id="otherCount"></span>
           </li>
         </ul>
       </div>
@@ -205,7 +210,7 @@
     }
     var genderMain = echarts.init(document.getElementById('genderMain'));
     var genderOption = {
-      color: ["#00D6A7", "#F2637B"],
+      color: ["#00D6A7", "#F2637B", "#13C2C2"],
       series: [
         {
           type: "pie",
@@ -252,13 +257,6 @@
           if (summary[i].label == '在甬员工数') {$('#backUserVal').html(summary[i].value);backUser.stop()}
         }
         var gender = res.gender;
-       
-        for (var j=0;j<gender.length;j++){
-          if (gender[j].key == '男'){genderOption.series[0].data.push({value:gender[j].value,name:'男'});$('#psssCount').html(gender[j].value)}
-          if (gender[j].key == '女'){genderOption.series[0].data.push({value:gender[j].value,name:'女'});$('#ingCount').html(gender[j].value)}
-          genderSpin.stop();
-        }
-        genderMain.setOption(genderOption);
         
         var outing = res.outing;
         for(var k=0;k<outing.length;k++){
@@ -378,6 +376,36 @@
           }
         }
         backTimeMain.setOption(backTimeOption);
+      }
+    });
+
+    $.ajax({
+      url: '/statistical/fetchIndustry',
+      method: 'get',
+      success: function(res){
+        var gongye = 0; //600006
+        var build = 0; //600007 + 600008
+        var other = 0;
+        for (var i =0;i<res.length;i++){
+          if (res[i].IndustryTableID == 600006){
+            gongye = res[i].count;
+          } else if (res[i].IndustryTableID == 600007){
+            build += res[i].count;
+          } else if (res[i].IndustryTableID == 600008){
+            build += res[i].count;
+          } else {
+            other += res[i].count;
+          }
+        }
+        genderOption.series[0].data.push({value:gongye,name:'工业'});
+        $('#gongyeCount').html(gongye);
+        genderOption.series[0].data.push({value:build,name:'建筑房产'});
+        $('#buildCount').html(build);
+        genderOption.series[0].data.push({value:other,name:'其他商贸业'});
+        $('#otherCount').html(other);
+        genderMain.setOption(genderOption);
+        genderSpin.stop();
+        console.log(gongye,build,other)
       }
     });
 </script>
