@@ -171,6 +171,8 @@ class StatisticalController extends Controller
         } else {
             $request->session()->flash('start','');
             $request->session()->flash('end','');
+            $request->session()->flash('showStart','');
+            $request->session()->flash('showEnd','');
         }
 
         

@@ -117,7 +117,7 @@
             </div>
 
             <div class="col-md-2" style="text-align:right;line-height:40px;">
-                <a href="/statistical/company?start=&end=" style="margin-right:5px;" class="refresh">刷新</a>
+                <a href="/statistical/company?start=&end="  style="margin-right:5px;" class="refresh">刷新</a>
                 <a href="#" class="upDownQueryParams" data-tag='f' data-id="0"><span>收起</span> <i class="fa fa-angle-up"></i></a>
             </div>
         </div>
@@ -297,6 +297,10 @@
         $('.townTypeBtn').removeClass('btn-primary');
         $(this).addClass('btn-primary');
     });
+    $('.refresh').click(function(){
+        $("input[name='startDate']").val('');
+        $("input[name='endDate']").val('');
+    })
     $('.upDownQueryParams').click(function(){
         var id = $(this).attr('data-id');
         console.log(id)
