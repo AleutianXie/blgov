@@ -5,7 +5,7 @@
 @section('content_header')
     <h1 class="m-0 text-dark">企业详情</h1>
 @stop
-
+<style></style>
 @section('content')
     <div class="row">
         <div class="container-fluid">
@@ -19,7 +19,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-6 col-md-6">
+                        <div class="col-sm-6 col-md-6 message-name">
                             <h4 class="text-left"><span>企业名称：{{$enterprise->EnterpriseName}}</span></h4>
                             <h4 class="text-left"><span>企业总人数：{{$enterprise->EmployeesNumber}}</span></h4>
                             <h4 class="text-left"><span>所属街道：{{$towns[$enterprise->TownID]}}</span></h4>
@@ -48,12 +48,24 @@
                         文件下载列表
                     </h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="padding-bottom:50px;">
                     <div class="row">
                         <a href="/storage/950a6719ee251781eacfe3fe00f9e37a.docx" download="《企业（单位）复工申请（承诺）表》.docx" target="download">《企业（单位）复工申请（承诺）表》</a>
+                        <div style="    position: absolute;
+    right: 50px;">
+                        <p style="color:red; margin-bottom:0;margin-left:7px">瞻岐镇需在附件中另提交以下文件的附件3：</p>
+                        <a href="/fugong.doc" download="fugong.doc" target="download">《鄞防[2020]5号工业复工文件》</a>
+                        <p style="color:red; margin-bottom:0;margin-left:7px">塘西镇企业采用以下文件作为复工申请填报模板，请在附件中提交：</p>
+                        <a href="/tangxi.doc" download="tangxi.doc" target="download">《塘西镇企业新型冠状病毒感染肺炎疫情企业复工模板》</a>
+                        </div>
                     </div>
                     <div class="row">
                         <a href="/storage/f3b676170fc6c0bbf95c792b318b45d8.docx" download="《企业（单位）返工人员调查总表》.docx" target="download">《企业（单位）返工人员调查总表》</a>
+                        <div style="    position: absolute;
+    right: 50px;">
+                        
+                        
+                        </div>
                     </div>
                     <div class="row">
                         <a href="/storage/0839f271ec76a9178eef12e606d15283.docx" download="《企业（单位）复工防疫方案》.docx" target="download">《企业（单位）复工防疫方案》</a>

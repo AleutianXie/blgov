@@ -199,7 +199,7 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="{{url('enterprise/my')}}">
-                                    <i class="fas fa-fw fa-procedures "></i>
+                                    <i class="fas fa-fw fa-list-alt "></i>
                                     <p>
                                         预审申报
 
@@ -208,7 +208,7 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="{{url('enterprise/revision')}}">
-                                    <i class="fas fa-fw fa-bandcamp "></i>
+                                    <i class="fas fa-fw fa-align-left "></i>
                                     <p>
                                         进度查询
 
