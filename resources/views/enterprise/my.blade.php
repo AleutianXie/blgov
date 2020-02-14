@@ -55,8 +55,8 @@
     right: 50px;">
                         <p style="color:red; margin-bottom:0;margin-left:7px">瞻岐镇需在附件中另提交以下文件的附件3：</p>
                         <a href="/fugong.doc" download="fugong.doc" target="download">《鄞防[2020]5号工业复工文件》</a>
-                        <p style="color:red; margin-bottom:0;margin-left:7px">塘西镇企业采用以下文件作为复工申请填报模板，请在附件中提交：</p>
-                        <a href="/tangxi.doc" download="tangxi.doc" target="download">《塘西镇企业新型冠状病毒感染肺炎疫情企业复工模板》</a>
+                        <p style="color:red; margin-bottom:0;margin-left:7px">塘溪镇企业采用以下文件作为复工申请填报模板，请在附件中提交：</p>
+                        <a href="/tangxi.doc" download="tangxi.doc" target="download">《塘溪镇企业新型冠状病毒感染肺炎疫情企业复工模板》</a>
                         </div>
                     </div>
                     <div class="row">
