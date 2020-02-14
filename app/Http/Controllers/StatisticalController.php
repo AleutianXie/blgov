@@ -120,16 +120,16 @@ class StatisticalController extends Controller
                     $enterprises = Enterprise::where('enterpriseInfoTable.IndustryTableID', $ind);
                 }
             } else {
-                if ($town && is_numeric($town) && $town < 1000000000){
-                    $enterprises = Enterprise::whereRaw('("enterpriseInfoTable"."IndustryTableID" between '.$user->industry_id_min.' and '.$user->industry_id_max.' or "enterpriseInfoTable"."IndustryTableID" is null)');
-                } else {
-                    $enterprises = Enterprise::whereBetween('enterpriseInfoTable.IndustryTableID',[$user->industry_id_min, $user->industry_id_max])
-                        ->orWhereRaw('"enterpriseInfoTable"."IndustryTableID" is null');
-                }
+                // if ($town && is_numeric($town) && $town < 1000000000){
+                //     $enterprises = Enterprise::whereRaw('("enterpriseInfoTable"."IndustryTableID" between '.$user->industry_id_min.' and '.$user->industry_id_max.' or "enterpriseInfoTable"."IndustryTableID" is null)');
+                // } else {
+                //     $enterprises = Enterprise::whereBetween('enterpriseInfoTable.IndustryTableID',[$user->industry_id_min, $user->industry_id_max])
+                //         ->orWhereRaw('"enterpriseInfoTable"."IndustryTableID" is null');
+                // }
+                $enterprises = Enterprise::whereRaw('("enterpriseInfoTable"."IndustryTableID" between '.$user->industry_id_min.' and '.$user->industry_id_max.' or "enterpriseInfoTable"."IndustryTableID" is null)');
             }
         } else {
             //乡镇
-            info('乡镇');
             $enterprises = Enterprise::where('enterpriseInfoTable.TownID', $town_id);
             if ($ind && is_numeric($ind) && $ind < 2000000000){
                 if ($ind == 600026){
@@ -145,6 +145,7 @@ class StatisticalController extends Controller
         if ($reportStatus && is_numeric($reportStatus) && $reportStatus < 2000000000){
             $enterprises->rightJoin('report', 'report.enterprise_id', '=', 'enterpriseInfoTable.EnterpriseID')
                 ->where('report.status', $reportStatus);
+                info('reportStatus = '.$reportStatus);
         }
 
         if ($town && is_numeric($town) && $town < 1000000000){
@@ -167,6 +168,9 @@ class StatisticalController extends Controller
             $request->session()->flash('showEnd',$end);
             
             $enterprises->whereBetween('StartDate', [$start, $end]);
+        } else {
+            $request->session()->flash('start','');
+            $request->session()->flash('end','');
         }
 
         
@@ -214,6 +218,27 @@ class StatisticalController extends Controller
         $enterprises = $enterprises->with(['report', 'town', 'industries:IndustryTableID,IndustryName'])
             ->select('EnterpriseName', 'EnterpriseScale', 'StartDate', 'District', 'IndustryTableID', 'TownID')
             ->paginate($perPage);
+
+        return response()->json($enterprises);
+    }
+
+    public function industry(Request $request)
+    {
+        $user = $request->user();
+        $town_id = $user->town_id;
+        if (!$town_id){
+            //局
+            // $enterprises = Enterprise::whereBetween('enterpriseInfoTable.IndustryTableID',[$user->industry_id_min, $user->industry_id_max]);
+            $enterprises = Enterprise::whereRaw('("enterpriseInfoTable"."IndustryTableID" between '.$user->industry_id_min.' and '.$user->industry_id_max.' or "enterpriseInfoTable"."IndustryTableID" is null)');
+        } else {
+            //乡镇
+            $enterprises = Enterprise::where('enterpriseInfoTable.TownID', $town_id);
+        }
+        
+        $enterprises = $enterprises->selectRaw('count(*), "IndustryTableID"')
+            ->orderBy('IndustryTableID','asc')
+            ->groupBy('IndustryTableID')
+            ->get();
 
         return response()->json($enterprises);
     }

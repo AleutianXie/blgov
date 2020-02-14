@@ -153,7 +153,7 @@
                                 <a class="nav-link " href="{{url('statistical/company')}}">
                                     <i class="fas fa-fw fa-list "></i>
                                     <p>
-                                        已注册企业汇总
+                                        已注册企业查询
                                     </p>
                                 </a>
                             </li>

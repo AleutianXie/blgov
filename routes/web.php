@@ -43,5 +43,5 @@ Route::group(['prefix'=>'statistical', 'middleware'=> 'auth'], function(){
     Route::get('/data', 'StatisticalController@statisticalData');
     Route::get('/register', 'StatisticalController@register');
     Route::get('/company', 'StatisticalController@company');
-    Route::any('/queryCompany', 'StatisticalController@queryCompany');
+    Route::get('/fetchIndustry', 'StatisticalController@industry');
 });

@@ -117,7 +117,7 @@
             </div>
 
             <div class="col-md-2" style="text-align:right;line-height:40px;">
-                <a href="/statistical/company" style="margin-right:5px;" class="refresh">刷新</a>
+                <a href="/statistical/company?start=&end=" style="margin-right:5px;" class="refresh">刷新</a>
                 <a href="#" class="upDownQueryParams" data-tag='f' data-id="0"><span>收起</span> <i class="fa fa-angle-up"></i></a>
             </div>
         </div>
@@ -184,11 +184,11 @@
                     <td>{{$enterp->StartDate}}</td>
                     <td>
                         @if(!$enterp->report)
-                            未申报
+                            <span style="color:#000000">未申报</span>
                         @else 
-                            @if($enterp->report->status == 1) 审批中
-                            @elseif($enterp->report->status == 2) 通过
-                            @elseif($enterp->report->status == 3) 不通过
+                            @if($enterp->report->status == 1) <span style="color:blue">审批中</span>
+                            @elseif($enterp->report->status == 2) <span style="color:green">通过</span>
+                            @elseif($enterp->report->status == 3) <span style="color:red">未通过</span>
                             @endif
                         @endif
                     </td>
