@@ -133,13 +133,12 @@ class StatisticalController extends Controller
             $enterprises = Enterprise::where('enterpriseInfoTable.TownID', $town_id);
             if ($ind && is_numeric($ind) && $ind < 2000000000){
                 if ($ind == 600026){
-                    $enterprises->where('enterpriseInfoTable.IndustryTableID', $ind)
-                        ->orWhereRaw('"enterpriseInfoTable"."IndustryTableID" is null');
+                    $enterprises->whereRaw('("enterpriseInfoTable"."IndustryTableID" = '.$ind.' or "enterpriseInfoTable"."IndustryTableID" is null)');
                 } else {
                     $enterprises->where('enterpriseInfoTable.IndustryTableID', $ind);
                 }
             } elseif($ind == 0) {
-                $enterprises->orWhereRaw('"enterpriseInfoTable"."IndustryTableID" is null');
+                // $enterprises->orWhereRaw('"enterpriseInfoTable"."IndustryTableID" is null');
             }
         }
 
