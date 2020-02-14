@@ -132,6 +132,12 @@
                     </div>
                     <br/>
                     <div class="row">
+                    <span style="display: flex;
+                    height:38px;
+    justify-content: center;
+    color: rgba;
+    color: rgba(0,0,0,0.65);
+    align-items: center;">选择申报街道：</span>
                         <select name="town" id="town" class="col-md-3">
                             <option value=""></option>
                             @foreach($towns as $id => $name)
