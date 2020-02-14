@@ -51,23 +51,19 @@
                 <div class="card-body" style="padding-bottom:50px;">
                     <div class="row">
                         <a href="/storage/950a6719ee251781eacfe3fe00f9e37a.docx" download="《企业（单位）复工申请（承诺）表》.docx" target="download">《企业（单位）复工申请（承诺）表》</a>
-                        <div style="    position: absolute;
-    right: 50px;">
+                        <div style="position: absolute;right: 50px;">
                         <p style="color:red; margin-bottom:0;margin-left:7px">瞻岐镇需在附件中另提交以下文件的附件3：</p>
-                        <a href="/fugong.doc" download="fugong.doc" target="download">《鄞防[2020]5号工业复工文件》</a>
+                        <a href="/fugong.doc" download="《鄞防[2020]5号工业复工文件》.doc" target="download">《鄞防[2020]5号工业复工文件》</a>
                         <p style="color:red; margin-bottom:0;margin-left:7px">塘溪镇企业采用以下文件作为复工申请填报模板，请在附件中提交：</p>
-                        <a href="/tangxi.docx" download="tangxi.docx" target="download">《塘溪镇企业新型冠状病毒感染肺炎疫情企业复工模板》</a>
+                        <a href="/tangxi.docx" download="《塘溪镇企业新型冠状病毒感染肺炎疫情企业复工模板》.docx" target="download">《塘溪镇企业新型冠状病毒感染肺炎疫情企业复工模板》</a>
                         </div>
-                    </div>
+                    </div>  
                     <div class="row">
                         <a href="/storage/f3b676170fc6c0bbf95c792b318b45d8.docx" download="《企业（单位）返工人员调查总表》.docx" target="download">《企业（单位）返工人员调查总表》</a>
                         @if (count($enterprise->employees) > 0)
                             <a href="/employee/export" download="企业（单位）返工人员调查总表" target="download" class="btn btn-sm btn-primary">下载移动端员工填报数据</a>
                         @endif
-                        <div style="    position: absolute;
-    right: 50px;">
-
-
+                        <div style="position: absolute;right: 50px;">
                         </div>
                     </div>
                     <div class="row">
