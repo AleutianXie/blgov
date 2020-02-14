@@ -52,7 +52,7 @@
                 <div class="card-body">
                         @foreach(json_decode($enterprise->report->docs) as $item)
                         <div class="row">
-                            <a href="{{$item->url}}" target="download" download="{{$item->name}}">{{$item->name}}</a>
+                            <a href="{{$item->url}}" target="download" @if($item->name == '附件') download="{{$item->name}}.rar" @else download="{{$item->name}}"  @endif>{{$item->name}}</a>
                         </div>
                         @endforeach
                 </div>
