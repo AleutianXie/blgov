@@ -122,6 +122,7 @@
                     <br/>
                     <div class="row">
                         <h5>附件</h5>
+                        <span style="color: blue;">(支持rar、zip，文件大小不能超过10M)</span>
                     </div>
                     <br/>
                     <div class="row">
