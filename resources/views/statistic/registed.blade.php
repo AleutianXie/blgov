@@ -120,19 +120,19 @@
         <ul>
           <li>
             <span
-              style=" display:inline-block; width: 10px;height: 10px;border-radius: 50%; background: #00D6A7;"></span>
+              style=" display:inline-block; width: 10px;height: 10px;border-radius: 50%; background: #fecd5d;"></span>
               工业：<span id="gongyeCount"></span>
           </li>
           <li>
             
           <li>
             <span
-              style=" display:inline-block; width: 10px;height: 10px;border-radius: 50%; background: #F2637B;"></span>
+              style=" display:inline-block; width: 10px;height: 10px;border-radius: 50%; background: #ff5599;"></span>
               建筑房产：<span id="buildCount"></span>
           </li>
           <li>
             <span
-              style=" display:inline-block; width: 10px;height: 10px;border-radius: 50%; background: #13C2C2;"></span>
+              style=" display:inline-block; width: 10px;height: 10px;border-radius: 50%; background: #4089ff;"></span>
               其他商贸业：<span id="otherCount"></span>
           </li>
         </ul>
@@ -210,7 +210,7 @@
     }
     var genderMain = echarts.init(document.getElementById('genderMain'));
     var genderOption = {
-      color: ["#00D6A7", "#F2637B", "#13C2C2"],
+      color: ["#fecd5d", "#ff5599", "#4089ff"],
       series: [
         {
           type: "pie",
