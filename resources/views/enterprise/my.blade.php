@@ -54,6 +54,7 @@
                     </div>
                     <div class="row">
                         <a href="/storage/f3b676170fc6c0bbf95c792b318b45d8.docx" download="《企业（单位）返工人员调查总表》.docx" target="download">《企业（单位）返工人员调查总表》</a>
+                        <a href="/employee/export" download="企业（单位）返工人员调查总表" target="download" class="btn btn-sm btn-primary">点击下戴移动端数据</a>
                     </div>
                     <div class="row">
                         <a href="/storage/0839f271ec76a9178eef12e606d15283.docx" download="《企业（单位）复工防疫方案》.docx" target="download">《企业（单位）复工防疫方案》</a>
