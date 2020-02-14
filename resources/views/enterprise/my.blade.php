@@ -61,7 +61,9 @@
                     </div>
                     <div class="row">
                         <a href="/storage/f3b676170fc6c0bbf95c792b318b45d8.docx" download="《企业（单位）返工人员调查总表》.docx" target="download">《企业（单位）返工人员调查总表》</a>
-                        <a href="/employee/export" download="企业（单位）返工人员调查总表" target="download" class="btn btn-sm btn-primary">点击下戴移动端数据</a>
+                        @if (!empty($enterprise->employees))
+                            <a href="/employee/export" download="企业（单位）返工人员调查总表" target="download" class="btn btn-sm btn-primary">点击下戴移动端数据</a>
+                        @endif
                         <div style="    position: absolute;
     right: 50px;">
 

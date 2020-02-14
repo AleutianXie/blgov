@@ -48,6 +48,14 @@ class Enterprise extends Model
     }
 
     /**
+     * A enterprise can many one report.
+     */
+    public function employees()
+    {
+        return $this->hasMany(Employee::class, 'EnterpriseID', 'EnterpriseID');
+    }
+
+    /**
      * A enterprise belong to a town.
      */
     public function town()
