@@ -193,7 +193,6 @@ class Gov extends Command
         foreach ($owner_health_total as $key => $total) {
             Redis::hSet('blgov:summary:employee_owner_health:count:' . $yz_townID, $key, $total);
         }
-        var_dump($employee_owner_health_count);
 
         $this->info("Done at: " . date('Y-m-d H:i:s', time()));
     }

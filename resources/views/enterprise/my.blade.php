@@ -57,7 +57,7 @@
                         <p style="color:red; margin-bottom:0;margin-left:7px">塘溪镇企业采用以下文件作为复工申请填报模板，请在附件中提交：</p>
                         <a href="/tangxi.docx" download="《塘溪镇企业新型冠状病毒感染肺炎疫情企业复工模板》.docx" target="download">《塘溪镇企业新型冠状病毒感染肺炎疫情企业复工模板》</a>
                         </div>
-                    </div>  
+                    </div>
                     <div class="row">
                         <a href="/storage/f3b676170fc6c0bbf95c792b318b45d8.docx" download="《企业（单位）返工人员调查总表》.docx" target="download">《企业（单位）返工人员调查总表》</a>
                         @if (count($enterprise->employees) > 0)
@@ -81,7 +81,26 @@
                 </div>
                 <form enctype="multipart/form-data" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                <div class="card-body">
+                    <div class="card-body">
+                    <div class="row">
+                    <span style="display: flex;
+                    height:38px;
+    justify-content: center;
+    color: rgba;
+    color: rgba(0,0,0,0.65);
+    align-items: center;">选择申报街道：</span>
+                        <select name="town" id="town" class="col-md-3">
+                            <option value=""></option>
+                            @foreach($towns as $id => $name)
+                                <option value="{{$id}}">{{$name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                        <br/>
+                        <div class="row">
+                            <div class="alert-danger">{{ __($errors->first('town')) }}</div>
+                        </div>
+                        <br/>
                     <div class="row">
                         <h5>《企业（单位）复工申请（承诺）表》</h5>
                         <span style="color: blue;">(支持doc、docx、pdf，文件大小不能超过10M)</span>
@@ -134,29 +153,14 @@
                         <div class="alert-danger">{{ __($errors->first('file4')) }}</div>
                     </div>
                     <br/>
-                    <div class="row">
-                    <span style="display: flex;
-                    height:38px;
-    justify-content: center;
-    color: rgba;
-    color: rgba(0,0,0,0.65);
-    align-items: center;">选择申报街道：</span>
-                        <select name="town" id="town" class="col-md-3">
-                            <option value=""></option>
-                            @foreach($towns as $id => $name)
-                                <option value="{{$id}}">{{$name}}</option>
-                            @endforeach
-                        </select>
                         @if (empty($enterprise->report) || $enterprise->report->status == 3)
+                            <div class="row">
                             <div class="col-md-3 offset-md-3">
                                 <button type="submit" class="btn btn-primary btn-lg" data-toggle="offcanvas">点击申报</button>
                             </div>
+                            </div>
                         @endif
-                    </div>
-                    <br/>
-                    <div class="row">
-                        <div class="alert-danger">{{ __($errors->first('town')) }}</div>
-                    </div>
+
                 <!-- /.col -->
                 </div>
                 </form>
@@ -170,8 +174,9 @@
     <script>
         $(document).ready(function() {
             $('#town').select2({
-                placeholder: '请选择'
-            }).val('{{old('town')}}').trigger("change");
+                placeholder: '请选择',
+                allowClear: true
+            }).val("{{old('town')}}").trigger("change");
         });
     </script>
 @stop

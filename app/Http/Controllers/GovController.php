@@ -98,7 +98,7 @@ class GovController extends Controller
         $ret = [];
 
         $contact_situation_count = Redis::hGetAll('blgov:summary:employee_contact_situation:count:' . $townId);
-        $contact_situation_key = [0 => '无接触', 1 => '湖北接触'];
+        $contact_situation_key = [0 => '无接触', 1 => '疑似接触'];
         if ($contact_situation_count) {
             foreach ($contact_situation_count as $contact_situation => $count) {
                 $ret[] = ['value' => $count, 'key' => $contact_situation_key[$contact_situation]];
@@ -106,7 +106,7 @@ class GovController extends Controller
         } else {
             $ret = [
                 ['value' => 0, 'key' => '无接触'],
-                ['value' => 0, 'key' => '湖北接触']
+                ['value' => 0, 'key' => '疑似接触']
             ];
         }
 
@@ -145,5 +145,24 @@ class GovController extends Controller
         }
 
         return response()->json($ret);
+    }
+
+
+    public function detail(Request $request)
+    {
+
+    }
+
+    private function getModel(&$model, $filter = [])
+    {
+        if (!empty($filter['status'])) {
+            $model->reportStatus($filter['status']);
+        }
+        if (!empty($filter['industry'])) {
+            $model->industry($filter['industry']);
+        }
+        $model->with(['report' => function($query) {
+            $query->orderByDesc('report_at');
+        }]);
     }
 }
