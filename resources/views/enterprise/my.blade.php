@@ -19,7 +19,7 @@ h4{font-size:12px;}
                         {{$enterprise->EnterpriseName}}
                     </h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="display:none">
                     <div class="row">
                         <div class="col-sm-6 col-md-6 message-name">
                             <h4 class="text-left"><span>企业名称：{{$enterprise->EnterpriseName}}</span></h4>
