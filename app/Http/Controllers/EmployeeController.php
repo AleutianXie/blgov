@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Employee;
 use App\Enterprise;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -26,10 +27,15 @@ class EmployeeController extends Controller
                 foreach ($employees as $employee) {
                     $Name = $employee->Name ?? '';
                     $PhoneNumber = $employee->PhoneNumber ?? '';
-                    $OutgoingSituation = $employee->OutgoingSituation == 0 ? '否' : '是';
+                    $isLast14Contact = in_array($employee->OutgoingSituation, [1, 2, 3]) && $employee->ContactSituation == 1;
+                    if ($isLast14Contact) {
+                        $lastContactDate = Carbon::createFromFormat("Y-m-d", $employee->LastContactDate);
+                        $isLast14Contact = $isLast14Contact && $lastContactDate->addDays(14)->gt(Carbon::now());
+                    }
+                    $OutgoingSituation = $isLast14Contact ? '是' : '否';
                     $Address = $employee->Address ?? '';
-                    $WorkTraffic_lables = [0 => '公司（单位）班车', 1 => '自驾', 2 => '公共交通', 3 => '步行等其他'];
-                    $WorkTraffic = $WorkTraffic_lables[$employee->WorkTraffic] ?? '';
+                    $WorkTraffic_labels = [0 => '公司（单位）班车', 1 => '自驾', 2 => '公共交通', 3 => '步行等其他'];
+                    $WorkTraffic = $WorkTraffic_labels[$employee->WorkTraffic] ?? '';
                     $IsLeaveNingbo = $employee->IsLeaveNingbo == 1 ? '是' : '否';
                     $IsFever = $employee->IsFever == 1 ? '是' : '否';
                     $OwnerStatus_labels = [0 => '需要隔离', 1 => '就诊人员', 2 => '正常', 3 => '其它'];
