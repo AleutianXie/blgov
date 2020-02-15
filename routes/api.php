@@ -22,3 +22,4 @@ Route::get('/back', 'GovController@back');
 Route::get('/touch', 'GovController@touch');
 //Route::get('/quarantine', 'GovController@quarantine');
 Route::get('/medical', 'GovController@medical');
+Route::get('/industry', 'StatisticalController@industry');
