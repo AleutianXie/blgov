@@ -173,7 +173,7 @@
     <div class="login-form">
         <div class="form-row">
             <div class="form-input-box">
-                <input type="text" class="form-input" placeholder="手机号" name="name" />
+                <input type="text" class="form-input" placeholder="用户名" name="name" />
                 <img class="input-prefix-icon" src="img/phone.png" />
             </div>
         </div>
