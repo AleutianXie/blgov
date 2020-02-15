@@ -11,7 +11,7 @@
         <div class="col-12">
             <form action="" class="form-row">
                 @if (!empty(Auth::user()->industry_id_min))
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <select id="town" name="town" class="form-control">
                             <option value=""></option>
                             @foreach($towns as $id => $name)
@@ -20,7 +20,7 @@
                         </select>
                     </div>
                 @endif
-                <div class="col-md-3">
+                <div class="col-md-2">
                 <select id="status" name="status" class="form-control">
                     <option value=""></option>
                     <option value="1">审批中</option>
@@ -36,6 +36,9 @@
                     @endforeach
                 </select>
                 </div>
+                    <div class="col-md-3">
+                        <input type="text" name="enterprise" id="enterprise" class="form-control" />
+                    </div>
                 <button type="submit" class="btn btn-white btn-info btn-bold">
                     <i class="ace-icon fa fa-search nav-search-icon green"></i>查找
                 </button>

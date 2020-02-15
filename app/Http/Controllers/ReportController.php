@@ -68,6 +68,11 @@ class ReportController extends Controller
         }
     }
 
+    public function export(Request $request)
+    {
+
+    }
+
     private function getModel(&$model, $filter = [])
     {
         if (!empty($filter['status'])) {
@@ -78,6 +83,11 @@ class ReportController extends Controller
         }
         if (!empty($filter['industry'])) {
             $model->industry($filter['industry']);
+        }
+        if (!empty($filter['enterprise'])) {
+            $model->whereHas('enterprise', function ($query) use ($filter) {
+                return $query->where('EnterpriseName', 'like', '%' . $filter['enterprise'] . '%');
+            });
         }
         $model->orderByDesc('report_at');
     }
