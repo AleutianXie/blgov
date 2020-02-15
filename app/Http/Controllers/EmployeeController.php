@@ -23,7 +23,7 @@ class EmployeeController extends Controller
             $data[] = ["企业（单位）返工人员调查总表"];
             $data[] = ["企业（单位）名称（公章）：" . $enterprsie->EnterpriseName];
             $data[] = ['员工姓名', '手机号码', '是否近14天来自湖北（武汉）、温州、台州（温岭、黄岩）疫情严重地区或有相关居住史、旅行史、接触史', '复工后居住地', '上下班交通方式', '近期是否出宁波市', '是否有发热或确诊过（疑似）病例', '分类', '备注'];
-            Employee::enterprise($user->enterprise_id)->chunk(2, function ($employees) use (&$data) {
+            Employee::enterprise($user->enterprise_id)->chunk(100, function ($employees) use (&$data) {
                 foreach ($employees as $employee) {
                     $Name = $employee->Name ?? '';
                     $PhoneNumber = $employee->PhoneNumber ?? '';
