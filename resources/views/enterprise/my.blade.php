@@ -1,11 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', '预审申报')
+@section('title', '企业详情')
 
 @section('content_header')
     <h1 class="m-0 text-dark">预审申报</h1>
 @stop
-<style></style>
+<style>
+h4{font-size:12px;}
+</style>
 @section('content')
     <div class="row">
         <div class="container-fluid">
@@ -17,7 +19,7 @@
                         {{$enterprise->EnterpriseName}}
                     </h3>
                 </div>
-                <div class="card-body" style="display: none;">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-sm-6 col-md-6 message-name">
                             <h4 class="text-left"><span>企业名称：{{$enterprise->EnterpriseName}}</span></h4>
@@ -82,22 +84,27 @@
                 <form enctype="multipart/form-data" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <div class="card-body">
-<div class="row">
-				    <span style="display: flex;height:38px;justify-content: center;color: rgba;color: rgba(0,0,0,1);font-weight:600; align-items: center;">*选择申报街道：</span>
-										<select name="town" id="town" class="col-md-3">
-																<option value=""></option>
-																						@foreach($towns as $id => $name)
-																												  <option value="{{$id}}">{{$name}}</option>
-																												  						@endforeach
-																																							</select>
-																																											</div>
-																																															<br/>
-																																																			<div class="row">
-																																																								<div class="alert-danger">{{ __($errors->first('town')) }}</div>
-																																																												</div>
-																																																																<br/>
+				<div class="row">
+				                    <span style="display: flex;
+									                    height:38px;
+														    justify-content: center;
+															    color: rgba;
+																    color: rgba(0,0,0,0.65);
+																	    align-items: center;">选择申报街道：</span>
+																		                        <select name="town" id="town" class="col-md-3">
+																								                            <option value=""></option>
+																															                            @foreach($towns as $id => $name)
+																																						                                <option value="{{$id}}">{{$name}}</option>
+																																														                            @endforeach
+																																																					                        </select>
+																																																											</div>
+																																																											<br/>
+																																																											<div class="row">
+																																																											                        <div class="alert-danger">{{ __($errors->first('town')) }}</div>
+																																																																	                    </div>
+																																																																						<br/>
                     <div class="row">
-                        <h5 style="font-size: 1.15rem;">*《企业（单位）复工申请（承诺）表》</h5>
+                        <h5>《企业（单位）复工申请（承诺）表》</h5>
                         <span style="color: blue;">(支持doc、docx、pdf，文件大小不能超过10M)</span>
                     </div>
                     <br/>
@@ -110,7 +117,7 @@
                     </div>
                     <br/>
                     <div class="row">
-                        <h5 style="font-size: 1.15rem;">*《企业（单位）返工人员调查总表》</h5>
+                        <h5>《企业（单位）返工人员调查总表》</h5>
                         <span style="color: blue;">(支持doc、docx、pdf，文件大小不能超过10M)</span>
                     </div>
                     <br/>
@@ -123,7 +130,7 @@
                     </div>
                     <br/>
                     <div class="row">
-                        <h5 style="font-size: 1.15rem;">*《企业（单位）复工防疫方案》</h5>
+                        <h5>《企业（单位）复工防疫方案》</h5>
                         <span style="color: blue;">(支持doc、docx、pdf，文件大小不能超过10M)</span>
                     </div>
                     <br/>
@@ -136,7 +143,7 @@
                     </div>
                     <br/>
                     <div class="row">
-                        <h5 style="font-size: 1.15rem;">附件</h5>
+                        <h5>附件</h5>
                         <span style="color: blue;">(支持rar、zip，文件大小不能超过10M)</span>
                     </div>
                     <br/>
@@ -151,7 +158,7 @@
                     <div class="row">
                         @if (empty($enterprise->report) || $enterprise->report->status == 3)
                             <div class="col-md-3 offset-md-3">
-                                <button type="submit" class="btn btn-primary btn-lg" data-toggle="offcanvas" style="font-size: 1.0rem;">点击申报</button>
+                                <button type="submit" class="btn btn-primary btn-lg" data-toggle="offcanvas">点击申报</button>
                             </div>
                         @endif
                     </div>
