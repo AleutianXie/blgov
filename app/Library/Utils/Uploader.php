@@ -31,7 +31,7 @@ class Uploader
             throw new UploadValidatorException($validator);
         }
 
-        $filename = md5($file->getClientOriginalName()) .'.'. $file->getClientOriginalExtension();
+        $filename = md5_file($file->getClientOriginalName()) .'.'. $file->getClientOriginalExtension();
 
         return Storage::url($file->storeAs('public', $filename));
     }
