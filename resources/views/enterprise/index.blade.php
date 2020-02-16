@@ -42,7 +42,8 @@
                 <button type="submit" class="btn btn-white btn-info btn-bold">
                     <i class="ace-icon fa fa-search nav-search-icon green"></i>查找
                 </button>
-                    <a  href="/report/export" style="display:none;" download="企业（单位）返工人员调查总表" target="download" class="btn btn-primary" ><i class="ace-icon fa fa-download nav-search-icon green"></i>导出</a>
+{{--                    <a  href="/report/export" download="企业（单位）返工人员调查总表" class="btn btn-primary" ><i class="ace-icon fa fa-download nav-search-icon green"></i>导出</a>--}}
+                   <button  class="btn btn-primary" ><i class="ace-icon fa fa-download nav-search-icon green"></i>导出</button>
             </form>
         </div>
     </div>
@@ -155,6 +156,12 @@
         $(document).on('submit', '.form-row', function (e) {
             var target = $(e.target);
             dt.api().ajax.url('{{ route('report.list') }}' + '?' + target.serialize()).load();
+            e.preventDefault();
+        });
+        $(document).on('click', '.btn-primary', function (e) {
+            var target = $(e.target).parent();
+            var url = "/report/export?" + target.serialize();
+            window.location = url;
             e.preventDefault();
         });
     </script>
