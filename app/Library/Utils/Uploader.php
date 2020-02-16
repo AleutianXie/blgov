@@ -20,7 +20,7 @@ class Uploader
      * @return string
      * @throws UploadValidatorException
      */
-    public static function uploadImage(UploadedFile $file)
+    public static function uploadImage(UploadedFile $file, $subFolder = "")
     {
         $validator = Validator::make(
             ['file'=>$file],
@@ -30,8 +30,10 @@ class Uploader
         if ($validator->fails()) {
             throw new UploadValidatorException($validator);
         }
-
-        $filename = md5_file($file->getClientOriginalName()) .'.'. $file->getClientOriginalExtension();
+        $filename = md5($file->get()) .'.'. $file->getClientOriginalExtension();
+        if (!empty($subFolder)) {
+            $filename = $subFolder . '/' . $filename;
+        }
 
         return Storage::url($file->storeAs('public', $filename));
     }

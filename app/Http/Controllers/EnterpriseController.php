@@ -39,22 +39,22 @@ class EnterpriseController extends Controller
             $town_id = $request->get('town', 700000);
             $user = $request->user();
             if ($request->hasFile('file1')) {
-                $path1 = Uploader::uploadImage($request->file('file1'));
+                $path1 = Uploader::uploadImage($request->file('file1'), $user->enterprise_id);
                 $docs[] = ['name' => '《企业（单位）复工申请（承诺）表》', 'url' => $path1];
             }
 
             if ($request->hasFile('file2')) {
-                $path2 = Uploader::uploadImage($request->file('file2'));
+                $path2 = Uploader::uploadImage($request->file('file2'), $user->enterprise_id);
                 $docs[] = ['name' => '《企业（单位）返工人员调查总表》', 'url' => $path2];
             }
 
             if ($request->hasFile('file3')) {
-                $path3 = Uploader::uploadImage($request->file('file3'));
+                $path3 = Uploader::uploadImage($request->file('file3'), $user->enterprise_id);
                 $docs[] = ['name' => '《企业（单位）复工防疫方案》', 'url' => $path3];
             }
 
             if ($request->hasFile('file4')) {
-                $path4 = Uploader::uploadImage($request->file('file4'));
+                $path4 = Uploader::uploadImage($request->file('file4'), $user->enterprise_id);
                 $docs[] = ['name' => '附件', 'url' => $path4];
             }
 
