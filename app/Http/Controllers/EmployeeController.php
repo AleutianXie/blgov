@@ -27,10 +27,10 @@ class EmployeeController extends Controller
                 foreach ($employees as $employee) {
                     $Name = $employee->Name ?? '';
                     $PhoneNumber = $employee->PhoneNumber ?? '';
-                    $isLast14Contact = in_array($employee->OutgoingSituation, [1, 2, 3]) && $employee->ContactSituation == 1;
-                    if ($isLast14Contact) {
+                    $isLast14Contact = in_array($employee->OutgoingSituation, [1, 2, 3]);
+                    if (!$isLast14Contact && $employee->ContactSituation == 1) {
                         $lastContactDate = Carbon::createFromFormat("Y-m-d", $employee->LastContactDate);
-                        $isLast14Contact = $isLast14Contact && $lastContactDate->addDays(14)->gt(Carbon::now());
+                        $isLast14Contact = $lastContactDate->addDays(14)->gt(Carbon::now());
                     }
                     $OutgoingSituation = $isLast14Contact ? '是' : '否';
                     $Address = $employee->Address ?? '';
