@@ -42,7 +42,7 @@
                 <button type="submit" class="btn btn-white btn-info btn-bold">
                     <i class="ace-icon fa fa-search nav-search-icon green"></i>查找
                 </button>
-                    <a href="/report/export" download="企业（单位）返工人员调查总表" target="download" class="btn btn-primary"><i class="ace-icon fa fa-download nav-search-icon green"></i>导出</a>
+                    <a  href="/report/export" style="display:none;" download="企业（单位）返工人员调查总表" target="download" class="btn btn-primary" ><i class="ace-icon fa fa-download nav-search-icon green"></i>导出</a>
             </form>
         </div>
     </div>
