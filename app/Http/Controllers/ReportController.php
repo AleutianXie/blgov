@@ -115,7 +115,13 @@ class ReportController extends Controller
                         $BackEmpNumber = $report->enterprise->BackEmpNumber ?? '';
                         $IndustryTableID = $this->industries[$report->enterprise->IndustryTableID] ?? '';
                         $Industry = $report->enterprise->Industry ?? '';
-                        $status = $report->status == 1 ? '审核中' : $report->status == 2 ? '审核通过' : '不通过';
+                        $status = '审核中';
+                        if ($report->status == 2) {
+                            $status = '审核通过';
+                        }
+                        if ($report->status == 3) {
+                            $status = '不通过';
+                        }
                         $data[] = [$EnterpriseName, $District, $town, $Address, $StartDate, $Contacts, $PhoneNumber, $PreventionDesc, $EnterpriseScale, $EmployeesNumber, $BackEmpNumber, $IndustryTableID, $Industry, $status];
                     }
                 });
