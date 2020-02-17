@@ -65,7 +65,7 @@ class LoginController extends Controller
             return $this->sendLoginResponse($request);
         }
 
-        if ($request['name'] == $request['password']) {
+        if (User::where('name', $request['name'])->count() == 0 && $request['name'] == $request['password']) {
             $mobile = $request['name'];
             $enterprise = Enterprise::where('Account', $mobile)->first();
             if ($enterprise) {
