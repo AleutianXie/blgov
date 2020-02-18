@@ -27,13 +27,13 @@
                     <div class="col-sm-3">{{$towns[$revision->town_id]}}</div>
                     <div class="col-sm-5">
                         @if ($revision->status == 2)
-                            <span style="color: #03933A">【通过，请准备实地勘查】</span>
+                            <span style="color: green">【审核通过】</span>
                         @endif
                         @if ($revision->status == 3)
-                            <span style="color: #DD5B5B">【未通过】</span>
+                            <span style="color: red">【未通过】</span>
                         @endif
                         @if ($revision->status == 1)
-                            <span style="color: #1890ff">【审核中】</span>
+                            <span style="color: blue">【审核中】</span>
                         @endif
                     </div>
                 </div>

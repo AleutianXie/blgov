@@ -312,6 +312,7 @@
             var ContactSituation1 = 0;
 
             var OutgoingDesc = {};
+            var OutgoingDescSortKey = [];
 
             for(var i =0;i<res.length;i++){
                 
@@ -358,6 +359,7 @@
                               OutgoingDesc[users[j].OutgoingDesc] += 1;
                             } else {
                               OutgoingDesc[users[j].OutgoingDesc] = 1;
+                              OutgoingDescSortKey.push({id:new Date(users[j].OutgoingDesc).getTime(),value:users[j].OutgoingDesc});
                             }
                             
                         }
@@ -365,14 +367,13 @@
                     }
                 }
             }
-
-            console.log(EmployeesNumbers, BackEmpNumbes)
-            
-           
-            for(var d in OutgoingDesc){
-              option4.xAxis.data.push(d);
-              option4.series[0].data.push(OutgoingDesc[d]);
+            OutgoingDescSortKey.sort(sortId);
+            console.log(OutgoingDescSortKey)
+            for (var x=0; x< OutgoingDescSortKey.length; x++){
+              option4.xAxis.data.push(OutgoingDescSortKey[x].value);
+              option4.series[0].data.push(OutgoingDesc[OutgoingDescSortKey[x].value]);
             }
+            console.log(OutgoingDesc)
             myChart4.setOption(option4);
             console.log(OutgoingDesc)
             console.log(ContactSituation0,ContactSituation1)
@@ -450,7 +451,9 @@
       ]
     };
     
-
+    function sortId(a,b){  
+      return a.id - b.id;  
+    }
     myChart.setOption(option);
 </script>
 @stop
