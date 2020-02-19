@@ -121,7 +121,11 @@ class EnterpriseController extends Controller
     }
 
     public function revisions(Request $request) {
-        if($request->user()->enterprise_id) {
+        if($enterprise_id = $request->get('enterprise_id')) {
+            $enterprise = Enterprise::with('report')->findOrFail($enterprise_id);
+            $revisions = $enterprise->report->revisions ?? [];
+            return response()->json($revisions);
+        } elseif($request->user()->enterprise_id) {
             $enterprise = Enterprise::with('report')->findOrFail($request->user()->enterprise_id);
             $revisions = $enterprise->report->revisions ?? [];
             $towns = TownType::all()->pluck('TownName', 'TownID');
