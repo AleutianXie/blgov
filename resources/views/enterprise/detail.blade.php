@@ -109,7 +109,7 @@
                         <div class="col-sm-3">申报对象</div>
                         <div class="col-sm-5">申请结果</div>
                     </div>
-                    
+                   <div id="showHtml"></div>
                 </div>
                 <div class="modal-footer">
                 </div>
@@ -154,7 +154,7 @@
                             }
                             html += '</div></div>';
                         }
-                        $('#modalBody').append(html);
+                        $('#showHtml').html(html);
                         showSpin.stop();
                     },
                     error: function(){
