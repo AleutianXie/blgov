@@ -136,10 +136,12 @@
                 $.ajax({
                     url: '/enterprise/revision?enterprise_id={{$enterprise->EnterpriseID??""}}',
                     method: 'get',
-                    success: function(res){
+                    success: function(response){
                         var html = '';
-                        for(var i=0; i<res.length; i++){
-                            html += '<div style="border: 1px solid #e1e4ea;margin-bottom: 12px;"><div class="row" style="padding:2px;"><div class="col-sm-2">'+res[i].id+'</div><div class="col-sm-2">'+res[i].created_at+'</div><div class="col-sm-3">'+1+'</div>';
+                        var res = response.revisions;
+                        var towns = response.towns;
+                        for(var i=0; i < res.length; i++){
+                            html += '<div style="border: 1px solid #e1e4ea;margin-bottom: 12px;"><div class="row" style="padding:2px;"><div class="col-sm-2">'+res[i].id+'</div><div class="col-sm-2">'+res[i].created_at+'</div><div class="col-sm-3">'+towns[res[i].town_id]+'</div>';
                             if (res[i].status == 1){
                                 html += '<div class="col-sm-5" style="color: blue">【审核中】</div>'
                             } else if (res[i].status == 2){
