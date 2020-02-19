@@ -30,7 +30,7 @@ class Uploader
         if ($validator->fails()) {
             throw new UploadValidatorException($validator);
         }
-        $filename = md5($file->get()) .'.'. $file->getClientOriginalExtension();
+        $filename = md5($file->get()).str_shuffle(time()) .'.'. $file->getClientOriginalExtension();
         if (!empty($subFolder)) {
             $filename = $subFolder . '/' . $filename;
         }

@@ -7,8 +7,8 @@
 @stop
 
 @section('content')
-    <div class="row">
-        <div class="container-fluid">
+    <div class="row" id="showSpin">
+        <div class="container-fluid" id="spinBody">
             <!-- COLOR PALETTE -->
             <div class="card card-default color-palette-box">
                 <div class="card-header">
@@ -65,12 +65,13 @@
                 <h3 class="card-title">
                     审批意见
                 </h3>
+                <button class="btn btn-xs btn-default showHistoryReport" style="margin-top: -8px;margin-left: 10px;">历史意见</button>
             </div>
             <div class="card-body">
                 <form action="" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <div class="row">
-                    <textarea name="comment" id="" cols="30" rows="10" style="width: 100%;">@if(old('comment')){{old('comment')}} @else {{$enterprise->report->comment ?? ''}} @endif</textarea>
+                    <textarea name="comment" id="" cols="30" rows="10" style="width: 100%;">{{old('comment')}}</textarea>
                 </div>
                     <div class="row">
                         <div class="alert-danger">{{ __($errors->first('comment')) }}</div>
@@ -94,16 +95,71 @@
         </div>
             @endif
     </div>
+    <div class="modal fade" id="showHistoryReportModal" tabindex="-1" role="dialog" aria-labelledby="modalHeader" aria-hidden="true">
+        <div class="modal-dialog" style="max-width:80%;max-height:90%;overflow:auto;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modalHeader">历史审批意见</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <div class="row" style="font-weight: bold; background: #FAFAFA;margin-left:2px;">
+                        <div class="col-sm-2">序号</div>
+                        <div class="col-sm-2">申报时间</div>
+                        <div class="col-sm-3">申报对象</div>
+                        <div class="col-sm-5">申请结果</div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 @stop
 
 @section('js')
+<script src="/lib/spin.min.js"></script>
     <script>
-                var status = @if(old('status')) {{old('status')}} @else {{$enterprise->report->status ?? ''}} @endif ;
-                console.log(status)
-                $(document).ready(function() {
-                    $('#status').select2({
-                        placeholder: '请选择'
-                    }).val(status).trigger("change");;
+        $(document).ready(function() {
+            $('#status').select2({
+                placeholder: '请选择'
+            }).val('{{old('status')}}').trigger("change");
+
+            $('.showHistoryReport').click(function(){
+                var showSpin = new Spinner().spin(document.getElementById('showSpin'));
+                $('#showHistoryReportModal').modal().on('hidden.bs.modal', function(){
+                    if (showSpin.el != undefined) {
+                        showSpin.stop();
+                    }
                 });
+                $.ajax({
+                    url: '/enterprise/revision?enterprise_id={{$enterprise->EnterpriseID??""}}',
+                    method: 'get',
+                    success: function(res){
+                        var html = '';
+                        for(var i=0; i<res.length; i++){
+                            html += '<div style="border: 1px solid #e1e4ea;margin-bottom: 12px;"><div class="row" style="padding:2px;"><div class="col-sm-2">'+res[i].id+'</div><div class="col-sm-2">'+res[i].created_at+'</div><div class="col-sm-3">'+1+'</div>';
+                            if (res[i].status == 1){
+                                html += '<div class="col-sm-5" style="color: blue">【审核中】</div>'
+                            } else if (res[i].status == 2){
+                                html += '<div class="col-sm-5" style="color: green">【审核通过】</div>'
+                            }else if (res[i].status == 3){
+                                html += '<div class="col-sm-5" style="color: red">【未通过】</div>'
+                            }
+                            if (res[i].comment){
+                                html += '<div class="row" name="comment" style="width: 100%;line-height: 30px;padding: 15px;"><div style="border-top: 1px solid #f4f1f1;width: 100%;"></div>'+res[i].comment+'</div>';
+                            }
+                            html += '</div></div>';
+                        }
+                        $('#modalBody').append(html);
+                        showSpin.stop();
+                    },
+                    error: function(){
+                        showSpin.stop();
+                    }
+                })
+            });
+        });
     </script>
 @stop
