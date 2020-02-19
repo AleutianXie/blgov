@@ -83,8 +83,8 @@
         color: rgba(0,0,0,0.65);
         border:1px solid #e2e2e2
     }
-    tr{
-        line-height: 40px;
+    th,td{
+        padding: .75rem;
     }
 </style>
 <link rel="stylesheet" href="/lib/bootstrap-datetimepicker.min.css">
