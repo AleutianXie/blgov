@@ -70,7 +70,7 @@
                 <form action="" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <div class="row">
-                    <textarea name="comment" id="" cols="30" rows="10" style="width: 100%;">{{old('comment')}}</textarea>
+                    <textarea name="comment" id="" cols="30" rows="10" style="width: 100%;">@if(old('comment')){{old('comment')}} @else {{$enterprise->report->comment ?? ''}} @endif</textarea>
                 </div>
                     <div class="row">
                         <div class="alert-danger">{{ __($errors->first('comment')) }}</div>
@@ -98,11 +98,12 @@
 
 @section('js')
     <script>
-
+                var status = @if(old('status')) {{old('status')}} @else {{$enterprise->report->status ?? ''}} @endif ;
+                console.log(status)
                 $(document).ready(function() {
                     $('#status').select2({
                         placeholder: '请选择'
-                    }).val('{{old('status')}}').trigger("change");;
+                    }).val(status).trigger("change");;
                 });
     </script>
 @stop

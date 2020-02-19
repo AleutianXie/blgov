@@ -39,7 +39,8 @@
                 </div>
                 @if (!empty($revision->comment))
                     <div class="row">
-                        <textarea name="comment" id="" cols="30" rows="10" style="width: 100%;">{{$revision->comment}}</textarea>
+
+                        <div name="comment" style="width: 100%;border: 1px solid#e1e4ea;line-height: 30px;margin-top:10px;">{{$revision->comment}}</div>
                     </div>
                 @endif
             @endforeach
