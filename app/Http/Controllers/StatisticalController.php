@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
 use Illuminate\Http\Request;
 use App\Report;
 use App\Enterprise;
 use App\Industry;
 use App\TownType;
+use Illuminate\Support\Facades\DB;
 
 class StatisticalController extends Controller
 {
@@ -241,6 +243,73 @@ class StatisticalController extends Controller
             ->get();
 
         return response()->json($enterprises);
+    }
+
+    public function cockpit(Request $request)
+    {
+        /*$user = $request->user();
+        $town_id = $request->get('town_id');
+        $industry_id_min = $request->get('industry_id_min', 600001);
+        $industry_id_max = $request->get('industry_id_max', 600026);
+        if ($user) {
+            $town_id = $user->town_id;
+            $industry_id_min = $user->industry_id_min;
+            $industry_id_max = $user->industry_id_max;
+        }
+        if (!$town_id){
+            //局
+            $enterprises = Enterprise::whereRaw('("enterpriseInfoTable"."IndustryTableID" between '.$industry_id_min.' and '.$industry_id_max.' or "enterpriseInfoTable"."IndustryTableID" is null)');
+        } else {
+            //乡镇
+            $enterprises = Enterprise::where('enterpriseInfoTable.TownID', $town_id);
+        }*/
+
+        //1.计划开工时间
+        $data['startdate'] = Enterprise::selectRaw('count(*) AS value, "StartDate" AS item')
+            ->where('StartDate','<>',null)
+            ->orderBy('StartDate','asc')
+            ->groupBy('StartDate')
+            ->get();
+        //2.工作交通方式
+        $data['worktraffic'] = Employee::selectRaw('count(*) AS value, "WorkTraffic" AS item')
+            ->where('WorkTraffic','<>',null)
+            ->orderBy('WorkTraffic','asc')
+            ->groupBy('WorkTraffic')
+            ->get();
+        //3.近14天外出情况
+        $data['outgoingsituation'] = Employee::selectRaw('count(*) AS value, "OutgoingSituation" AS item')
+            ->where('OutgoingSituation','<>',null)
+            ->orderBy('OutgoingSituation','asc')
+            ->groupBy('OutgoingSituation')
+            ->get();
+        //4.企业所属局
+        $data['govunitname'] = Enterprise::selectRaw('count(*) AS value, "GovUnitName" AS item')
+            ->where('GovUnitName','<>',null)
+            ->orderBy('GovUnitName','asc')
+            ->groupBy('GovUnitName')
+            ->get();
+        //5.企业规模
+        $data['enterprisescale'] = Enterprise::selectRaw('count(*) AS value, "EnterpriseScale" AS item')
+            ->where('EnterpriseScale','<>',null)
+            ->orderBy('EnterpriseScale','asc')
+            ->groupBy('EnterpriseScale')
+            ->get();
+        //6.返甬交通方式
+        $data['returntraffic'] = DB::select('select item,count(*) AS value from 
+(select (case when "ReturnTraffic" like \'%火车%\' then \'火车\' when "ReturnTraffic" like \'%飞机%\' then \'飞机\' when "ReturnTraffic" like \'%自驾%\' then \'自驾\' else \'其他\' end) as item from "employeeInfoTable" where "ReturnTraffic" is not null) as b group by item
+');
+        //7. 职工居住地
+        $data['address'] = DB::select('select item,count(*) AS value from
+    (select (case when "Address" like \'%厂区内宿舍%\' then \'厂区内宿舍\' when "Address" like \'%厂区外宿舍%\' then \'厂区外宿舍\'  else \'其他\' end) as item from "employeeInfoTable" where "Address" is not null) as b group by item');
+
+        //8.是否租房
+        $data['ishire'] = Employee::selectRaw('count(*) AS value, "IsHire" AS item')
+            ->where('IsHire','<>',null)
+            ->orderBy('IsHire','asc')
+            ->groupBy('IsHire')
+            ->get();
+
+        return response()->json($data);
     }
 
 }
