@@ -99,7 +99,7 @@ class ReportController extends Controller
             $this->getModel($model, $filter);
             $count = $model->count();
             if ($count > 0) {
-                $data[] = ['单位名称', '所属区', '所属乡镇', '单位地址', '计划开工时间', '联系人', '联系电话', '企业防控情况说明', '企业规模', '职工人数', '已复工人数', '所属大类', '所属行业', '审核状态'];
+                $data[] = ['单位名称', '所属区', '所属乡镇', '单位地址', '计划开工时间', '联系人', '联系电话', '企业防控情况说明', '企业规模', '职工人数', '已复工人数', '所属大类', '所属行业', '组织机构代码', '申请时间', '审核状态'];
                 $model->chunk(100, function ($reports) use (&$data) {
                     foreach ($reports as $report) {
                         $EnterpriseName = $report->enterprise->EnterpriseName ?? '';
@@ -115,6 +115,8 @@ class ReportController extends Controller
                         $BackEmpNumber = $report->enterprise->BackEmpNumber ?? '';
                         $IndustryTableID = $this->industries[$report->enterprise->IndustryTableID] ?? '';
                         $Industry = $report->enterprise->Industry ?? '';
+                        $OrganizationCode = $report->enterprise->OrganizationCode ?? '';
+                        $ReportAt = $report->report_at ?? '';
                         $status = '审核中';
                         if ($report->status == 2) {
                             $status = '审核通过';
@@ -122,7 +124,7 @@ class ReportController extends Controller
                         if ($report->status == 3) {
                             $status = '不通过';
                         }
-                        $data[] = [$EnterpriseName, $District, $town, $Address, $StartDate, $Contacts, $PhoneNumber, $PreventionDesc, $EnterpriseScale, $EmployeesNumber, $BackEmpNumber, $IndustryTableID, $Industry, $status];
+                        $data[] = [$EnterpriseName, $District, $town, $Address, $StartDate, $Contacts, $PhoneNumber, $PreventionDesc, $EnterpriseScale, $EmployeesNumber, $BackEmpNumber, $IndustryTableID, $Industry, $OrganizationCode, $ReportAt, $status];
                     }
                 });
                 $spreadsheet = new Spreadsheet();
@@ -149,7 +151,7 @@ class ReportController extends Controller
                         ],
                     ],
                 ];
-                $spreadsheet->getActiveSheet()->getStyle('A1:N' . count($data))->applyFromArray($style);
+                $spreadsheet->getActiveSheet()->getStyle('A1:P' . count($data))->applyFromArray($style);
                 $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth("30");
                 $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth("10");
                 $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth("10");
@@ -163,7 +165,9 @@ class ReportController extends Controller
                 $spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth("10");
                 $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth("10");
                 $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth("20");
-                $spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth("10");
+                $spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth("20");
+                $spreadsheet->getActiveSheet()->getColumnDimension('O')->setWidth("36");
+                $spreadsheet->getActiveSheet()->getColumnDimension('P')->setWidth("10");
                 $filename = '企业申请列表.xlsx';
                 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
                 header('Content-Disposition: attachment;filename="' . $filename . '"');
