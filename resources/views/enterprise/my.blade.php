@@ -156,7 +156,7 @@ h4{font-size:12px;}
                     </div>
                     <br/>
                     <div class="row">
-                        @if (empty($enterprise->report) || $enterprise->report->status == 3 || ($enterprise->report->status == 2 && $enterprise->report->town_id == 700011))
+                        @if ((empty($enterprise->report) || $enterprise->report->status == 3) || ($enterprise->report->status == 2 && $enterprise->report->town_id == 700011))
                             <div class="col-md-3 offset-md-3">
                                 <button type="submit" class="btn btn-primary btn-lg" data-toggle="offcanvas">点击申报</button>
                             </div>
