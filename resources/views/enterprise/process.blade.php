@@ -14,19 +14,27 @@
 <section class="content-box">
     <div class="container table" style="width: 100%;">
         <div class="row" style="font-weight: bold; background: #FAFAFA;margin-left:2px;">
-            <div class="col-sm-2">序号</div>
+            <div class="col-sm-1">序号</div>
+            <div class="col-sm-1">企业名称</div>
+            <div class="col-sm-2">申报对象</div>
+            <div class="col-sm-2">总复工人数</div>
             <div class="col-sm-2">申报时间</div>
-            <div class="col-sm-3">申报对象</div>
-            <div class="col-sm-5">申请结果</div>
+            <div class="col-sm-2">批复时间</div>
+            <div class="col-sm-2">申请结果</div>
         </div>
         @if (count($revisions)>0)
             @foreach($revisions as $revision)
                 <div style="border: 1px solid #e1e4ea;margin-bottom: 12px;">
                     <div class="row" style="padding:2px;">
-                        <div class="col-sm-2">{{$revision->id}}</div>
+                        <div class="col-sm-1">
+                            {{$revision->id}}
+                        </div>
+                        <div class="col-sm-1">{{$enterprise->EnterpriseName}}</div>
+                        <div class="col-sm-2">{{$towns[$revision->town_id]}}</div>
+                        <div class="col-sm-2">{{$enterprise->BackEmpNumber}}</div>
                         <div class="col-sm-2">{{$revision->created_at}}</div>
-                        <div class="col-sm-3">{{$towns[$revision->town_id]}}</div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-2">{{$enterprise->report->report_at}}</div>
+                        <div class="col-sm-2">
                             @if ($revision->status == 2)
                                 <span style="color: green">【审核通过】</span>
                             @endif
