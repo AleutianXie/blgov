@@ -16,7 +16,7 @@
         <div class="row" style="font-weight: bold; background: #FAFAFA;margin-left:2px;">
             <div class="col-sm-1">序号</div>
             <div class="col-sm-3">企业名称</div>
-            <div class="col-sm-1">申报对象</div>
+            <div class="col-sm-1">审批单位</div>
             <div class="col-sm-1">总复工人数</div>
             <div class="col-sm-2">申报时间</div>
             <div class="col-sm-2">批复时间</div>
