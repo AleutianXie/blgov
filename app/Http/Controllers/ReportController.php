@@ -57,6 +57,9 @@ class ReportController extends Controller
                 ->addColumn('EnterpriseName', function (Report $report) {
                     return $report->enterprise->EnterpriseName ?? '';
                 })
+                ->editColumn('Address', function (Report $report) {
+                    return $report->enterprise->Address ?? '';
+                })
                 ->addColumn('EnterpriseID', function (Report $report) {
                     return $report->enterprise->EnterpriseID ?? '0';
                 })
@@ -194,6 +197,11 @@ class ReportController extends Controller
         if (!empty($filter['enterprise'])) {
             $model->whereHas('enterprise', function ($query) use ($filter) {
                 return $query->where('EnterpriseName', 'like', '%' . $filter['enterprise'] . '%');
+            });
+        }
+        if (!empty($filter['address'])) {
+            $model->whereHas('address', function ($query) use ($filter) {
+                return $query->where('Address', 'like', '%' . $filter['address'] . '%');
             });
         }
         $model->orderByDesc('report_at');

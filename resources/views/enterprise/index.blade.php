@@ -11,7 +11,7 @@
         <div class="col-12">
             <form action="" class="form-row">
                 @if (!empty(Auth::user()->industry_id_min))
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         <select id="town" name="town" class="form-control">
                             <option value=""></option>
                             @foreach($towns as $id => $name)
@@ -20,7 +20,7 @@
                         </select>
                     </div>
                 @endif
-                <div class="col-md-2">
+                <div class="col-md-1">
                 <select id="status" name="status" class="form-control">
                     <option value=""></option>
                     <option value="1">审批中</option>
@@ -28,7 +28,7 @@
                     <option value="3">不通过</option>
                 </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                 <select id="industry" name="industry" class="form-control">
                     <option value=""></option>
                     @foreach($industries as $id => $name)
@@ -36,8 +36,11 @@
                     @endforeach
                 </select>
                 </div>
-                    <div class="col-md-3">
-                        <input type="text" name="enterprise" id="enterprise" class="form-control" />
+                    <div class="col-md-2">
+                        <input type="text" name="enterprise" id="enterprise" class="form-control" placeholder="企业名称" />
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" name="address" id="address" class="form-control" placeholder="企业地址" />
                     </div>
                 <button type="submit" class="btn btn-white btn-info btn-bold">
                     <i class="ace-icon fa fa-search nav-search-icon green"></i>查找
@@ -79,6 +82,10 @@
                 {
                     title: '企业名称',
                     data: 'EnterpriseName',
+                },
+                {
+                    title: '企业地址',
+                    data: 'Address',
                 },
                 @if (!empty(Auth::user()->industry_id_min))
                 {
