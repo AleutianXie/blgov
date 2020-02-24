@@ -200,8 +200,12 @@ class ReportController extends Controller
             });
         }
         if (!empty($filter['address'])) {
-            $model->whereHas('address', function ($query) use ($filter) {
-                return $query->where('Address', 'like', '%' . $filter['address'] . '%');
+            $model->whereHas('enterprise', function ($query) use ($filter) {
+                $arr = explode("；",$filter['address']);
+                foreach ($arr as $value){
+                    $query->where('Address', 'like', '%' . $value . '%');
+                }
+                return $query;
             });
         }
         $model->orderByDesc('report_at');
