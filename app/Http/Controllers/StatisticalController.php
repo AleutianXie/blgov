@@ -267,6 +267,8 @@ class StatisticalController extends Controller
         //1.计划开工时间
         $data['startdate'] = Enterprise::selectRaw('count(*) AS value, "StartDate" AS item')
             ->where('StartDate','<>',null)
+            ->where('StartDate','>=','2020-2-10')
+            ->where('StartDate','<=','2020-3-10')
             ->orderBy('StartDate','asc')
             ->groupBy('StartDate')
             ->get();
