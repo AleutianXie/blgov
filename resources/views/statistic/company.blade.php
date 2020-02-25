@@ -98,16 +98,16 @@
             <div class="col-md-5 query-row1-one">
                 <div style="display:inline-block">
                     <button class="btn" style="font-weight:bold;margin-left:-12px;">状态:</button>
-                    <a href="/statistical/company?end={{session('end')}}&reportStatus=0&industry={{session('industry')}}&start={{session('start')}}&townType={{session('townType')}}&per_page={{session('per_page')}}">
+                    <a href="/statistical/company?end={{session('end')}}&reportStatus=0&industry={{session('industry')}}&start={{session('start')}}&townType={{session('townType')}}&EnterpriseName={{session('EnterpriseName')}}&Address={{session('Address')}}&per_page={{session('per_page')}}">
                         <button class="btn reportStatus @if(session('reportStatus')==0 || !session('reportStatus')) btn-primary @endif" data-id="0">全部</button>
                     </a>
-                    <a href="/statistical/company?end={{session('end')}}&reportStatus=1&start={{session('start')}}&industry={{session('industry')}}&per_page={{session('per_page')}}&townType={{session('townType')}}">
+                    <a href="/statistical/company?end={{session('end')}}&reportStatus=1&start={{session('start')}}&industry={{session('industry')}}&EnterpriseName={{session('EnterpriseName')}}&Address={{session('Address')}}&per_page={{session('per_page')}}&townType={{session('townType')}}">
                         <button class="btn reportStatus  @if(session('reportStatus')==1) btn-primary @endif"" data-id="1">审批中</button>
                     </a>
-                    <a href="/statistical/company?end={{session('end')}}&reportStatus=2&industry={{session('industry')}}&start={{session('start')}}&townType={{session('townType')}}&per_page={{session('per_page')}}">
+                    <a href="/statistical/company?end={{session('end')}}&reportStatus=2&industry={{session('industry')}}&start={{session('start')}}&townType={{session('townType')}}&EnterpriseName={{session('EnterpriseName')}}&Address={{session('Address')}}&per_page={{session('per_page')}}">
                         <button class="btn reportStatus @if(session('reportStatus') == 2) btn-primary @endif" data-id="2">通过</button>
                     </a>
-                    <a href="/statistical/company?end={{session('end')}}&reportStatus=3&industry={{session('industry')}}&start={{session('start')}}&per_page={{session('per_page')}}&townType={{session('townType')}}">
+                    <a href="/statistical/company?end={{session('end')}}&reportStatus=3&industry={{session('industry')}}&EnterpriseName={{session('EnterpriseName')}}&Address={{session('Address')}}&start={{session('start')}}&per_page={{session('per_page')}}&townType={{session('townType')}}">
                         <button class="btn reportStatus @if(session('reportStatus') == 3) btn-primary @endif" data-id="3">不通过</button>
                     </a>
                 </div>
@@ -127,11 +127,11 @@
         <div class="row query-row2" style="margin-top:5px;">
             <div class="col-md-12">
                 <button class="btn" style="font-weight:bold;margin-left:-12px;">行业:</button>
-                <a href="/statistical/company?reportStatus={{session('reportStatus')}}&industry=0&townType={{session('townType')}}&start={{session('start')}}&end={{session('end')}}&per_page={{session('per_page')}}">
+                <a href="/statistical/company?reportStatus={{session('reportStatus')}}&industry=0&townType={{session('townType')}}&EnterpriseName={{session('EnterpriseName')}}&Address={{session('Address')}}&start={{session('start')}}&end={{session('end')}}&per_page={{session('per_page')}}">
                     <button class="btn @if(session('industry') == 0 || !session('industry')) btn-primary @endif" data-id="">全部</button>
                 </a>
                 @foreach($industry as $key => $indust)
-                <a href="/statistical/company?reportStatus={{session('reportStatus')}}&per_page={{session('per_page')}}&start={{session('start')}}&end={{session('end')}}&ctime={{time()}}&&industry={{$key}}&townType={{session('townType')}}">
+                <a href="/statistical/company?reportStatus={{session('reportStatus')}}&per_page={{session('per_page')}}&start={{session('start')}}&end={{session('end')}}&ctime={{time()}}&&industry={{$key}}&townType={{session('townType')}}&EnterpriseName={{session('EnterpriseName')}}&Address={{session('Address')}}">
                     <button class="btn industryBtn @if(session('industry') == $key) btn-primary @endif" data-id="{{$key}}">{{$indust}}</button>
                 </a>
                 @endforeach
@@ -145,17 +145,31 @@
                     <button class="btn btn-primary townTypeBtn" data-id="{{$key}}">{{$type}}</button>
                 @endforeach
                 @else
-                <a href="/statistical/company?reportStatus={{session('reportStatus')}}&start={{session('start')}}&end={{session('end')}}&industry={{session('industry')}}&townType=0&per_page={{session('per_page')}}">
+                <a href="/statistical/company?reportStatus={{session('reportStatus')}}&start={{session('start')}}&end={{session('end')}}&industry={{session('industry')}}&EnterpriseName={{session('EnterpriseName')}}&Address={{session('Address')}}&townType=0&per_page={{session('per_page')}}">
                     <button class="btn @if(session('townType') == 0 || !session('townType')) btn-primary @endif" data-id="">全部</button>
                 </a>
                 @foreach($townType as $key => $type)
-                <a href="/statistical/company?ctime={{time()}}&reportStatus={{session('reportStatus')}}&per_page={{session('per_page')}}&start={{session('start')}}&end={{session('end')}}&industry={{session('industry')}}&townType={{$key}}">
+                <a href="/statistical/company?ctime={{time()}}&reportStatus={{session('reportStatus')}}&per_page={{session('per_page')}}&start={{session('start')}}&end={{session('end')}}&industry={{session('industry')}}&EnterpriseName={{session('EnterpriseName')}}&Address={{session('Address')}}&townType={{$key}}">
                     <button class="btn @if(session('townType') == $key) btn-primary @endif" data-id="{{$key}}">{{$type}}</button>
                 </a>
                 @endforeach
                 @endif
             </div>
         </div>
+
+        <div class="row query-row4" style="margin-top:5px;">
+            <div class="col-md-12">
+                <button class="btn" style="font-weight:bold;margin-left:-12px;">企业名称:</button>
+                <input type="text" name=EnterpriseName" value="@if(session('EnterpriseName') != '0') {{session('EnterpriseName')}} @endif" class="form-control EnterpriseName" placeholder="企业名称" style="width: 200px;display:inline-block"/>
+
+                <button class="btn" style="font-weight:bold;margin-left:-12px;">企业地址:</button>
+                <input type="text" name=Address" value="@if(session('Address') != '0') {{session('Address')}} @endif" class="form-control Address" placeholder="企业地址" style="width: 200px;display:inline-block"/>
+
+                <button  class="btn btn-primary report-list" ><i class="ace-icon fa fa-download nav-search-icon green"></i>导出</button>
+
+            </div>
+        </div>
+
         <span id='frsc' style="display: none;">{{@csrf_token()}}</span>
     </div>
 </div>
@@ -209,14 +223,14 @@
             </div>
             <div style="width:130px;">
                     每页 <select  class="form-control grid-per-pager" style="width:60px;display: inline-block;">
-                            <option value="/statistical/company?ctime={{time()}}&reportStatus={{session('reportStatus')}}&start={{session('start')}}&end={{session('end')}}&industry={{session('industry')}}&townType={{session('townType')}}&per_page=10" @if(session('per_page') == 10) selected @endif>10</option>
-                            <option value="/statistical/company?ctime={{time()}}&reportStatus={{session('reportStatus')}}&start={{session('start')}}&end={{session('end')}}&industry={{session('industry')}}&townType={{session('townType')}}&per_page=20" @if(session('per_page') == 20) selected @endif>20</option>
-                            <option value="/statistical/company?ctime={{time()}}&reportStatus={{session('reportStatus')}}&start={{session('start')}}&end={{session('end')}}&industry={{session('industry')}}&townType={{session('townType')}}&per_page=30" @if(session('per_page') == 30) selected @endif>30</option>
-                            <option value="/statistical/company?ctime={{time()}}&reportStatus={{session('reportStatus')}}&start={{session('start')}}&end={{session('end')}}&industry={{session('industry')}}&townType={{session('townType')}}&per_page=50" @if(session('per_page') == 50) selected @endif>50</option>
+                            <option value="/statistical/company?ctime={{time()}}&reportStatus={{session('reportStatus')}}&start={{session('start')}}&end={{session('end')}}&industry={{session('industry')}}&townType={{session('townType')}}&EnterpriseName={{session('EnterpriseName')}}&Address={{session('Address')}}&per_page=10" @if(session('per_page') == 10) selected @endif>10</option>
+                            <option value="/statistical/company?ctime={{time()}}&reportStatus={{session('reportStatus')}}&start={{session('start')}}&end={{session('end')}}&industry={{session('industry')}}&townType={{session('townType')}}&EnterpriseName={{session('EnterpriseName')}}&Address={{session('Address')}}&per_page=20" @if(session('per_page') == 20) selected @endif>20</option>
+                            <option value="/statistical/company?ctime={{time()}}&reportStatus={{session('reportStatus')}}&start={{session('start')}}&end={{session('end')}}&industry={{session('industry')}}&townType={{session('townType')}}&EnterpriseName={{session('EnterpriseName')}}&Address={{session('Address')}}&per_page=30" @if(session('per_page') == 30) selected @endif>30</option>
+                            <option value="/statistical/company?ctime={{time()}}&reportStatus={{session('reportStatus')}}&start={{session('start')}}&end={{session('end')}}&industry={{session('industry')}}&townType={{session('townType')}}&EnterpriseName={{session('EnterpriseName')}}&Address={{session('Address')}}&per_page=50" @if(session('per_page') == 50) selected @endif>50</option>
                         </select> 条
             </div>
             <div style="width: auto;">
-                {{$enterprises->appends(['reportStatus'=>session('reportStatus'),'townType'=>session('townType'),'industry'=>session('industry'),'end'=>session('end'),'start'=>session('start'),'per_page'=>session('per_page')])->links()}}
+                {{$enterprises->appends(['reportStatus'=>session('reportStatus'),'townType'=>session('townType'),'EnterpriseName'=>session('EnterpriseName'),'Address'=>session('Address'),'industry'=>session('industry'),'end'=>session('end'),'start'=>session('start'),'per_page'=>session('per_page')])->links()}}
             </div>
         </div>
     </div>
@@ -246,6 +260,24 @@
             new Spinner().spin(document.getElementById('datatable'));
         }
     })
+
+    var EnterpriseName = 0;
+    @if(session('EnterpriseName'))
+        EnterpriseName = {{session('EnterpriseName')}};
+            @endif
+    var Address = 0;
+    @if(session('Address'))
+        Address = {{session('Address')}};
+    @endif
+    $('.EnterpriseName').on("change", function (e) {
+        EnterpriseName = this.value;
+        window.location.href = '/statistical/company?ctime={{time()}}&reportStatus='+"{{session('reportStatus')}}"+'&requestID={{str_shuffle(join('',range('a','z')))}}&industry={{session('industry')}}&townType={{session('townType')}}&per_page={{session('per_page')}}&start={{session('start')}}&end={{session('end')}}&EnterpriseName='+EnterpriseName+'&Address='+Address;
+    });
+    $('.Address').on("change", function (e) {
+        Address = this.value;
+        window.location.href = '/statistical/company?ctime={{time()}}&reportStatus='+"{{session('reportStatus')}}"+'&requestID={{str_shuffle(join('',range('a','z')))}}&industry={{session('industry')}}&townType={{session('townType')}}&per_page={{session('per_page')}}&start={{session('start')}}&end={{session('end')}}&EnterpriseName='+EnterpriseName+'&Address='+Address;
+    });
+
     $('.grid-per-pager').on("change", function (e) {
         window.location.href = this.value;
     });
@@ -270,7 +302,7 @@
             startDate = start.date.valueOf();
             if (endDate) {
                 new Spinner().spin(document.getElementById('datatable'));
-                window.location.href = '/statistical/company?ctime={{time()}}&reportStatus='+"{{session('reportStatus')}}"+'&requestID={{str_shuffle(join('',range('a','z')))}}&industry={{session('industry')}}&townType={{session('townType')}}&per_page={{session('per_page')}}&start='+startDate+'&end='+endDate;
+                window.location.href = '/statistical/company?ctime={{time()}}&reportStatus='+"{{session('reportStatus')}}"+'&requestID={{str_shuffle(join('',range('a','z')))}}&industry={{session('industry')}}&townType={{session('townType')}}&EnterpriseName={{session('EnterpriseName')}}&Address={{session('Address')}}&per_page={{session('per_page')}}&start='+startDate+'&end='+endDate;
             }
       });
 
@@ -284,7 +316,7 @@
         endDate = end.date.valueOf();
         if (startDate != 0) {
             new Spinner().spin(document.getElementById('datatable'));
-            window.location.href = '/statistical/company?ctime={{time()}}&reportStatus='+"{{session('reportStatus')}}"+'&requestID={{str_shuffle(join('',range('a','z')))}}&industry={{session('industry')}}&townType={{session('townType')}}&per_page={{session('per_page')}}&start='+startDate+'&end='+endDate;
+            window.location.href = '/statistical/company?ctime={{time()}}&reportStatus='+"{{session('reportStatus')}}"+'&requestID={{str_shuffle(join('',range('a','z')))}}&industry={{session('industry')}}&townType={{session('townType')}}&EnterpriseName={{session('EnterpriseName')}}&Address={{session('Address')}}&per_page={{session('per_page')}}&start='+startDate+'&end='+endDate;
         }
         console.log(startDate,endDate)
       });
@@ -344,6 +376,13 @@
         $('.query-card-body').css({"margin-top":"0","padding": "1.25rem"});
         $('.query-card').css({"box-shadow":"0 0 1px rgba(0,0,0,.125),0 1px 3px rgba(0,0,0,.2)","background":"#fff","margin-bottom":"1rem"});
     }
+
+    $(document).on('click', '.report-list', function (e) {
+        var target = $(e.target).parent();
+        var url = "/report/exportlist?status={{session('reportStatus')}}&industry={{session('industry')}}&town={{session('townType')}}&enterprise={{session('EnterpriseName')}}&address={{session('Address')}}" + target.serialize();
+        window.location = url;
+        e.preventDefault();
+    });
 
 </script>
 @stop

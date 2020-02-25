@@ -99,9 +99,13 @@ class StatisticalController extends Controller
         $reportStatus = $request->get('reportStatus', '');
         $ind = $request->get('industry', 0);
         $town = $request->get('townType');
+        $EnterpriseName = $request->get('EnterpriseName');
+        $Address = $request->get('Address');
         $request->session()->flash('reportStatus',$reportStatus);
         $request->session()->flash('industry',$ind);
         $request->session()->flash('townType',$town);
+        $request->session()->flash('EnterpriseName',$EnterpriseName);
+        $request->session()->flash('Address',$Address);
         if (!$perPage = $request->get('per_page')){
             $perPage = 10;
         }
@@ -146,6 +150,13 @@ class StatisticalController extends Controller
             $enterprises->where('enterpriseInfoTable.TownID', $town);
         }
 
+        if ($EnterpriseName && !empty($EnterpriseName)){
+            $enterprises->where('enterpriseInfoTable.EnterpriseName', 'like', '%' . $EnterpriseName . '%');
+        }
+        if ($Address && !empty($Address)){
+            $enterprises->where('enterpriseInfoTable.Address', 'like', '%' . $Address . '%');
+        }
+
         //开工时间
         if ($end && $start) {
             if ($start - $end > 0){
@@ -171,7 +182,7 @@ class StatisticalController extends Controller
 
         
         $enterprises = $enterprises->with(['report:id,enterprise_id,status', 'town', 'industries:IndustryTableID,IndustryName'])
-            ->select('EnterpriseID','EnterpriseName', 'EnterpriseScale', 'StartDate', 'District', 'IndustryTableID', 'TownID')
+            ->select('EnterpriseID','EnterpriseName', 'Address', 'EnterpriseScale', 'StartDate', 'District', 'IndustryTableID', 'TownID')
             ->paginate($perPage);
 
         return view('statistic.company', compact('industry','townType', 'enterprises'));
@@ -184,6 +195,8 @@ class StatisticalController extends Controller
         $reportStatus = $request->get('reportStatus', '');
         $industry = $request->get('industry', '');
         $townType = $request->get('townType');
+        $EnterpriseName = $request->get('EnterpriseName');
+        $Address = $request->get('Address');
         if (!$perPage = $request->get('per_page')){
             $perPage = 10;
         }
@@ -210,9 +223,17 @@ class StatisticalController extends Controller
             $enterprises->where('enterpriseInfoTable.TownID', $townType);
         }
 
+        //企业名称 企业地址
+        if ($EnterpriseName && !empty($EnterpriseName)){
+            $enterprises->where('enterpriseInfoTable.EnterpriseName', $EnterpriseName);
+        }
+        if ($Address && !empty($Address)){
+            $enterprises->where('enterpriseInfoTable.Address', $Address);
+        }
+
 
         $enterprises = $enterprises->with(['report', 'town', 'industries:IndustryTableID,IndustryName'])
-            ->select('EnterpriseName', 'EnterpriseScale', 'StartDate', 'District', 'IndustryTableID', 'TownID')
+            ->select('EnterpriseName', 'EnterpriseName', 'Address', 'EnterpriseScale', 'StartDate', 'District', 'IndustryTableID', 'TownID')
             ->paginate($perPage);
 
         return response()->json($enterprises);

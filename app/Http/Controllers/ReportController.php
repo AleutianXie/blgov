@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enterprise;
 use App\Industry;
 use App\Report;
 use App\TownType;
@@ -216,4 +217,141 @@ class ReportController extends Controller
         }
         $model->orderByDesc('report_at');
     }
+
+
+    public function exportlist(Request $request)
+    {
+        $user = $request->user();
+        $data = [];
+        if (!empty($user->is_admin)) {
+            $yz_town_id = 700000;
+            $model = Enterprise::with('report');
+            if (!empty($user->town_id) && $user->town_id != $yz_town_id) {
+                $model->where('town_id', $user->town_id);
+            }
+            $filter = $request->input();
+            $this->getModellist($model, $filter);
+            $count = $model->count();
+            if ($count > 0) {
+                $data[] = ['单位名称', '组织机构代码', '所属区', '所属乡镇', '单位地址', '计划开工时间', '联系人', '联系电话', '企业防控情况说明', '企业规模', '职工人数', '已复工人数', '所属大类', '所属行业', '审核状态', '申请时间'];
+                $model->chunk(100, function ($enterprises) use (&$data) {
+                    foreach ($enterprises as $enterprise) {
+                        $EnterpriseName = $enterprise->EnterpriseName ?? '';
+                        $OrganizationCode = $enterprise->OrganizationCode ?? '';
+                        $District = $enterprise->District ?? '';
+                        $town = $enterprise->TownID ?? '';
+                        $Address = $enterprise->Address ?? '';
+                        $StartDate = $enterprise->StartDate ?? '';
+                        $Contacts = $enterprise->Contacts ?? '';
+                        $PhoneNumber = $enterprise->PhoneNumber ?? '';
+                        $PreventionDesc = $enterprise->PreventionDesc ?? '';
+                        $EnterpriseScale = $enterprise->EnterpriseScale == 0 ? '规下' : '规上';
+                        $EmployeesNumber = $enterprise->EmployeesNumber ?? '';
+                        $BackEmpNumber = $enterprise->BackEmpNumber ?? '';
+                        $IndustryTableID = $this->industries[$enterprise->IndustryTableID] ?? '';
+                        $Industry = $enterprise->Industry ?? '';
+                        $status = '未申报';
+                        if (!empty($enterprise->report->status) && $enterprise->report->status == 1) {
+                            $status = '审核中';
+                        }
+                        if (!empty($enterprise->report->status) && $enterprise->report->status == 2) {
+                            $status = '审核通过';
+                        }
+                        if (!empty($enterprise->report->status) && $enterprise->report->status == 3) {
+                            $status = '不通过';
+                        }
+                        $ReportAt = $enterprise->report->report_at ?? '';
+                        $data[] = [$EnterpriseName, $OrganizationCode, $District, $town, $Address, $StartDate, $Contacts, $PhoneNumber, $PreventionDesc, $EnterpriseScale, $EmployeesNumber, $BackEmpNumber, $IndustryTableID, $Industry, $status, $ReportAt];
+                    }
+                });
+                $spreadsheet = new Spreadsheet();
+                // Set document properties
+                $spreadsheet->getProperties()->setCreator('宝略科技')
+                    ->setLastModifiedBy('宝略科技');
+
+                $spreadsheet->setActiveSheetIndex(0);
+                $spreadsheet->getActiveSheet()->fromArray($data);
+
+                $style = [
+                    'font' => [
+                        'name' => '仿体',
+                        'size' => 11
+                    ],
+                    'alignment' => [
+                        'horizontal' => Alignment::HORIZONTAL_LEFT,
+                        'vertical' => Alignment::VERTICAL_CENTER,
+                        'wrapText' => true
+                    ],
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => Border::BORDER_MEDIUM
+                        ],
+                    ],
+                ];
+                $spreadsheet->getActiveSheet()->getStyle('A1:P' . count($data))->applyFromArray($style);
+                $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth("30");
+                $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth("36");
+                $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth("10");
+                $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth("10");
+                $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth("36");
+                $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth("12");
+                $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth("10");
+                $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth("14");
+                $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth("48");
+                $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth("10");
+                $spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth("10");
+                $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth("10");
+                $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth("10");
+                $spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth("20");
+                $spreadsheet->getActiveSheet()->getColumnDimension('O')->setWidth("10");
+                $spreadsheet->getActiveSheet()->getColumnDimension('P')->setWidth("36");
+                $filename = '企业申请列表.xlsx';
+                header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                header('Content-Disposition: attachment;filename="' . $filename . '"');
+                header('Cache-Control: max-age=0');
+
+                $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+                $writer->save('php://output');
+            }
+        }
+    }
+
+
+    private function getModellist(&$model, $filter = [])
+    {
+        if (!empty($filter['status'])) {
+            $model->whereHas('report', function ($query) use ($filter) {
+                return $query->where('status', $filter['status']);
+            });
+        }
+        if (!empty($filter['town'])) {
+            $model->where('town_id', $filter['town']);
+        }
+        if (!empty($filter['industry'])) {
+            $model->industry($filter['industry']);
+        }
+        if (!empty($filter['enterprise'])) {
+            $model->whereHas('enterprise', function ($query) use ($filter) {
+                return $query->where('EnterpriseName', 'like', '%' . $filter['enterprise'] . '%');
+            });
+        }
+        if (!empty($filter['address'])) {
+            $model->whereHas('enterprise', function ($query) use ($filter) {
+                /*$filter['address'] = str_replace('；',';',$filter['address']);
+                $arr = explode(";",$filter['address']);
+                foreach ($arr as $key=>$value){
+                    if($key == 0){
+                        $query->where('Address', 'like', '%' . $value . '%');
+                    }else{
+                        $query->orwhere('Address', 'like', '%' . $value . '%');
+                    }
+
+                }
+                return $query;*/
+                return $query->where('EnterpriseName', 'like', '%' . $filter['enterprise'] . '%');
+            });
+        }
+        $model->orderByDesc('created_at');
+    }
+
 }
