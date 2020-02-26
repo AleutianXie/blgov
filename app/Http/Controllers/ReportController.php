@@ -325,31 +325,28 @@ class ReportController extends Controller
             });
         }
         if (!empty($filter['town'])) {
-            $model->where('town_id', $filter['town']);
+            $model->where('TownID', $filter['town']);
         }
         if (!empty($filter['industry'])) {
             $model->industry($filter['industry']);
         }
         if (!empty($filter['enterprise'])) {
-            $model->whereHas('enterprise', function ($query) use ($filter) {
-                return $query->where('EnterpriseName', 'like', '%' . $filter['enterprise'] . '%');
-            });
+            $model->where('EnterpriseName', 'like', '%' . $filter['enterprise'] . '%');
         }
         if (!empty($filter['address'])) {
-            $model->whereHas('enterprise', function ($query) use ($filter) {
-                /*$filter['address'] = str_replace('；',';',$filter['address']);
-                $arr = explode(";",$filter['address']);
-                foreach ($arr as $key=>$value){
-                    if($key == 0){
-                        $query->where('Address', 'like', '%' . $value . '%');
-                    }else{
-                        $query->orwhere('Address', 'like', '%' . $value . '%');
-                    }
 
+            /*$filter['address'] = str_replace('；',';',$filter['address']);
+            $arr = explode(";",$filter['address']);
+            foreach ($arr as $key=>$value){
+                if($key == 0){
+                    $model->where('Address', 'like', '%' . $value . '%');
+                }else{
+                    $model->orwhere('Address', 'like', '%' . $value . '%');
                 }
-                return $query;*/
-                return $query->where('EnterpriseName', 'like', '%' . $filter['enterprise'] . '%');
-            });
+
+            }*/
+
+            $model->where('Address', 'like', '%' . $filter['address'] . '%');
         }
         $model->orderByDesc('created_at');
     }

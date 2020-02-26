@@ -261,21 +261,6 @@
             new Spinner().spin(document.getElementById('datatable'));
         }
     })
-
-    var EnterpriseName = 0;
-    @if(session('EnterpriseName'))
-        EnterpriseName = {{session('EnterpriseName')}};
-            @endif
-    var Address = 0;
-    @if(session('Address'))
-        Address = {{session('Address')}};
-    @endif
-    $('.btn-see').click(function(){
-        EnterpriseName = document.getElementById("EnterpriseName").value;
-        Address = document.getElementById("Address").value;
-        window.location.href = '/statistical/company?ctime={{time()}}&reportStatus='+"{{session('reportStatus')}}"+'&requestID={{str_shuffle(join('',range('a','z')))}}&industry={{session('industry')}}&townType={{session('townType')}}&per_page={{session('per_page')}}&start={{session('start')}}&end={{session('end')}}&EnterpriseName='+EnterpriseName+'&Address='+Address;
-    });
-
     $('.grid-per-pager').on("change", function (e) {
         window.location.href = this.value;
     });
@@ -284,11 +269,11 @@
     });
     var startDate = 0;
     @if(session('start'))
-        startDate = {{session('start')}};
+        startDate = '{{session('start')}}';
     @endif
     var endDate = 0;
     @if(session('start'))
-        endDate = {{session('end')}};
+        endDate = '{{session('end')}}';
     @endif
     $("input[name='startDate']").datetimepicker({
         minView : "month", 
@@ -304,7 +289,7 @@
             }
       });
 
-      $("input[name='endDate']").datetimepicker({
+    $("input[name='endDate']").datetimepicker({
         minView : "month", 
         language : 'zh-CN',
         autoclose : true,
@@ -374,6 +359,20 @@
         $('.query-card-body').css({"margin-top":"0","padding": "1.25rem"});
         $('.query-card').css({"box-shadow":"0 0 1px rgba(0,0,0,.125),0 1px 3px rgba(0,0,0,.2)","background":"#fff","margin-bottom":"1rem"});
     }
+
+    var EnterpriseName = 0;
+    @if(session('EnterpriseName'))
+        EnterpriseName = '{{session('EnterpriseName')}}';
+            @endif
+    var Address = 0;
+    @if(session('Address'))
+        Address = '{{session('Address')}}';
+    @endif
+    $('.btn-see').click(function(){
+        EnterpriseName = document.getElementById("EnterpriseName").value;
+        Address = document.getElementById("Address").value;
+        window.location.href = '/statistical/company?ctime={{time()}}&reportStatus='+"{{session('reportStatus')}}"+'&requestID={{str_shuffle(join('',range('a','z')))}}&industry={{session('industry')}}&townType={{session('townType')}}&per_page={{session('per_page')}}&start={{session('start')}}&end={{session('end')}}&EnterpriseName='+EnterpriseName+'&Address='+Address;
+    });
 
     $(document).on('click', '.report-list', function (e) {
         var target = $(e.target).parent();
