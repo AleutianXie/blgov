@@ -227,7 +227,7 @@ class ReportController extends Controller
             $yz_town_id = 700000;
             $model = Enterprise::with('report');
             if (!empty($user->town_id) && $user->town_id != $yz_town_id) {
-                $model->where('town_id', $user->town_id);
+                $model->where('TownID', $user->town_id);
             }
             $filter = $request->input();
             $this->getModellist($model, $filter);
@@ -239,7 +239,7 @@ class ReportController extends Controller
                         $EnterpriseName = $enterprise->EnterpriseName ?? '';
                         $OrganizationCode = $enterprise->OrganizationCode ?? '';
                         $District = $enterprise->District ?? '';
-                        $town = $enterprise->TownID ?? '';
+                        $town = $this->towns[$enterprise->TownID] ?? '';
                         $Address = $enterprise->Address ?? '';
                         $StartDate = $enterprise->StartDate ?? '';
                         $Contacts = $enterprise->Contacts ?? '';
@@ -345,7 +345,6 @@ class ReportController extends Controller
                 }
 
             }*/
-
             $model->where('Address', 'like', '%' . $filter['address'] . '%');
         }
         $model->orderByDesc('created_at');
