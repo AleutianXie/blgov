@@ -252,7 +252,6 @@
         } else if(upDownQueryParams == 1){
             $('.upDownQueryParams').find('span').html('展开');
             $('.upDownQueryParams').attr('data-id',1);
-            console.log($('.upDownQueryParams').data('id'))
             willUp(0,0);
         }
     }
@@ -301,7 +300,6 @@
             new Spinner().spin(document.getElementById('datatable'));
             window.location.href = '/statistical/company?ctime={{time()}}&reportStatus='+"{{session('reportStatus')}}"+'&requestID={{str_shuffle(join('',range('a','z')))}}&industry={{session('industry')}}&townType={{session('townType')}}&EnterpriseName={{session('EnterpriseName')}}&Address={{session('Address')}}&per_page={{session('per_page')}}&start='+startDate+'&end='+endDate;
         }
-        console.log(startDate,endDate)
       });
     $('.reportStatus').click(function(){
         $('.reportStatus').removeClass('btn-primary');
@@ -321,7 +319,6 @@
     })
     $('.upDownQueryParams').click(function(){
         var id = $(this).attr('data-id');
-        console.log(id)
         if (id == 0) {
         //up
             $(this).css({"margin-right":"20px"});
@@ -343,6 +340,7 @@
     function willUp(row2,row3){
         $('.query-row2').slideUp(row2);
         $('.query-row3').slideUp(row3);
+        $('.query-row4').slideUp(row3);
         $('.query-row1-one').css({"opacity":"0"});
         $('.query-row1-town').css({"opacity":"0"});
         $('.refresh').css({"opacity":"0"});
@@ -353,6 +351,7 @@
     function willDown(row2,row3){
         $('.query-row2').slideDown(row2);
         $('.query-row3').slideDown(row3);
+        $('.query-row4').slideDown(row3);
         $('.query-row1-one').css({"opacity":"1"});
         $('.query-row1-town').css({"opacity":"1"});
         $('.refresh').css({"opacity":"1"});
