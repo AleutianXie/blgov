@@ -264,7 +264,6 @@
         var gender = res.gender;
         
         var outing = res.outing;
-        console.log(outing)
         for(var k=0;k<outing.length;k++){
             if (outing[k].key == '宁波'){
                 wu = parseInt(outing[k].value)
@@ -292,7 +291,6 @@
         ];
         outUserSpin.stop();
         OutMain.setOption(OutMainOption);
-        console.log(OutMainOption)
       }
     });
     $.ajax({
@@ -353,7 +351,6 @@
       url: touch_url,
       method: 'get',
       success: function(res){
-        console.log(res)
         for(var i = 0; i<res.length;i++){
           if (res[i].key == '无接触') {
             touchOption.series[0].data.push(res[i].value);
@@ -430,7 +427,6 @@
         $('#otherCount').html(other);
         genderMain.setOption(genderOption);
         genderSpin.stop();
-        console.log(gongye,build,other)
       }
     });
 </script>

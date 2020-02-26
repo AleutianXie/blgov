@@ -52,7 +52,74 @@ class StatisticalController extends Controller
         if (!empty($user->town_id)) {
             $model->where('town_id', $user->town_id);
         }
-        return $model->get()->pluck('enterpry');
+
+        $data = $model->get()->pluck('enterpry');
+
+        $BackEmpNumber = $data->sum('BackEmpNumber');
+        $EmployeesNumber = $data->sum('EmployeesNumber');
+        $isNeedMedicalObservation = 0;
+        $outgoingDesc = [];
+        $contactSituation = [
+            'isContactSituation' => 0,
+            'notContactSituation' => 0,
+        ];
+        $wu = 0; //0
+        $hubei = 0;//1
+        $wenzhou = 0;//2
+        $taizhou = 0;//3
+        $other = 0;//4
+
+        $users = [];
+        foreach ($data->pluck('users') as $key => $value) {
+            if ($value) {
+                $users = array_merge($users, $value->toArray());   
+            }
+        }
+        foreach ($users as $k => $v) {
+            switch ($v['OutgoingSituation']) {
+                case 0:
+                    $wu += 1;
+                    break;
+                case 1:
+                    $hubei += 1;
+                    break;
+                case 2:
+                    $wenzhou += 1;
+                    break;
+                case 3:
+                    $taizhou += 1;
+                    break;
+                case 4:
+                    $other += 1;
+                    break;
+            }
+            if ($v['IsMedicalObservation']) {
+                $isNeedMedicalObservation += 1;
+            }
+
+            if ($v['OutgoingDesc']) {
+                $outgoingDesc[$v['OutgoingDesc']] = ($outgoingDesc[$v['OutgoingDesc']] ?? 0) + 1;
+            }
+
+            if ($v['ContactSituation']) {
+                $contactSituation['isContactSituation'] += 1;
+            } else {
+                $contactSituation['notContactSituation'] += 1;
+            }
+        }
+
+        return [
+            'BackEmpNumber' => $BackEmpNumber,
+            'EmployeesNumber' => $EmployeesNumber,
+            'isNeedMedicalObservation' => $isNeedMedicalObservation,
+            'outgoingDesc' => $outgoingDesc,
+            'contactSituation' => $contactSituation,
+            'wu' => $wu,
+            'hubei' => $hubei,
+            'wenzhou' => $wenzhou,
+            'taizhou' => $taizhou,
+            'other' => $other,
+        ];
     }
 
     public function register(Request $request)

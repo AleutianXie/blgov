@@ -299,94 +299,46 @@
         url: '/statistical/data',
         async:true,
         success:function(res){
-            var EmployeesNumbers = 0;
-            var BackEmpNumbes = 0;
-            var IsMedicalObservation = 0;
+            var EmployeesNumbers = res.EmployeesNumber;
+            var BackEmpNumbes = res.BackEmpNumber;
+            var IsMedicalObservation = res.isNeedMedicalObservation;
             
-            var wu = 0; //0
-            var hubei = 0;//1
-            var wenzhou = 0;//2
-            var taizhou = 0;//3
-            var other = 0;//4
+            var wu = res.wu; //0
+            var hubei = res.hubei;//1
+            var wenzhou = res.wenzhou;//2
+            var taizhou = res.taizhou;//3
+            var other = res.other;//4
 
-            var ContactSituation0 = 0;
-            var ContactSituation1 = 0;
+            var ContactSituation0 = res.contactSituation.notContactSituation;
+            var ContactSituation1 = res.contactSituation.isContactSituation;
 
-            var OutgoingDesc = {};
+            var OutgoingDesc = res.outgoingDesc;
             var OutgoingDescSortKey = [];
 
-            for(var i =0;i<res.length;i++){
-                
-                if (res[i].EmployeesNumber != undefined) {
-                    EmployeesNumbers = EmployeesNumbers + res[i].EmployeesNumber;
-                }
-                if (res[i].BackEmpNumber != undefined) {
-                    BackEmpNumbes =BackEmpNumbes + res[i].BackEmpNumber;
-                }
-
-                //user
-                if (res[i].users != undefined && res[i].users.length) {
-                    var users = res[i].users;
-                    for(var j=0;j<users.length;j++){
-                        if (users[j].IsMedicalObservation){
-                            IsMedicalObservation += 1;
-                        }
-                        if (users[j].OutgoingSituation == 0){
-                            wu +=1;
-                        }
-                        if (users[j].OutgoingSituation == 1){
-                            hubei +=1;
-                        }
-                        if (users[j].OutgoingSituation == 2){
-                            wenzhou +=1;
-                        }
-                        if (users[j].OutgoingSituation == 3){
-                            taizhou +=1;
-                        }
-                        if (users[j].OutgoingSituation == 4){
-                            other +=1;
-                        }
-
-                        if (users[j].ContactSituation == 0){
-                            ContactSituation0 +=1;
-                        }
-
-                        if (users[j].ContactSituation == 1){
-                            ContactSituation1 +=1;
-                        }
-
-                        if (users[j].OutgoingDesc && users[j].OutgoingDesc != undefined && users[j].OutgoingDesc != 0){
-                            if (OutgoingDesc[users[j].OutgoingDesc] != undefined) {
-                              OutgoingDesc[users[j].OutgoingDesc] += 1;
-                            } else {
-                              OutgoingDesc[users[j].OutgoingDesc] = 1;
-                              OutgoingDescSortKey.push({id:new Date(users[j].OutgoingDesc).getTime(),value:users[j].OutgoingDesc});
-                            }
-                            
-                        }
-                        
-                    }
-                }
+            for (var k in OutgoingDesc) {
+              OutgoingDescSortKey.push({id:new Date(k).getTime(),value:OutgoingDesc[k]});
             }
             OutgoingDescSortKey.sort(sortId);
-            console.log(OutgoingDescSortKey)
-            for (var x=0; x< OutgoingDescSortKey.length; x++){
-              option4.xAxis.data.push(OutgoingDescSortKey[x].value);
-              option4.series[0].data.push(OutgoingDesc[OutgoingDescSortKey[x].value]);
+            for (var key in OutgoingDescSortKey) {
+              var date = new Date(OutgoingDescSortKey[key].id);
+              var year = date.getFullYear()
+              var month = date.getMonth() +1;
+              if (month < 10) {
+                month = '0'+month;
+              }
+              var day = date.getDate();
+              option4.xAxis.data.push(year+'-'+month+'-'+day);
+              option4.series[0].data.push(OutgoingDescSortKey[key].value);
             }
-            console.log(OutgoingDesc)
+           
             myChart4.setOption(option4);
-            console.log(OutgoingDesc)
-            console.log(ContactSituation0,ContactSituation1)
-            console.log(wu,hubei,wenzhou,taizhou,other)
+            
             $('#userTotalVal').html(EmployeesNumbers);
             userTotal.stop();
             $('#backUserVal').html(BackEmpNumbes);
             backUser.stop();
             $('#lookUserVal').html(IsMedicalObservation);
             lookUser.stop();
-
-            console.log(IsMedicalObservation)
 
             $('#outWu').html(wu);
             $('#outHubei').html(hubei);
@@ -401,10 +353,9 @@
                 {value: taizhou,name: '台州'},
                 {value: other,name: '其他'},
             ];
-            option3.series[0].data = [ContactSituation0,ContactSituation1];
             myChart2.setOption(option2);
             outUser.stop();
-
+            option3.series[0].data = [ContactSituation0,ContactSituation1];
             myChart3.setOption(option3);
             contactUser.stop();
 
