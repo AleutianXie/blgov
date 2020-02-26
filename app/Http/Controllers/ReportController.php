@@ -224,12 +224,38 @@ class ReportController extends Controller
         $user = $request->user();
         $data = [];
         if (!empty($user->is_admin)) {
-            $yz_town_id = 700000;
             $model = Enterprise::with('report');
-            if (!empty($user->town_id) && $user->town_id != $yz_town_id) {
-                $model->where('TownID', $user->town_id);
-            }
+            $town_id = $user->town_id;
+
             $filter = $request->input();
+
+            $ind = $filter['industry'];
+            if (!$town_id){
+                //局
+                if ($ind && is_numeric($ind) && $ind < 2000000000){
+                    //其他
+                    if ($ind == 600026){
+                        $model->whereRaw('("enterpriseInfoTable"."IndustryTableID" = 600026 or "enterpriseInfoTable"."IndustryTableID" is null)');
+                    } else {
+                        $model->where('enterpriseInfoTable.IndustryTableID', $ind);
+                    }
+                } else {
+                    $model->whereRaw('("enterpriseInfoTable"."IndustryTableID" between '.$user->industry_id_min.' and '.$user->industry_id_max.' or "enterpriseInfoTable"."IndustryTableID" is null)');
+                }
+            } else {
+                //乡镇
+                $model->where('enterpriseInfoTable.TownID', $town_id);
+                if ($ind && is_numeric($ind) && $ind < 2000000000){
+                    if ($ind == 600026){
+                        $model->whereRaw('("enterpriseInfoTable"."IndustryTableID" = '.$ind.' or "enterpriseInfoTable"."IndustryTableID" is null)');
+                    } else {
+                        $model->where('enterpriseInfoTable.IndustryTableID', $ind);
+                    }
+                } elseif($ind == 0) {
+                    // $enterprises->orWhereRaw('"enterpriseInfoTable"."IndustryTableID" is null');
+                }
+            }
+
             $this->getModellist($model, $filter);
             $count = $model->count();
             if ($count > 0) {
