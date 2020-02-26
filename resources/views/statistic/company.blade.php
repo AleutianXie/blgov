@@ -160,11 +160,12 @@
         <div class="row query-row4" style="margin-top:5px;">
             <div class="col-md-12">
                 <button class="btn" style="font-weight:bold;margin-left:-12px;">企业名称:</button>
-                <input type="text" name=EnterpriseName" value="@if(session('EnterpriseName') != '0') {{session('EnterpriseName')}} @endif" class="form-control EnterpriseName" placeholder="企业名称" style="width: 200px;display:inline-block"/>
+                <input type="text" id="EnterpriseName" name=EnterpriseName" value="@if(session('EnterpriseName') != '0') {{session('EnterpriseName')}} @endif" class="form-control" placeholder="企业名称" style="width: 200px;display:inline-block"/>
 
                 <button class="btn" style="font-weight:bold;margin-left:-12px;">企业地址:</button>
-                <input type="text" name=Address" value="@if(session('Address') != '0') {{session('Address')}} @endif" class="form-control Address" placeholder="企业地址" style="width: 200px;display:inline-block"/>
+                <input type="text" id="Address" name=Address" value="@if(session('Address') != '0') {{session('Address')}} @endif" class="form-control" placeholder="企业地址" style="width: 200px;display:inline-block"/>
 
+                <button class="btn btn-white btn-info btn-bold btn-see"><i class="ace-icon fa fa-search nav-search-icon green"></i>查找</button>
                 <button  class="btn btn-primary report-list" ><i class="ace-icon fa fa-download nav-search-icon green"></i>导出</button>
 
             </div>
@@ -269,12 +270,9 @@
     @if(session('Address'))
         Address = {{session('Address')}};
     @endif
-    $('.EnterpriseName').on("change", function (e) {
-        EnterpriseName = this.value;
-        window.location.href = '/statistical/company?ctime={{time()}}&reportStatus='+"{{session('reportStatus')}}"+'&requestID={{str_shuffle(join('',range('a','z')))}}&industry={{session('industry')}}&townType={{session('townType')}}&per_page={{session('per_page')}}&start={{session('start')}}&end={{session('end')}}&EnterpriseName='+EnterpriseName+'&Address='+Address;
-    });
-    $('.Address').on("change", function (e) {
-        Address = this.value;
+    $('.btn-see').click(function(){
+        EnterpriseName = document.getElementById("EnterpriseName").value;
+        Address = document.getElementById("Address").value;
         window.location.href = '/statistical/company?ctime={{time()}}&reportStatus='+"{{session('reportStatus')}}"+'&requestID={{str_shuffle(join('',range('a','z')))}}&industry={{session('industry')}}&townType={{session('townType')}}&per_page={{session('per_page')}}&start={{session('start')}}&end={{session('end')}}&EnterpriseName='+EnterpriseName+'&Address='+Address;
     });
 

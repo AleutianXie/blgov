@@ -258,7 +258,7 @@ class ReportController extends Controller
                             $status = '审核通过';
                         }
                         if (!empty($enterprise->report->status) && $enterprise->report->status == 3) {
-                            $status = '不通过';
+                            $status = '未通过';
                         }
                         $ReportAt = $enterprise->report->report_at ?? '';
                         $data[] = [$EnterpriseName, $OrganizationCode, $District, $town, $Address, $StartDate, $Contacts, $PhoneNumber, $PreventionDesc, $EnterpriseScale, $EmployeesNumber, $BackEmpNumber, $IndustryTableID, $Industry, $status, $ReportAt];
