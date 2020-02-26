@@ -28,6 +28,7 @@ Route::get('/enterprise', 'EnterpriseController@index')->name('enterprise.index'
 Route::get('/enterprise/list', 'EnterpriseController@list')->name('enterprise.list')->middleware('auth');
 Route::get('/report/list', 'ReportController@list')->name('report.list')->middleware('auth');
 Route::get('/report/export', 'ReportController@export')->name('report.export')->middleware('auth');
+Route::get('/report/exportlist', 'ReportController@exportlist')->name('report.exportlist')->middleware('auth');
 Route::post('/enterprise/my', 'EnterpriseController@apply')->name('enterprise.post')->middleware('auth');
 Route::post('/enterprise/{id}', 'EnterpriseController@audit')->where('id', '[0-9]+')->name('enterprise.audit')->middleware('auth');
 Route::post('/password/change', 'UserController@changePassword')->name('user.changePassword')->middleware('auth');

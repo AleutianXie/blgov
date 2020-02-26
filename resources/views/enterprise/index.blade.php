@@ -40,7 +40,7 @@
                         <input type="text" name="enterprise" id="enterprise" class="form-control" placeholder="企业名称" />
                     </div>
                     <div class="col-md-2">
-                        <input type="text" name="address" id="address" class="form-control" placeholder="企业地址" />
+                        <input type="text" name="address" id="address" class="form-control" placeholder="企业地址例：首南街道;中河街道" />
                     </div>
                 <button type="submit" class="btn btn-white btn-info btn-bold">
                     <i class="ace-icon fa fa-search nav-search-icon green"></i>查找
