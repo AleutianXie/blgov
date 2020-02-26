@@ -57,7 +57,7 @@ class ReportController extends Controller
                 ->addColumn('EnterpriseName', function (Report $report) {
                     return $report->enterprise->EnterpriseName ?? '';
                 })
-                ->editColumn('Address', function (Report $report) {
+                ->addColumn('Address', function (Report $report) {
                     return $report->enterprise->Address ?? '';
                 })
                 ->addColumn('EnterpriseID', function (Report $report) {
