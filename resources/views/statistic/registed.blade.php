@@ -201,7 +201,12 @@
     var medical_url = "{{$urls['medical']}}";
     var touch_url = "{{$urls['touch']}}";
     var back_time_url = "{{$urls['back']}}"+'?star=2020-01-01&end=2020-06-01';
-    
+    var wu = 0; //0
+    var hubei = 0;//1
+    var wenzhou = 0;//2
+    var taizhou = 0;//3
+    var other = 0;//4
+
     if (town_id && town_id != undefined){
         summary_url = summary_url + '?town='+town_id;
         medical_url = medical_url + '?town='+town_id;
@@ -259,15 +264,35 @@
         var gender = res.gender;
         
         var outing = res.outing;
+        console.log(outing)
         for(var k=0;k<outing.length;k++){
-          if (outing[k].key == '宁波'){OutMainOption.series[0].data.push({value:outing[k].value,name:'无'});$('#outWu').html(outing[k].value)}
-          if (outing[k].key == '湖北'){OutMainOption.series[0].data.push({value:outing[k].value,name:'湖北'});$('#outHubei').html(outing[k].value)}
-          if (outing[k].key == '温州'){OutMainOption.series[0].data.push({value:outing[k].value,name:'温州'});$('#outWenzhou').html(outing[k].value)}
-          if (outing[k].key == '台州'){OutMainOption.series[0].data.push({value:outing[k].value,name:'台州'});$('#outTaizhou').html(outing[k].value)}
-          if (outing[k].key == '其它'){OutMainOption.series[0].data.push({value:outing[k].value,name:'其它'});$('#outOther').html(outing[k].value)}
+            if (outing[k].key == '宁波'){
+                wu = parseInt(outing[k].value)
+                $('#outWu').html(outing[k].value)
+            } else if (outing[k].key == '湖北'){
+                hubei = parseInt(outing[k].value)
+                $('#outHubei').html(outing[k].value)
+            } else if (outing[k].key == '温州'){
+                wenzhou = parseInt(outing[k].value)
+                $('#outWenzhou').html(outing[k].value)
+            } else if (outing[k].key == '台州'){
+                taizhou = parseInt(outing[k].value)
+                $('#outTaizhou').html(outing[k].value);
+            } else if (outing[k].key == '其它'){
+                other = parseInt(outing[k].value)
+                $('#outOther').html(outing[k].value)
+            }
         }
+        OutMainOption.series[0].data = [
+            {value: wu,name: '无'},
+            {value: hubei,name: '湖北'},
+            {value: wenzhou,name: '温州'},
+            {value: taizhou,name: '台州'},
+            {value: other,name: '其他'},
+        ];
         outUserSpin.stop();
         OutMain.setOption(OutMainOption);
+        console.log(OutMainOption)
       }
     });
     $.ajax({
@@ -388,13 +413,13 @@
         var other = 0;
         for (var i =0;i<res.length;i++){
           if (res[i].IndustryTableID == 600006){
-            gongye = res[i].count;
+            gongye = parseInt(res[i].count);
           } else if (res[i].IndustryTableID == 600007){
-            build += res[i].count;
+            build += parseInt(res[i].count);
           } else if (res[i].IndustryTableID == 600008){
-            build += res[i].count;
+            build += parseInt(res[i].count);
           } else {
-            other += res[i].count;
+            other += parseInt(res[i].count);
           }
         }
         genderOption.series[0].data.push({value:gongye,name:'工业'});

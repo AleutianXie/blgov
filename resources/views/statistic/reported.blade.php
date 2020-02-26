@@ -199,7 +199,8 @@
     var ing = reportCount[1] == undefined ? 0 : reportCount[1];
     var pass = reportCount[2] == undefined ? 0 : reportCount[2];
     var noPass = reportCount[3] == undefined ? 0 : reportCount[3];
-    var total = ing + pass + noPass;
+    var total = parseInt(ing) + parseInt(pass) + parseInt(noPass);
+    // console.log(ing , pass , noPass)
     $('#reportTotal').html(total);
 
     $('#ingCount').html(ing);
