@@ -29,6 +29,11 @@ class Kernel extends ConsoleKernel
              ->hourly()
              ->timezone('PRC')
              ->unlessBetween('1:00', '6:00');
+
+        $schedule->command('statistic:update')
+             ->everyFifteenMinutes()
+             ->timezone('PRC')
+             ->unlessBetween('1:00', '6:00');
     }
 
     /**
