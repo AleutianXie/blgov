@@ -28,7 +28,7 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-6 col-md-6">
-                            <p class="text-left"><span>企业组织机构代码：{{$enterprise->OrganizationCode}}</span></p>
+                            <p class="text-left"><span>企业统一社会信用代码：{{$enterprise->OrganizationCode}}</span></p>
                             <p class="text-left"><span>企业复工人数：{{$enterprise->BackEmpNumber}}</span></p>
                             <p class="text-left"><span>企业地址：{{$enterprise->Address}}</span></p>
                             <p class="text-left"><span>手机号码：{{$enterprise->PhoneNumber}}</span></p>
@@ -151,6 +151,12 @@
                             }
                             if (res[i].comment){
                                 html += '<div class="row" name="comment" style="width: 100%;line-height: 30px;padding: 15px;"><div style="border-top: 1px solid #f4f1f1;width: 100%;"></div>'+res[i].comment+'</div>';
+                            }
+                            if (res[i].docs){
+                                var arr = JSON.parse(res[i].docs);
+                                for(var j=0; j < arr.length; j++){
+                                    html += '<a href="'+arr[j].url+'" target="download" download="'+arr[j].name+'.'+(arr[j].url).split(".").pop()+'">'+arr[j].name+'</a>';
+                                }
                             }
                             html += '</div></div>';
                         }

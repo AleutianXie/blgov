@@ -103,7 +103,7 @@ class ReportController extends Controller
             $this->getModel($model, $filter);
             $count = $model->count();
             if ($count > 0) {
-                $data[] = ['单位名称', '组织机构代码', '所属区', '所属乡镇', '单位地址', '计划开工时间', '联系人', '联系电话', '企业防控情况说明', '企业规模', '职工人数', '已复工人数', '所属大类', '所属行业', '审核状态', '申请时间'];
+                $data[] = ['单位名称', '统一社会信用代码', '所属区', '所属乡镇', '单位地址', '计划开工时间', '联系人', '联系电话', '企业防控情况说明', '企业规模', '职工人数', '已复工人数', '所属大类', '所属行业', '审核状态', '申请时间'];
                 $model->chunk(100, function ($reports) use (&$data) {
                     foreach ($reports as $report) {
                         $EnterpriseName = $report->enterprise->EnterpriseName ?? '';
@@ -259,7 +259,7 @@ class ReportController extends Controller
             $this->getModellist($model, $filter);
             $count = $model->count();
             if ($count > 0) {
-                $data[] = ['单位名称', '组织机构代码', '所属区', '所属乡镇', '单位地址', '计划开工时间', '联系人', '联系电话', '企业防控情况说明', '企业规模', '职工人数', '已复工人数', '所属大类', '所属行业', '审核状态', '申请时间'];
+                $data[] = ['单位名称', '统一社会信用代码', '所属区', '所属乡镇', '单位地址', '计划开工时间', '联系人', '联系电话', '企业防控情况说明', '企业规模', '职工人数', '已复工人数', '所属大类', '所属行业', '审核状态', '申请时间'];
                 $model->chunk(100, function ($enterprises) use (&$data) {
                     foreach ($enterprises as $enterprise) {
                         $EnterpriseName = $enterprise->EnterpriseName ?? '';

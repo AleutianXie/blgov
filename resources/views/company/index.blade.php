@@ -25,7 +25,7 @@
       <input type="text" class="form-control" value="{{$company->EnterpriseName}}" disabled/>
       </div>
       <div class="form-row">
-        <label>组织机构代码证:</label>
+        <label>统一社会信用代码:</label>
       <input type="text" class="form-control" value="{{$company->OrganizationCode}}" disabled  />
       </div>
       <div class="form-row">
