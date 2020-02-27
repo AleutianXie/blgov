@@ -9,6 +9,7 @@ use App\Enterprise;
 use App\Industry;
 use App\TownType;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 class StatisticalController extends Controller
 {
@@ -47,9 +48,15 @@ class StatisticalController extends Controller
         $user = $request->user();
         $model = Report::with(['enterpry:EnterpriseID,BackEmpNumber,EmployeesNumber']);
         if (!empty($user->industry_id_min) && !empty($user->industry_id_max)) {
+            if ($_data = Redis::hGet('blgov:statistic:admins', $user->industry_id_min.$user->industry_id_max)) {
+                return json_decode($_data, true);
+            }
             $model->industryBetween($user->industry_id_min, $user->industry_id_max);
         }
         if (!empty($user->town_id)) {
+            if ($_data = Redis::hGet('blgov:statistic:town_ids', $user->town_id)) {
+                return json_decode($_data, true);
+            }
             $model->where('town_id', $user->town_id);
         }
 
