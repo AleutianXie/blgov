@@ -30,7 +30,7 @@ h4{font-size:12px;}
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-6 col-md-6">
-                            <h4 class="text-left"><span>企业组织机构代码：{{$enterprise->OrganizationCode}}</span></h4>
+                            <h4 class="text-left"><span>企业统一社会信用代码：{{$enterprise->OrganizationCode}}</span></h4>
                             <h4 class="text-left"><span>企业复工人数：{{$enterprise->BackEmpNumber}}</span></h4>
                             <h4 class="text-left"><span>企业地址：{{$enterprise->Address}}</span></h4>
                             <h4 class="text-left"><span>手机号码：{{$enterprise->PhoneNumber}}</span></h4>
