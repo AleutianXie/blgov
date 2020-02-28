@@ -163,9 +163,13 @@ class StatisticalController extends Controller
         $reportStatus = $request->get('reportStatus', '');
         $ind = $request->get('industry', 0);
         $town = $request->get('townType');
+        $EnterpriseName = $request->get('EnterpriseName');
+        $Address = $request->get('Address');
         $request->session()->flash('reportStatus',$reportStatus);
         $request->session()->flash('industry',$ind);
         $request->session()->flash('townType',$town);
+        $request->session()->flash('EnterpriseName',$EnterpriseName);
+        $request->session()->flash('Address',$Address);
         if (!$perPage = $request->get('per_page')){
             $perPage = 10;
         }
@@ -210,6 +214,24 @@ class StatisticalController extends Controller
             $enterprises->where('enterpriseInfoTable.TownID', $town);
         }
 
+        if ($EnterpriseName && !empty($EnterpriseName)){
+            $enterprises->where('enterpriseInfoTable.EnterpriseName', 'like', '%' . $EnterpriseName . '%');
+        }
+
+        if ($Address && !empty($Address)){
+            $Address = str_replace('；',';',$Address);
+            $arr = explode(";",$Address);
+            foreach ($arr as $key=>$value){
+                if($key == 0){
+                    $enterprises->where('enterpriseInfoTable.Address', 'like', '%' . $value . '%');
+                }else{
+                    $enterprises->orwhere('enterpriseInfoTable.Address', 'like', '%' . $value . '%');
+                }
+
+            }
+            //$enterprises->where('enterpriseInfoTable.Address', 'like', '%' . $Address . '%');
+        }
+
         //开工时间
         if ($end && $start) {
             if ($start - $end > 0){
@@ -235,7 +257,7 @@ class StatisticalController extends Controller
 
         
         $enterprises = $enterprises->with(['report:id,enterprise_id,status', 'town', 'industries:IndustryTableID,IndustryName'])
-            ->select('EnterpriseID','EnterpriseName', 'EnterpriseScale', 'StartDate', 'District', 'IndustryTableID', 'TownID')
+            ->select('EnterpriseID','EnterpriseName', 'Address', 'EnterpriseScale', 'StartDate', 'District', 'IndustryTableID', 'TownID')
             ->paginate($perPage);
 
         return view('statistic.company', compact('industry','townType', 'enterprises'));

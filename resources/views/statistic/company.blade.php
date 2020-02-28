@@ -160,10 +160,10 @@
         <div class="row query-row4" style="margin-top:5px;">
             <div class="col-md-12">
                 <button class="btn" style="font-weight:bold;margin-left:-12px;">企业名称:</button>
-                <input type="text" id="EnterpriseName" name=EnterpriseName" value="@if(session('EnterpriseName') != '0') {{session('EnterpriseName')}} @endif" class="form-control" placeholder="企业名称" style="width: 200px;display:inline-block"/>
+                <input type="text" id="EnterpriseName" name=EnterpriseName" @if(session('EnterpriseName') != '0') value="{{session('EnterpriseName')}}" @endif class="form-control" placeholder="企业名称" style="width: 260px;display:inline-block"/>
 
                 <button class="btn" style="font-weight:bold;margin-left:-12px;">企业地址:</button>
-                <input type="text" id="Address" name=Address" value="@if(session('Address') != '0') {{session('Address')}} @endif" class="form-control" placeholder="企业地址" style="width: 200px;display:inline-block"/>
+                <input type="text" id="Address" name=Address" @if(session('Address') != '0') value="{{session('Address')}}" @endif class="form-control" placeholder="企业地址例：首南街道;中河街道" style="width: 260px;display:inline-block"/>
 
                 <button class="btn btn-white btn-info btn-bold btn-see"><i class="ace-icon fa fa-search nav-search-icon green"></i>查找</button>
                 <button  class="btn btn-primary report-list" ><i class="ace-icon fa fa-download nav-search-icon green"></i>导出</button>
