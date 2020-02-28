@@ -221,15 +221,15 @@ class StatisticalController extends Controller
         if ($Address && !empty($Address)){
             $Address = str_replace('；',';',$Address);
             $arr = explode(";",$Address);
-            foreach ($arr as $key=>$value){
-                if($key == 0){
-                    $enterprises->where('enterpriseInfoTable.Address', 'like', '%' . $value . '%');
-                }else{
-                    $enterprises->orwhere('enterpriseInfoTable.Address', 'like', '%' . $value . '%');
+            $enterprises->where(function ($enterprises) use ($arr) {
+                foreach ($arr as $key=>$value){
+                    if($key == 0){
+                        $enterprises->where('enterpriseInfoTable.Address', 'like', '%' . $value . '%');
+                    }else{
+                        $enterprises->orwhere('enterpriseInfoTable.Address', 'like', '%' . $value . '%');
+                    }
                 }
-
-            }
-            //$enterprises->where('enterpriseInfoTable.Address', 'like', '%' . $Address . '%');
+            });
         }
 
         //开工时间

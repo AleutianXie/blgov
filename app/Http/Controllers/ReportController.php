@@ -360,17 +360,17 @@ class ReportController extends Controller
             $model->where('EnterpriseName', 'like', '%' . $filter['enterprise'] . '%');
         }
         if (!empty($filter['address'])) {
-
             $filter['address'] = str_replace('；',';',$filter['address']);
             $arr = explode(";",$filter['address']);
-            foreach ($arr as $key=>$value){
-                if($key == 0){
-                    $model->where('Address', 'like', '%' . $value . '%');
-                }else{
-                    $model->orwhere('Address', 'like', '%' . $value . '%');
+            $model->where(function ($model) use ($arr) {
+                foreach ($arr as $key=>$value){
+                    if($key == 0){
+                        $model->where('Address', 'like', '%' . $value . '%');
+                    }else{
+                        $model->orwhere('Address', 'like', '%' . $value . '%');
+                    }
                 }
-
-            }
+            });
             //$model->where('Address', 'like', '%' . $filter['address'] . '%');
         }
         $model->orderByDesc('created_at');
