@@ -93,7 +93,7 @@
       </div>
       <div class="form-row">
         <label>企业复工情况说明:</label>
-        <textarea class="form-control" rows="3" style="resize: none" name="ProductingPlan">{{$company->PreventionDesc}}</textarea>
+        <textarea class="form-control" rows="3" style="resize: none" name="PreventionDesc">{{$company->PreventionDesc}}</textarea>
       </div>
       <div class="form-row"></div>
       <div class="form-row" style="display: flex; justify-content: center;">
