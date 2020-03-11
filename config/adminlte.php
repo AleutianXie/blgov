@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'logo' => '<b>复工预审</b>管理系统',
+    'logo' => '<b>企业</b>档案中心',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image-xl',
     'logo_img_xl' => null,
